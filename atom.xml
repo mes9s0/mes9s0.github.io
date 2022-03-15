@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>CaiJiang&#39;s Blog</title>
+  
+  
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
+  <updated>2022-03-15T08:31:35.647Z</updated>
+  <id>http://example.com/</id>
+  
+  <author>
+    <name>kuailedexiaohua</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>从零开始学Java安全1-Java语言基础</title>
+    <link href="http://example.com/2022/03/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6Java%E5%AE%89%E5%85%A81-Java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
+    <id>http://example.com/2022/03/15/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AD%A6Java%E5%AE%89%E5%85%A81-Java%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-03-14T16:42:20.000Z</published>
+    <updated>2022-03-15T08:31:35.647Z</updated>
+    
+    <content type="html"><![CDATA[<p>写在前面：从名字可以看出来，菜酱嘛小菜鸡一个，对于安全行业抱有热情并且还在学习初期，博客为记录本人收获所用，如果你能有幸看到文章并且有所收获，那也是我的一份荣幸，文章所有均为个人观点，不能保证正确性，错误的地方还望师傅们指点，感谢🙏</p><p>关于该系列：Java安全相信网上资料已经很多了，本人也阅读过许多相关文章，但均为零零碎碎不成体系的阅读，对于Java源码的阅读与审计能力还是差的太多(看源码的时候头发都挠掉了也看不懂)，看着别人的各种分析文章也非常羡慕他们的审计能力，所以决定写从零开始重学Java（从基础java开发开始），代码还得自己写，光看永远不会，可能会有很多Java安全用不到的开发知识，算是本人积累复习了吧也，希望能有所收获。</p><h2 id="Java基础-一"><a href="#Java基础-一" class="headerlink" title="Java基础(一)"></a>Java基础(一)</h2><h3 id="Java运行"><a href="#Java运行" class="headerlink" title="Java运行"></a>Java运行</h3><p>​    Java语言程序(.java)需要先编译成字节码文件(.class)，后经过JVM进行解释文件。所有*.java的源代码程序最终都是需要经过编译后才可以使用的，但是编译造成的程序代码并不是绑定在某个具体操作系统上的程序，而是一种通用性的程序，而这种通用性的程序就是JVM所能够识别的代码。通过JVM执行，肯定比直接在操作系统上处理要慢，所以会存在JVM调优问题。</p><p>​    Javac编译，然后在JVM上进行程序的解释执行: java Hello.解释的时候不需要加.class后缀,mac下回到项目目录java -cp . 路径</p><img                       lazyload                     src="/images/loading.svg"                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h0an6xbqzpj209g01qdfp.jpg"                      style="float: ;"                 ><p>​     “public class类名称{}” ：类名称必须与文件名称保持一致，一个*.java_文件里面只允许有一个public class定义,主方法所在的类为主类，由此定义。</p><p>​     “class类名称{}”:类名称可以与文件名称不一致，但是编译后的.class名称是class定义的类名称，解析的时候要求解析的是生成的.class文件名称，在一个*.java文件里面可以有多个class定义，并且编译之后会形成不同的*.class文件。</p><p>​    ps.关于JDK版本管理，Jenv工具很好用，一行命令切换版本。</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;写在前面：从名字可以看出来，菜酱嘛小菜鸡一个，对于安全行业抱有热情并且还在学习初期，博客为记录本人收获所用，如果你能有幸看到文章并且有所收获，那也是我的一份荣幸，文章所有均为个人观点，不能保证正确性，错误的地方还望师傅们指点，感谢🙏&lt;/p&gt;
+&lt;p&gt;关于该系列：Java安全</summary>
+      
+    
+    
+    
+    <category term="Java安全基础篇" scheme="http://example.com/categories/Java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
+    
+    
+    <category term="Java" scheme="http://example.com/tags/Java/"/>
+    
+    <category term="安全" scheme="http://example.com/tags/%E5%AE%89%E5%85%A8/"/>
+    
+    <category term="开发" scheme="http://example.com/tags/%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+</feed>
