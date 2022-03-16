@@ -235,7 +235,7 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>621 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>775 字</span>
         </span>
     
     
@@ -254,8 +254,9 @@
         <div class="article-content markdown-body">
             <p>写在前面：从名字可以看出来，菜酱嘛小菜鸡一个，对于安全行业抱有热情并且还在学习初期，博客为记录本人收获所用，如果你能有幸看到文章并且有所收获，那也是我的一份荣幸，文章所有均为个人观点，不能保证正确性，错误的地方还望师傅们指点，感谢🙏</p>
 <p>关于该系列：Java安全相信网上资料已经很多了，本人也阅读过许多相关文章，但均为零零碎碎不成体系的阅读，对于Java源码的阅读与审计能力还是差的太多(看源码的时候头发都挠掉了也看不懂)，看着别人的各种分析文章也非常羡慕他们的审计能力，所以决定写从零开始重学Java（从基础java开发开始），代码还得自己写，光看永远不会，可能会有很多Java安全用不到的开发知识，算是本人积累复习了吧也，希望能有所收获。</p>
-<h2 id="Java基础-一"><a href="#Java基础-一" class="headerlink" title="Java基础(一)"></a>Java基础(一)</h2><h3 id="Java运行"><a href="#Java运行" class="headerlink" title="Java运行"></a>Java运行</h3><p>​    Java语言程序(.java)需要先编译成字节码文件(.class)，后经过JVM进行解释文件。所有*.java的源代码程序最终都是需要经过编译后才可以使用的，但是编译造成的程序代码并不是绑定在某个具体操作系统上的程序，而是一种通用性的程序，而这种通用性的程序就是JVM所能够识别的代码。通过JVM执行，肯定比直接在操作系统上处理要慢，所以会存在JVM调优问题。</p>
-<p>​    Javac编译，然后在JVM上进行程序的解释执行: java Hello.解释的时候不需要加.class后缀,mac下回到项目目录java -cp . 路径</p>
+<h2 id="Java基础-一"><a href="#Java基础-一" class="headerlink" title="Java基础(一)"></a>Java基础(一)</h2><h3 id="Java运行"><a href="#Java运行" class="headerlink" title="Java运行"></a>Java运行</h3><hr>
+<p>​    Java语言程序(.java)需要先编译成字节码文件(.class)，后经过JVM进行解释文件。所有*.java的源代码程序最终都是需要经过编译后才可以使用的，但是编译造成的程序代码并不是绑定在某个具体操作系统上的程序，而是一种通用性的程序，而这种通用性的程序就是JVM所能够识别的代码。通过JVM执行，肯定比直接在操作系统上处理要慢，所以会存在JVM调优问题。</p>
+<h4 id="Java类基础"><a href="#Java类基础" class="headerlink" title="Java类基础"></a>Java类基础</h4><p>​    Javac编译，然后在JVM上进行程序的解释执行: java Hello.解释的时候不需要加.class后缀,mac下回到项目目录java -cp . 路径</p>
 <img  
                      lazyload
                      src="/images/loading.svg"
@@ -266,7 +267,11 @@
 
 <p>​     “public class类名称{}” ：类名称必须与文件名称保持一致，一个*.java_文件里面只允许有一个public class定义,主方法所在的类为主类，由此定义。</p>
 <p>​     “class类名称{}”:类名称可以与文件名称不一致，但是编译后的.class名称是class定义的类名称，解析的时候要求解析的是生成的.class文件名称，在一个*.java文件里面可以有多个class定义，并且编译之后会形成不同的*.class文件。</p>
+<h4 id="Java环境变量"><a href="#Java环境变量" class="headerlink" title="Java环境变量"></a>Java环境变量</h4><p>​     PATH:是操作系统提供的路径配置，定义所有可执行程序的路径；</p>
+<pre><code> CLASSPATH:是由JRE提供的，用于定义Java程序解释时类加载路径，默认设置的类当前所在目录加载，可以“SET=CLASSPATH=路径”的命令形式来进行定义；-关系：JVM →CLASSPATH的定义的路径→加载字节码文件。
+</code></pre>
 <p>​    ps.关于JDK版本管理，Jenv工具很好用，一行命令切换版本。</p>
+<h4 id="Java数据类型"><a href="#Java数据类型" class="headerlink" title="Java数据类型"></a>Java数据类型</h4><p>​    数字首选int (整数),double(小数);二进制处理操作(byte);中文char;描述内存或文件大小、描述表的主键列（自动增长）可以使用long。</p>
 
         </div>
 
@@ -515,7 +520,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%9F%BA%E7%A1%80-%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">Java基础(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E8%BF%90%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">Java运行</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%9F%BA%E7%A1%80-%E4%B8%80"><span class="nav-number">1.</span> <span class="nav-text">Java基础(一)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E8%BF%90%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">Java运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E7%B1%BB%E5%9F%BA%E7%A1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">Java类基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.2.</span> <span class="nav-text">Java环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.3.</span> <span class="nav-text">Java数据类型</span></a></li></ol></li></ol></li></ol>
     </div>
 </div>
         </aside>
