@@ -9,7 +9,7 @@
     
     <title>
         
-            照片EXIF信息浅谈 |
+            DockerDocker😝 |
         
         CaiJiang&#39;s Blog
     </title>
@@ -177,7 +177,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">照片EXIF信息浅谈</span>
+            <span class="title-hover-animation">DockerDocker😝</span>
         </div>
 
         
@@ -196,8 +196,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-03-30 15:28:50</span>
-        <span class="mobile">2022-03-30 15:28</span>
+        <span class="pc">2022-05-14 22:26:54</span>
+        <span class="mobile">2022-05-14 22:26</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -205,7 +205,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E6%BA%AF%E6%BA%90%E7%9A%84%E5%B0%8F%E7%8E%A9%E6%84%8F/">溯源的小玩意</a>&nbsp;
+                        <a href="/categories/Docker%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AF%87/">Docker学习基础篇</a>&nbsp;
                     </li>
                 
             </ul>
@@ -217,23 +217,11 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>&nbsp;
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E6%BA%AF%E6%BA%90/">溯源</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/QQ/">QQ</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E5%BE%AE%E4%BF%A1/">微信</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E7%85%A7%E7%89%87/">照片</a>&nbsp;
+                        | <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>&nbsp;
                     </li>
                 
             </ul>
@@ -243,12 +231,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>450 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -260,36 +248,86 @@
         
 
         <div class="article-content markdown-body">
-            <p>​    EXIF信息，是可交换图像文件的缩写，是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。EXIF可以附加于JPEG、TIFF、RIFF等文件之中，为其增加有关数码相机拍摄信息的内容和索引图或图像处理软件的版本信息。</p>
-<p>​    查了下以前的新闻，还上过热搜，没什么技术含量，玩一玩，看看现在还能用不。</p>
-<h4 id="微信"><a href="#微信" class="headerlink" title="微信"></a>微信</h4><p>​    微信收原图保存后本地有三张，一张hd、一张thumb、一张普通pic，thumb和原pic都是压缩的，原图发送的hd的也是没有EXIF信息的。直接从相册导出的图片是包含EXIF信息的。</p>
+            <p>​    dockerdocker🥳</p>
+<h4 id="docker介绍"><a href="#docker介绍" class="headerlink" title="docker介绍"></a>docker介绍</h4><h5 id="docker背景"><a href="#docker背景" class="headerlink" title="docker背景"></a>docker背景</h5><p>​    以前开发和运维部署之间会有因环境问题而产生的分歧，Docker之所以发展的如此迅速，是因为它对此给出了一个标准化的解决方案：安装的时候，将环境也一同复制过来。docker的镜像设计,使得docker得以打破过去的程序及应用的观念。透过镜像讲作业系统核心除外，运作应用程序所需要的系统环境，由下而上打包，达到跨平台无缝运作。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0rygf7z22j207405mwel.jpg"
-                      alt="image-20220330154656983"
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0rygums17j206y0aujrw.jpg"
-                      alt="image-20220330154725877"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h28bdv64x2j210q0iadhq.jpg"
+                      alt="image-20220514224340636"
                 ></p>
-<p>​    PS.网上说微信文件传输助手发的不会丢失信息，测试后EXIF信息也已经丢失。</p>
-<h4 id="TIM"><a href="#TIM" class="headerlink" title="TIM"></a>TIM</h4><p>​    无论是发送到人还是使用文件传输助手均丢失信息。</p>
-<h4 id="QQ"><a href="#QQ" class="headerlink" title="QQ"></a>QQ</h4><p>​    均丢失</p>
-<h4 id="钉钉"><a href="#钉钉" class="headerlink" title="钉钉"></a>钉钉</h4><p>​    只要发送原图信息，经过格式转换为JPG也不会丢失！</p>
-<p>​    （注意，直接发送相册里的是没有的，因为底下mac上转换格式导出的时候会抹掉位置信息，所以我不确定这一层位置信息抹去是苹果做的还是钉钉做的）</p>
+<h5 id="docker理念"><a href="#docker理念" class="headerlink" title="docker理念"></a>docker理念</h5><p>​    Docker基于go语言实现，基于Linux的容器技术发展过来，只要配置好一次环境，换到其他的机器上一键部署好，大大简化了操作。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0s1rt5eezj20po04ogll.jpg"
-                      alt="image-20220330174131713"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h28cj1p6umj20x60fujsv.jpg"
+                      alt="image-20220514232318158"
                 ></p>
-<h4 id="PS"><a href="#PS" class="headerlink" title="PS."></a>PS.</h4><p>​    Mac下直接从图库里导出照片到桌面，由heic格式转为jpeg格式，苹果会自动去除GPS信息，但是其他信息不会去除。如果直接复制heic格式的到桌面然后改后缀不会去除位置信息。    </p>
-<p>​    根据底下的参考回答，20年5月qq还是会暴露的，现在基本不存在了。G</p>
-<p>​    后续有时间了再看看其他的。</p>
-<p>参考文章：</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://discussionschinese.apple.com/thread/251381009" >https://discussionschinese.apple.com/thread/251381009<i class="fas fa-external-link-alt"></i></a></p>
+<h5 id="docker要素"><a href="#docker要素" class="headerlink" title="docker要素"></a>docker要素</h5><p>​    之前的虚拟化技术：虚拟机技术，在操作系统里面运行操作系统，缺点是开启时间长，容量大。</p>
+<p>​    因为这些缺点：Linux发展出另一种虚拟化技术:Linux容器。Linux容器不是模拟一个完整的操作系统，而是对进程进行隔离。有了容器，就可以将软件所需要的所有资源打包到一个隔离的容器中。容器与虚拟机不同，不需要捆绑操作系统，只需要软件工作所需的资源库和设置。系统因此高效轻量并且在任何环境中都可以始终如一的运行。</p>
+<p>​    Docker特征：1、镜像；2、容器；3、仓库。</p>
+<p>​    Docker特点：1、容器的应用进程直接运行于宿主的内核，容器内没有自己的内核,并且也没有进行硬件虚拟；2、每个容器之间相互隔离，每个容器有自己的文件系统，容器进程不会相互影响，能区分计算资源。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h28dmp8bz2j21060hkabu.jpg"
+                      alt="image-20220515000124724"
+                ></p>
+<p>​    Docker镜像（Image）就是一个<strong>只读</strong>的模版。镜像可以用来创建docker容器，一个镜像可以创建很多容器。</p>
+<p>​    容器与镜像的关系类似于面向对象编程中的对象于类。</p>
+<table>
+<thead>
+<tr>
+<th>Docker</th>
+<th>面向对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容器</td>
+<td>对象</td>
+</tr>
+<tr>
+<td>镜像</td>
+<td>类</td>
+</tr>
+</tbody></table>
+<p>​    Docker利用容器（Container）独立运行的一个或一组应用。容器使用镜像创建的运行实例。它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。可以把容器看作一个简易版的Linux环境（包括root用户权限、进程空间、用户空间和网络空间等）和运行在其中的应用程序。容器的定义和镜像很像，唯一区别在于容器最上面那一层是可读可写的。</p>
+<p>​    Docker仓库(Repository)是集中存放镜像文件的场所。仓库分为公开仓库和私有仓库。</p>
+<hr>
+<h4 id="Docker相关"><a href="#Docker相关" class="headerlink" title="Docker相关"></a>Docker相关</h4><h5 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h5><p>​    安装方式：<a class="link"   target="_blank" rel="noopener" href="https://developer.aliyun.com/article/765545" >https://developer.aliyun.com/article/765545<i class="fas fa-external-link-alt"></i></a></p>
+<h5 id="Docker运行底层"><a href="#Docker运行底层" class="headerlink" title="Docker运行底层"></a>Docker运行底层</h5><p>​    Docker是一个C/S结构的系统，Docker守护进程运行在主机上，然后通过Socket链接从客户端访问，守护进程从客户端接收命令并管理运行在主机上的容器。<strong>容器是一个运行时环境</strong>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h28f2lgy53j20hg0fywfc.jpg"
+                      alt="image-20220515005117295"
+                ></p>
+<p>​    docker有着比虚拟机更少的抽象层，docker不需要hypervisor实现硬件虚拟化，docker使用的都是实际物理机器的资源。</p>
+<p>​    docker利用的是宿主机的内核，而不需要Guest OS。因此当新建一个容器时，docker不需要和虚拟机一样重新加载一个操作系统内核。而新建虚拟机需要加载这个，这个是分钟级别的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h28f52c9vgj20dy0960t8.jpg"
+                      alt="image-20220515005340182"
+                ></p>
+<hr>
+<h4 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h4><h5 id="docker帮助命令"><a href="#docker帮助命令" class="headerlink" title="docker帮助命令"></a>docker帮助命令</h5><p>​    docker version、docker info、docker –help</p>
+<h5 id="docker镜像命令"><a href="#docker镜像命令" class="headerlink" title="docker镜像命令"></a>docker镜像命令</h5><p>​    docker images：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker images //列出本地所有镜像</span><br><span class="line">docker images -a //列出本地所有镜像（含中间映像层）</span><br><span class="line">docker images -q //只显示镜像ID</span><br><span class="line">docker images --digests //显示镜像的摘要信息</span><br><span class="line">docker images --no-trunc //显示完整的镜像信息</span><br></pre></td></tr></table></figure>
+
+<p>​    docker search：</p>
+<p>​    方法一：dockerhub网站</p>
+<p>​    方法二：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat //查询镜像</span><br><span class="line">docker search --no-trunc tomcat //显示完整信息</span><br></pre></td></tr></table></figure>
+
+<p>​    docker pull：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tomcat:lasest</span><br></pre></td></tr></table></figure>
+
+<p>​    docker rmi：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker rmi tomcat:lasest</span><br><span class="line">docker rmi -f tomcat:lasest</span><br><span class="line">docker rmi -f tomcat nginx</span><br><span class="line">docker rmi -f $(docker images -qa)//全删</span><br></pre></td></tr></table></figure>
+
+<h5 id="docker容器命令"><a href="#docker容器命令" class="headerlink" title="docker容器命令"></a>docker容器命令</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">docker run [options] image [command][arg...]</span><br><span class="line">options选项：</span><br><span class="line">--name=&#x27;容器新名字&#x27;：为容器指定一个名称</span><br><span class="line">-d：后台运行容器，并返回容器ID，也即启动守护式容器</span><br><span class="line">-i：以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t：为容器重新分配一个伪输入终端，通常与-i同时使用</span><br><span class="line">-P（大写）：随机端口映射</span><br><span class="line">-p：指定端口映射，有以下模式：</span><br><span class="line">	ip:hostPort:containerPort</span><br><span class="line">	ip::containerPort</span><br><span class="line">	hostPort:containPort</span><br><span class="line">	containerPort</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -297,11 +335,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：照片EXIF信息浅谈</li>
+        <li>本文标题：DockerDocker😝</li>
         <li>本文作者：mes9s0</li>
-        <li>创建时间：2022-03-30 15:28:50</li>
+        <li>创建时间：2022-05-14 22:26:54</li>
         <li>
-            本文链接：https://mes9s0.github.io/2022/03/30/照片EXIF信息浅谈/
+            本文链接：https://mes9s0.github.io/2022/05/14/DockerDocker😝/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -316,23 +354,11 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E5%85%B6%E4%BB%96/">#其他</a>&nbsp;
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/%E6%BA%AF%E6%BA%90/">#溯源</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/QQ/">#QQ</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E5%BE%AE%E4%BF%A1/">#微信</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E7%85%A7%E7%89%87/">#照片</a>&nbsp;
+                        <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>&nbsp;
                     </li>
                 
             </ul>
@@ -341,29 +367,14 @@
         
             <div class="article-nav">
                 
-                    <div class="article-prev">
-                        <a class="prev"
-                           rel="prev"
-                           href="/2022/05/11/Linux%E5%9F%BA%E7%A1%80%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-1/"
-                        >
-                            <span class="left arrow-icon flex-center">
-                              <i class="fas fa-chevron-left"></i>
-                            </span>
-                            <span class="title flex-center">
-                                <span class="post-nav-title-item">Linux基础从零到一(1)</span>
-                                <span class="post-nav-item">上一篇</span>
-                            </span>
-                        </a>
-                    </div>
-                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/QQ%E7%94%B5%E8%AF%9D%E5%8D%B3IP%EF%BC%9F/"
+                           href="/2022/05/11/Linux%E5%9F%BA%E7%A1%80%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-1/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">QQ电话即IP？</span>
+                                <span class="post-nav-title-item">Linux基础从零到一(1)</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -581,7 +592,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1"><span class="nav-number">1.</span> <span class="nav-text">微信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TIM"><span class="nav-number">2.</span> <span class="nav-text">TIM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QQ"><span class="nav-number">3.</span> <span class="nav-text">QQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%92%89%E9%92%89"><span class="nav-number">4.</span> <span class="nav-text">钉钉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS"><span class="nav-number">5.</span> <span class="nav-text">PS.</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">docker介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">docker背景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E7%90%86%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">docker理念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E8%A6%81%E7%B4%A0"><span class="nav-number">1.3.</span> <span class="nav-text">docker要素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">Docker相关</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">Docker安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker%E8%BF%90%E8%A1%8C%E5%BA%95%E5%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">Docker运行底层</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">docker帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">docker镜像命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">docker容器命令</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>

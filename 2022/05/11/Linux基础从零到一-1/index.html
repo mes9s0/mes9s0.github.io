@@ -9,7 +9,7 @@
     
     <title>
         
-            照片EXIF信息浅谈 |
+            Linux基础从零到一(1) |
         
         CaiJiang&#39;s Blog
     </title>
@@ -177,7 +177,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">照片EXIF信息浅谈</span>
+            <span class="title-hover-animation">Linux基础从零到一(1)</span>
         </div>
 
         
@@ -196,8 +196,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-03-30 15:28:50</span>
-        <span class="mobile">2022-03-30 15:28</span>
+        <span class="pc">2022-05-11 22:21:42</span>
+        <span class="mobile">2022-05-11 22:21</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -205,7 +205,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/%E6%BA%AF%E6%BA%90%E7%9A%84%E5%B0%8F%E7%8E%A9%E6%84%8F/">溯源的小玩意</a>&nbsp;
+                        <a href="/categories/Linux%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AF%87/">Linux学习基础篇</a>&nbsp;
                     </li>
                 
             </ul>
@@ -217,23 +217,15 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/%E5%85%B6%E4%BB%96/">其他</a>&nbsp;
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E6%BA%AF%E6%BA%90/">溯源</a>&nbsp;
+                        | <a href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/QQ/">QQ</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E5%BE%AE%E4%BF%A1/">微信</a>&nbsp;
-                    </li>
-                
-                    <li>
-                        | <a href="/tags/%E7%85%A7%E7%89%87/">照片</a>&nbsp;
+                        | <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>&nbsp;
                     </li>
                 
             </ul>
@@ -243,12 +235,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>450 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -260,36 +252,238 @@
         
 
         <div class="article-content markdown-body">
-            <p>​    EXIF信息，是可交换图像文件的缩写，是专门为数码相机的照片设定的，可以记录数码照片的属性信息和拍摄数据。EXIF可以附加于JPEG、TIFF、RIFF等文件之中，为其增加有关数码相机拍摄信息的内容和索引图或图像处理软件的版本信息。</p>
-<p>​    查了下以前的新闻，还上过热搜，没什么技术含量，玩一玩，看看现在还能用不。</p>
-<h4 id="微信"><a href="#微信" class="headerlink" title="微信"></a>微信</h4><p>​    微信收原图保存后本地有三张，一张hd、一张thumb、一张普通pic，thumb和原pic都是压缩的，原图发送的hd的也是没有EXIF信息的。直接从相册导出的图片是包含EXIF信息的。</p>
+            <p>​    本系列为个人基础知识补全以及为后续方便查找开设，里面会包括由于Linux基础知识的相关内容…</p>
+<h4 id="系统调用过程"><a href="#系统调用过程" class="headerlink" title="系统调用过程"></a>系统调用过程</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h24ufzkd5hj21360p0mzd.jpg"
+                      alt="image-20220511224047035"
+                ></p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0rygf7z22j207405mwel.jpg"
-                      alt="image-20220330154656983"
-                ><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0rygums17j206y0aujrw.jpg"
-                      alt="image-20220330154725877"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h24ujbv9ayj20y60o8jub.jpg"
+                      alt="image-20220511224404171"
                 ></p>
-<p>​    PS.网上说微信文件传输助手发的不会丢失信息，测试后EXIF信息也已经丢失。</p>
-<h4 id="TIM"><a href="#TIM" class="headerlink" title="TIM"></a>TIM</h4><p>​    无论是发送到人还是使用文件传输助手均丢失信息。</p>
-<h4 id="QQ"><a href="#QQ" class="headerlink" title="QQ"></a>QQ</h4><p>​    均丢失</p>
-<h4 id="钉钉"><a href="#钉钉" class="headerlink" title="钉钉"></a>钉钉</h4><p>​    只要发送原图信息，经过格式转换为JPG也不会丢失！</p>
-<p>​    （注意，直接发送相册里的是没有的，因为底下mac上转换格式导出的时候会抹掉位置信息，所以我不确定这一层位置信息抹去是苹果做的还是钉钉做的）</p>
+<hr>
+<h4 id="Linux基本操作"><a href="#Linux基本操作" class="headerlink" title="Linux基本操作"></a>Linux基本操作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init 3 or 5//图形化纯命令行界面切换</span><br><span class="line">init 0 //关机 init 6//重启</span><br><span class="line">runlevel</span><br><span class="line">startx //无需登录切换</span><br><span class="line"><span class="built_in">tty</span> //终端号</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">id</span> -u //查看当前用户<span class="built_in">id</span>，0为管理员</span><br><span class="line"><span class="built_in">uname</span> -r //内核版本</span><br><span class="line">lscpu //cpu型号</span><br><span class="line">free -h //空闲内存</span><br><span class="line"><span class="built_in">cat</span> /proc/meminfo //空闲内存</span><br><span class="line">lsblk //硬盘大小</span><br><span class="line">mii-tool ens33 //查看网卡信息</span><br><span class="line"><span class="built_in">cat</span> /etc/shells //查看全部shell</span><br><span class="line">hostname //主机名</span><br><span class="line"><span class="built_in">enable</span> cmd //启用内部命令，内部命令优先级高于外部</span><br><span class="line"><span class="built_in">enable</span> -n cmd //禁用内部命令</span><br></pre></td></tr></table></figure>
+
+<p> 命令执行过程：外部命令先根据$PATH找存储位置，而后放入hash表缓存，下次使用直接从hash表找路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hash //缓存</span><br><span class="line">hash -d name //清除name缓存</span><br><span class="line">hash -l //可看到别名</span><br><span class="line">hash -p path name //起别名</span><br><span class="line">hash -t name//显示路径</span><br><span class="line">hash -r//清除缓存</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Linux文件管理"><a href="#Linux文件管理" class="headerlink" title="Linux文件管理"></a>Linux文件管理</h4><h5 id="Linux-系统目录结构FHS"><a href="#Linux-系统目录结构FHS" class="headerlink" title="Linux 系统目录结构FHS"></a>Linux 系统目录结构FHS</h5><p>​    FHS 全称（Filesystem Hieratchy Standard）中文名文件系统结构层次，定义了Linux操作系统中的主要目录和目录结构。</p>
+<table>
+<thead>
+<tr>
+<th align="left">目录</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/</td>
+<td align="left">根目录</td>
+</tr>
+<tr>
+<td align="left">/bin</td>
+<td align="left">放置可执行文件，如ls命令等</td>
+</tr>
+<tr>
+<td align="left">/boot</td>
+<td align="left">引导程序文件，内核，以及 initrd 等文件</td>
+</tr>
+<tr>
+<td align="left">/dev</td>
+<td align="left">设备文件，比如磁盘设备</td>
+</tr>
+<tr>
+<td align="left">/etc</td>
+<td align="left">系统范围的配置文件</td>
+</tr>
+<tr>
+<td align="left">/home</td>
+<td align="left">用户 home 目录，个人用户的配置</td>
+</tr>
+<tr>
+<td align="left">/media</td>
+<td align="left">可移除的媒体，cd-rom 等的挂载点</td>
+</tr>
+<tr>
+<td align="left">/lib 和 /lib64</td>
+<td align="left">/bin 和 /sbin 中用到的库文件存放位置</td>
+</tr>
+<tr>
+<td align="left">/mnt</td>
+<td align="left">临时挂载点，U盘等</td>
+</tr>
+<tr>
+<td align="left">/opt</td>
+<td align="left">可选的应用包，一般用于存放一些直接提供二进制程序的非开源包</td>
+</tr>
+<tr>
+<td align="left">/proc</td>
+<td align="left">虚拟文件系统</td>
+</tr>
+<tr>
+<td align="left">/root</td>
+<td align="left">root 用户的 home 目录</td>
+</tr>
+<tr>
+<td align="left">/run</td>
+<td align="left">存放一些 pid 和 socket 文件</td>
+</tr>
+<tr>
+<td align="left">/sbin</td>
+<td align="left">系统的可执行文件，init ，mount 等</td>
+</tr>
+<tr>
+<td align="left">/sys</td>
+<td align="left">非FHS标准，但是大部分发行版都有，虚拟文件系统，用来对内核和设备驱动做设置</td>
+</tr>
+<tr>
+<td align="left">/usr</td>
+<td align="left">Unix Software Resource 绝大多数的程序和应用工具安装在这里，结果和/非常相似</td>
+</tr>
+<tr>
+<td align="left">/usr/bin</td>
+<td align="left">对应的可执行文件</td>
+</tr>
+<tr>
+<td align="left">/usr/lib</td>
+<td align="left">对应的库文件</td>
+</tr>
+<tr>
+<td align="left">/usr/share</td>
+<td align="left">和计算机无关的共享资源文件</td>
+</tr>
+<tr>
+<td align="left">/usr/src</td>
+<td align="left">源代码存放路径，如Linux 内核源码</td>
+</tr>
+<tr>
+<td align="left">/var</td>
+<td align="left">在程序运行中内容不断变化的文件，比如日志</td>
+</tr>
+<tr>
+<td align="left">/tmp</td>
+<td align="left">临时文件系统，重启后内容丢失</td>
+</tr>
+</tbody></table>
+<h5 id="服务管理方式"><a href="#服务管理方式" class="headerlink" title="服务管理方式"></a>服务管理方式</h5><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>systemctl status crond</td>
+<td>查看某个服务的状态</td>
+</tr>
+<tr>
+<td>systemctl start crond</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>systemctl stop crond</td>
+<td>停止某个服务</td>
+</tr>
+<tr>
+<td>systemctl enable crond</td>
+<td>设置某个服务开机启动</td>
+</tr>
+<tr>
+<td>systemctl disable crond</td>
+<td>移除某个服务开机启动</td>
+</tr>
+<tr>
+<td>systemctl restart crond</td>
+<td>重启某个服务</td>
+</tr>
+</tbody></table>
+<h5 id="日志与日志管理方式"><a href="#日志与日志管理方式" class="headerlink" title="日志与日志管理方式"></a>日志与日志管理方式</h5><p>​    日志是由程序在运行过程中打印出来的一些执行流程或者记录信息的文本，Systemd 同样也提供了对日志访问的方式</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>journalctl -x</td>
+<td>查看日志</td>
+</tr>
+<tr>
+<td>journalctl -xe</td>
+<td>跳到尾部查看日志</td>
+</tr>
+<tr>
+<td>journalctl -u crond.service</td>
+<td>查看crond服务的日志</td>
+</tr>
+</tbody></table>
+<p>​    通过直接查看文本的方式查询</p>
+<table>
+<thead>
+<tr>
+<th>日志路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/var/log/message</td>
+<td>全局系统日志，包括登录，对服务启停认证等</td>
+</tr>
+<tr>
+<td>/var/log/lastlog</td>
+<td>不是一个文本文件，需要 lastlog 命令读，保存了最近的用户登录信息</td>
+</tr>
+<tr>
+<td>/var/log/yum.log</td>
+<td>最近通过yum 安装的程序的日志</td>
+</tr>
+<tr>
+<td>/var/log/cron</td>
+<td>定时任务日志</td>
+</tr>
+<tr>
+<td>/var/log/boot.log</td>
+<td>启动日志</td>
+</tr>
+<tr>
+<td>/var/log/kern</td>
+<td>内核日志，也可以通过 dmesg 查看</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="Linux磁盘管理"><a href="#Linux磁盘管理" class="headerlink" title="Linux磁盘管理"></a>Linux磁盘管理</h4><h5 id="磁盘结构和概念"><a href="#磁盘结构和概念" class="headerlink" title="磁盘结构和概念"></a>磁盘结构和概念</h5><h6 id="设备文件"><a href="#设备文件" class="headerlink" title="设备文件"></a>设备文件</h6><p>​    设备在Linux内有很多文件，不同文件的开头各有不同，对应的设备也不同。</p>
+<p>l/O Ports: I/O设备地址</p>
+<p>​    一切皆文件：open(), read(), write(), close()</p>
+<h6 id="设备类型"><a href="#设备类型" class="headerlink" title="设备类型"></a>设备类型</h6><p>​    块设备：block，存取单位“块”,磁盘（通常具有缓存，而且是随机的；大部分表现为物理上看的见的设备；）</p>
+<p>​    字符设备：char，存取单位 “字符”，键盘（具有一定的顺序；大部分表现为逻辑上的设备例如：null、zero、tty）</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://tva1.sinaimg.cn/large/e6c9d24egy1h0s1rt5eezj20po04ogll.jpg"
-                      alt="image-20220330174131713"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h26t4qrln7j20ju022jri.jpg"
+                      alt="image-20220513152636491"
                 ></p>
-<h4 id="PS"><a href="#PS" class="headerlink" title="PS."></a>PS.</h4><p>​    Mac下直接从图库里导出照片到桌面，由heic格式转为jpeg格式，苹果会自动去除GPS信息，但是其他信息不会去除。如果直接复制heic格式的到桌面然后改后缀不会去除位置信息。    </p>
-<p>​    根据底下的参考回答，20年5月qq还是会暴露的，现在基本不存在了。G</p>
-<p>​    后续有时间了再看看其他的。</p>
-<p>参考文章：</p>
-<p><a class="link"   target="_blank" rel="noopener" href="https://discussionschinese.apple.com/thread/251381009" >https://discussionschinese.apple.com/thread/251381009<i class="fas fa-external-link-alt"></i></a></p>
+<p>​    上述两个设备存放的不是大小，而是两个数字；前者是设备的主要编号（类别），后者是设备的次要编号（序号）。</p>
+<p>​    设备文件：关联至一个设备驱动程序，进而能够跟与之对应硬件设备进行通信。</p>
+<p>​    主设备号：major number,标识设备类型</p>
+<p>​    次设备号：minor number,标识同一类型下的不同设备</p>
+<p>​    当设备名对应的主要编号和次要编号相同时，那么代表的是同一个设备。</p>
+<p>​    设备的名称可人为指定。操作：（cp -a /dev/null）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://tva1.sinaimg.cn/large/e6c9d24ely1h26tgahziwj20lo0a6myl.jpg"
+                      alt="image-20220513153742841"
+                ></p>
+<hr>
+<h4 id="Linux基本命令"><a href="#Linux基本命令" class="headerlink" title="Linux基本命令"></a>Linux基本命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> <span class="built_in">test</span>=“xxx”//别名</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$PATH</span>&quot;</span>//弱引用变量会替换</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$PATh&#x27;</span>//强引用变量不会替换</span><br><span class="line"><span class="built_in">echo</span> `<span class="built_in">ls</span>`//执行命令</span><br></pre></td></tr></table></figure>
+
 
         </div>
 
@@ -297,11 +491,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：照片EXIF信息浅谈</li>
+        <li>本文标题：Linux基础从零到一(1)</li>
         <li>本文作者：mes9s0</li>
-        <li>创建时间：2022-03-30 15:28:50</li>
+        <li>创建时间：2022-05-11 22:21:42</li>
         <li>
-            本文链接：https://mes9s0.github.io/2022/03/30/照片EXIF信息浅谈/
+            本文链接：https://mes9s0.github.io/2022/05/11/Linux基础从零到一-1/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -316,23 +510,15 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/%E5%85%B6%E4%BB%96/">#其他</a>&nbsp;
+                        <a href="/tags/Linux/">#Linux</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/%E6%BA%AF%E6%BA%90/">#溯源</a>&nbsp;
+                        <a href="/tags/%E8%BF%90%E7%BB%B4/">#运维</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/QQ/">#QQ</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E5%BE%AE%E4%BF%A1/">#微信</a>&nbsp;
-                    </li>
-                
-                    <li class="tag-item">
-                        <a href="/tags/%E7%85%A7%E7%89%87/">#照片</a>&nbsp;
+                        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>&nbsp;
                     </li>
                 
             </ul>
@@ -344,13 +530,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/05/11/Linux%E5%9F%BA%E7%A1%80%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-1/"
+                           href="/2022/05/14/DockerDocker%F0%9F%98%9D/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Linux基础从零到一(1)</span>
+                                <span class="post-nav-title-item">DockerDocker😝</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -360,10 +546,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/03/23/QQ%E7%94%B5%E8%AF%9D%E5%8D%B3IP%EF%BC%9F/"
+                           href="/2022/03/30/%E7%85%A7%E7%89%87EXIF%E4%BF%A1%E6%81%AF%E6%B5%85%E8%B0%88/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">QQ电话即IP？</span>
+                                <span class="post-nav-title-item">照片EXIF信息浅谈</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -581,7 +767,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BE%AE%E4%BF%A1"><span class="nav-number">1.</span> <span class="nav-text">微信</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TIM"><span class="nav-number">2.</span> <span class="nav-text">TIM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#QQ"><span class="nav-number">3.</span> <span class="nav-text">QQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%92%89%E9%92%89"><span class="nav-number">4.</span> <span class="nav-text">钉钉</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PS"><span class="nav-number">5.</span> <span class="nav-text">PS.</span></a></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">系统调用过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Linux基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Linux文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84FHS"><span class="nav-number">3.1.</span> <span class="nav-text">Linux 系统目录结构FHS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">服务管理方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E4%B8%8E%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">日志与日志管理方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Linux磁盘管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%BB%93%E6%9E%84%E5%92%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">磁盘结构和概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.1.</span> <span class="nav-text">设备文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">设备类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">Linux基本命令</span></a></li></ol>
     </div>
 </div>
         </aside>
