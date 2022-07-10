@@ -235,12 +235,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>957 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>3 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
         </span>
     
     
@@ -269,7 +269,19 @@
 <h4 id="Java环境变量"><a href="#Java环境变量" class="headerlink" title="Java环境变量"></a>Java环境变量</h4><p>​     PATH:是操作系统提供的路径配置，定义所有可执行程序的路径；</p>
 <p>​    CLASSPATH:是由JRE提供的，用于定义Java程序解释时类加载路径，默认设置的类当前所在目录加载，可以“SET=CLASSPATH=路径”的命令形式来进行定义；-关系：JVM →CLASSPATH的定义的路径→加载字节码文件。</p>
 <p>​    ps.关于JDK版本管理，Jenv工具很好用，一行命令切换版本。</p>
-<h4 id="Java数据类型"><a href="#Java数据类型" class="headerlink" title="Java数据类型"></a>Java数据类型</h4><p>​    数字首选int (整数),double(小数);二进制处理操作(byte);中文char;描述内存或文件大小、描述表的主键列（自动增长）可以使用long。</p>
+<h4 id="Java数据类型"><a href="#Java数据类型" class="headerlink" title="Java数据类型"></a>Java数据类型</h4><p>​    在Java语言之中对于数据类型一共分为两类:</p>
+<p>​    1、基本数据类型：描述的是一些具体的数字单元，例如：1、1.1；</p>
+<p>​    可分为以下几类：</p>
+<p>​    数值型：</p>
+<p>​    整型：byte、short、int、long；            默认值：0</p>
+<p>​    浮点型：float、double；                         默认值：0.0</p>
+<p>​    布尔型：boolean；                                   默认值：false</p>
+<p>​    字符型：char；                                          默认值：’\u0000’</p>
+<p>​    2、引用数据类型：牵扯到内存关系的使用；</p>
+<p>​    重点有以下三种类型：</p>
+<p>​    数组、类、接口。                                      默认值：null</p>
+<p>​    真正复杂的部分就是引用数据类型，引用数据类型需要通过许多实例加以说明。而每一种数据类型都有默认值，其默认值如上。</p>
+<p>​    数字首选int (整数),double(小数);二进制处理操作(byte);中文char;描述内存或文件大小、描述表的主键列（自动增长）可以使用long。</p>
 <h4 id="Java运算符，逻辑控制，方法等"><a href="#Java运算符，逻辑控制，方法等" class="headerlink" title="Java运算符，逻辑控制，方法等"></a>Java运算符，逻辑控制，方法等</h4><p>​    对于返回值而言就可以使用Java中数据定义类型。（包含基本数据类型，引用数据类型）在方法之中可以进行返回数据的处理。如果要返回数据则可以使用return。 return所返回的数据类型与方法的返回值类型相同，如果不返回数据，则该方法上可以使用void进行说明。</p>
 <p>​    在进行方法名称定义的时候要求第一个单词的字母小写，而后每个单词的首字母大写。变量名称和方法名称是一样的规则。例:public static void testFuncation(){}</p>
 <p>​    随便看看即可，不细致写了，到处都是。</p>
