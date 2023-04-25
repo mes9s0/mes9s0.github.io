@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            Java安全从零到一(5)-Java RCE(Remote Code Execute) |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Java安全从零到一(5)-Java RCE(Remote Code Execute)</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-11-16 01:37:29</span>
+        <span class="mobile">2022-11-16 01:37</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">Java安全基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8F%8D%E5%B0%84/">反射</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/RCE/">RCE</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>4k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>17 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>​    上一篇学习了Java反射机制，这篇学习一下RCE，将 Java反射与RCE方式结合在一起。</p>
+<h3 id="Java-lang-Runtime"><a href="#Java-lang-Runtime" class="headerlink" title="Java.lang.Runtime"></a>Java.lang.Runtime</h3><p>​    java.lang.Runtime 类的 exec() 方法是Java中最常见的执行命令的方式 ,</p>
+<p>​    在没有了解 Java 反射机制前 , 可能无法理解真正含义. 现在 , 来看一看它的原理到底是什么 .</p>
+<ol>
+<li>正常情况下 , 我们想要拿到一个除系统类以外的类 , 必须要先 import 后才能使用 . 否则会出现 cannot find symbol 等报错 . 但是在进行利用时 , 系统是不会让你随意加载类的 . <strong>但是 , 通过 Class.forName(className) 获取类则没有这个限制 , 我们可以通过 forName() 方法加载任何类 .</strong></li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.Runtime</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Runtime</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Runtime</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;通过Class.forname()方法获取任意类：&quot;</span>+cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-175714.png"
+                      alt="image-20230416015714145"
+                ></p>
+<ol start="2">
+<li>拿到了 java.lang.Runtime 类后 , 我们肯定想知道该类可调用的方法 . 于是通过 className.getMethods() , className.getDeclaredMethods() 来获取类的方法</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.Runtime</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Runtime</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Runtime</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//        System.out.println(&quot;通过Class.forname()方法获取任意类：&quot;+cls);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//className.getMethods()</span></span><br><span class="line">        System.out.println(<span class="string">&quot;getMethods获取方法:&quot;</span>);</span><br><span class="line">        Method[] methods = cls.getMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//className.getDeclaredMethods()</span></span><br><span class="line">        System.out.println(<span class="string">&quot;\ngetDeclaredMethods获取的方法&quot;</span>);</span><br><span class="line">        Method[] declareMethods = cls.getDeclaredMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-180017.png"
+                      alt="image-20230416020016852"
+                ></p>
+<p>​    从输出信息中可以找到我们想要执行的 exec() 方法</p>
+<ol start="3">
+<li>拿到了类 , 拿到了类的方法 , 就可以通过反射实例化对象并通过 invoke() 调用方法了</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.Runtime</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Runtime</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Runtime</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//        System.out.println(&quot;通过Class.forname()方法获取任意类：&quot;+cls);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //className.getMethods()</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;getMethods获取方法:&quot;);</span></span><br><span class="line"><span class="comment">//        Method[] methods = cls.getMethods();</span></span><br><span class="line"><span class="comment">//        for (Method m : methods) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.println(m);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        //className.getDeclaredMethods()</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;\ngetDeclaredMethods获取的方法&quot;);</span></span><br><span class="line"><span class="comment">//        Method[] declareMethods = cls.getDeclaredMethods();</span></span><br><span class="line"><span class="comment">//        for (Method m : methods) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.println(m);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line">        </span><br><span class="line">        <span class="type">newInstance</span> <span class="variable">nis</span> <span class="operator">=</span> (newInstance)cls.getDeclaredConstructor().newInstance();</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(nis,<span class="string">&quot;id&quot;</span>);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        这里是不能执行成功的因为在Runtime类中有private修饰的静态方法</span></span><br><span class="line"><span class="comment">        若想成功必须：1、类必须要有无参构造函数。2、类的构造函数不能私有</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-180238.png"
+                      alt="image-20230416020238102"
+                ></p>
+<p>​    发现程序抛出了异常 , 报错信息为 : Exception in thread “main” java.lang.IllegalAccessException: Class test7 can not access a member of class java.lang.Runtime with modifiers “private”</p>
+<p>​    <strong>test7 类无法访问 java.lang.Runtime 类中带有 “private” 修饰符的成员变量 / 成员函数 .</strong></p>
+<p>​    <strong>这会有疑问，第二步明明都是public啊，哪来的private？</strong></p>
+<p>​    <strong>仔细想想，我们在通过 cls.newInstance() 构造实例对象时 , 会默认调用无参构造函数 . 难道这个无参构造函数是私有的吗 ?</strong></p>
+<p>看看源码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-181304.png"
+                      alt="image-20230416021304168"
+                ></p>
+<p>​    可以发现 , java.lang.Runtime 类的构造方法的确使用了 “private” 修饰符 . 我们知道 “private” 修饰符修饰的方法只能在当前类中被调用 , 外部是不可见的 . 那么设计者为什么要这么做呢 ?</p>
+<p>​    这一种比较常见的设计模式 , 被称为 “单例模式” . 在Java从零到一（2）中学过 . 类似一个 Web 应用 , 数据库连接应该只在服务启动时建立一次 , 而不是每次访问数据库时都建立一个连接 .因此开发人员可以把数据库连接写在构造函数中 , 并赋予该函数 “private” 修饰符 . 然后编写一个静态方法来获取该连接 . 这样 , 只有在类初始化时会调用一次构造函数 , 建立数据库连接 . 后面只需要通过静态方法就能获取数据库连接 , 避免了建立多个数据库链接 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-183845.png"
+                      alt="image-20230416023844878"
+                ></p>
+<p>​    只需要确保实例化过程只进行一次就行了 , 以 Java 反射为例 , 在类初始化时会执行 static{} 代码块中的内容( 详见本文开头 ) , 所以会执行一遍实例化过程 . 由于该过程被赋予了 “private” 修饰符 , 所以后面就再也不能访问它了 . 结果是一样的 .</p>
+<p>​    <strong>这里也引出了 class.newInstance() 方法执行成功的两个关键点 :</strong></p>
+<p><strong>1.类必须要有无参构造函数 .</strong></p>
+<p><strong>2.类的构造函数不能是私有的 , 也就是不能通过 “private” 修饰符来修饰构造函数 .</strong></p>
+<p>​    有了这些结论 , 我们就可以通过 Java 反射机制来执行 exec() 方法了 .</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.Runtime</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Runtime</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Runtime</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//        System.out.println(&quot;通过Class.forname()方法获取任意类：&quot;+cls);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        //className.getMethods()</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;getMethods获取方法:&quot;);</span></span><br><span class="line"><span class="comment">//        Method[] methods = cls.getMethods();</span></span><br><span class="line"><span class="comment">//        for (Method m : methods) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.println(m);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        //className.getDeclaredMethods()</span></span><br><span class="line"><span class="comment">//        System.out.println(&quot;\ngetDeclaredMethods获取的方法&quot;);</span></span><br><span class="line"><span class="comment">//        Method[] declareMethods = cls.getDeclaredMethods();</span></span><br><span class="line"><span class="comment">//        for (Method m : methods) &#123;</span></span><br><span class="line"><span class="comment">//            System.out.println(m);</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        newInstance nis = (newInstance)cls.getDeclaredConstructor().newInstance();</span></span><br><span class="line"><span class="comment">//        Object obj = cls.getMethod(&quot;exec&quot;, String.class).invoke(nis,&quot;id&quot;);</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        这里是不能执行成功的因为在Runtime类中有private修饰的静态方法</span></span><br><span class="line"><span class="comment">        若想成功必须：1、类必须要有无参构造函数。2、类的构造函数不能私有</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="type">Method</span> <span class="variable">mGetRuntime</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">mExec</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> mGetRuntime.invoke(<span class="literal">null</span>);</span><br><span class="line">        <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> (Process) mExec.invoke(obj, <span class="string">&quot;id&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//标准输出当作输入字节流</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> p.getInputStream();</span><br><span class="line">        <span class="comment">//字节流转换为字符流</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">        <span class="comment">//提供缓冲区</span></span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr);</span><br><span class="line">        <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line = br.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    <img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-053154.png"
+                      alt="image-20230416133154263"
+                ></p>
+<p>​    成功通过 java.lang.Runtime.getRuntime().exec() 调用系统命令 id .</p>
+<p><strong>通过 Method mGetRuntime = cls.getMethod(“getRuntime”); 和 Method mExec = cls.getMethod(“exec”,String.class); 分别获取 getRuntime() 方法和 exec() 方法.</strong></p>
+<p><strong>通过 getRuntime() 的 invoke(null) 方法获取 Runtime 实例对象 . 由于调用的是静态方法 , 所以省略 obj 参数 , 由于 getRuntime() 方法没有参数 , 所以这里参数数组为 null .</strong></p>
+<p><strong>通过 exec() 的 invoke(obj , args[]) 方法来执行命令 . 这里 obj 是 Runtime 实例对象 , 通过上一步骤获得 , 参数则为系统命令 “id” .</strong></p>
+<p><strong>获取执行结果的字节流 , 将其处理成字符流 , 最后输出字符串 .</strong></p>
+<ol start="4">
+<li><strong>关于 Object obj = mGetRuntime.invoke(null); 这个点需要补充一些东西.</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-190436.png"
+                      alt="image-20230416030435889"
+                ></p>
+<p>​    这里为什么 invoke() 的方法参数为什么是一个类( Class ) ？</p>
+<p>​    可以通过 对象.方法名 来调用实例方法 , 类名.方法名 来调用静态方法 , 那么反过来 , <strong>方法名.invoke(对象)</strong> 不就可以映射成 <strong>方法名.invoke(类)</strong> 嘛</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-190521.png"
+                      alt="image-20230416030520674"
+                ></p>
+<hr>
+<h3 id="Java-lang-ProcessBuilder"><a href="#Java-lang-ProcessBuilder" class="headerlink" title="Java.lang.ProcessBuilder"></a>Java.lang.ProcessBuilder</h3><p>​    提到了可以通过 java.lang.Runtime.getRuntime().exec() 方法执行系统命令 , 那么去看看exec() 方法是如何执行系统命令的 ?</p>
+<p>​    看看源码，看最简单的重载形式</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-053513.png"
+                      alt="image-20230416133513225"
+                ></p>
+<p>​    该方法返回类对 exec() 方法的调用 , 那么这里返回的 exec() 方法是什么样的呢 ?</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-054906.png"
+                      alt="image-20230416134905806"
+                ></p>
+<p>​    cmdarray : 一个字符串数组 , 包含要执行命令及参数 .</p>
+<p>​    envp : 一个字符串数组 , 其中的每个元素都是键值对格式的环境变量 , 如果子进程继承当前进程的环境变量设置 , 则该值为 null.</p>
+<p>​    dir : 一个文件对象 , 代表子进程的工作目录 . 如果子进程继承当前进程的工作目录 , 则该值为 null.</p>
+<p>​    可以看出 , exec()方法执行命令的原理是通过 ProcessBuilder 对象创建了一个执行命令的子进程 . 那么是否可以直接通过 ProcessBuilder 类来执行命令呢 ?</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-055229.png"
+                      alt="image-20230416135228880"
+                ></p>
+<p>​    因为并没有指定 envp 和 dir 两个参数的值 , 因此不需要关注 environment() 和 directory() 这两个方法 , 直接来看 start() 方法 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-055944.png"
+                      alt="image-20230416135943622"
+                ></p>
+<p>​    看看大概意思是转换 cmdarray 数组，提取其中要执行的命令，判断该命令是否可以执行。并且判断命令是否存在对应参数，然后进行子进程的创建。</p>
+<p>​    那根据这个意思，我们只需要调用 java.lang.ProcessBuilder.start() 方法 , 就可以创建子进程来执行命令了 .</p>
+<h4 id="执行不带参数的系统命令"><a href="#执行不带参数的系统命令" class="headerlink" title="执行不带参数的系统命令"></a>执行不带参数的系统命令</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">processBuilder</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">processBuilder</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//下面需要构造 ProcessBuilder 类的实例对象</span></span><br><span class="line">        <span class="comment">//但是 ProcessBuilder 的构造函数都是有参构造函数，所以不能使用 class.newInstance()来构造实例对象</span></span><br><span class="line">        <span class="comment">//注意，构造方法的参数 cmdarray 的类型是 List</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> cls.getConstructor(List.class).newInstance(List.of(<span class="string">&quot;id&quot;</span>));</span><br><span class="line">        <span class="type">Method</span> <span class="variable">startCmd</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;start&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行start()方法</span></span><br><span class="line">        <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> (Process) startCmd.invoke(obj);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将进程p的标准输出流转化为输入字节流</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> p.getInputStream();</span><br><span class="line">        <span class="comment">//字节流转化为字符流</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr);</span><br><span class="line">        <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line=br.readLine())!=<span class="literal">null</span>)&#123;</span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-064914.png"
+                      alt="image-20230416144913760"
+                ></p>
+<p>​    通过 class.getConstructor( parameterType ).newInstance(“parameter”) 来调用含有参数parameter的构造函数</p>
+<p>​    由于 cmdarray 参数的类型是 List , 所以我们执行的命令的类型也必须是 List , 此时可以用 Arrays.asList() 方法将一个可变长参数或者数组转换成 List 类型 .</p>
+<p>​    由于 start() 方法没有参数 , 所以直接调用 Method.invoke(obj) 就可以了</p>
+<h4 id="执行携带参数的系统命令"><a href="#执行携带参数的系统命令" class="headerlink" title="执行携带参数的系统命令"></a>执行携带参数的系统命令</h4><p>​    那么如何执行携带参数的系统命令呢 ?</p>
+<p>​    其实一共有两种方法来执行携带参数的系统命令 . 下面分别来说一下 .</p>
+<ol>
+<li><p><strong>public ProcessBuilder(List<String> command)</strong></p>
+<p>这里还是通过 Arrays.asList() 方法 . 由于该方法的参数可以是一个可变长参数 , 所以我们可以直接把携带参数的系统命令写到一个数组中 , 然后通过该方法转换成列表 .</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">processBuilder2</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">processBuilder2</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">startCmd</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;start&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> cls.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;uname&quot;</span>,<span class="string">&quot;-a&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行start()方法</span></span><br><span class="line">        <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> (Process) startCmd.invoke(obj);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将进程p的标准输出流转化为输入字节流</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> p.getInputStream();</span><br><span class="line">        <span class="comment">//字节流转化为字符流</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr);</span><br><span class="line">        <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line=br.readLine())!=<span class="literal">null</span>)&#123;</span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-070233.png"
+                      alt="image-20230416150233244"
+                ></p>
+<p>​    这样就能成功执行携带参数的系统命令了 .</p>
+<ol start="2">
+<li><strong>public ProcessBuilder(String… command)</strong></li>
+</ol>
+<p>​    这是上文所说的 ProcessBuilder 类的第二个构造函数 , 也就是专门用于执行携带参数的系统命令的构造函数 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-070554.png"
+                      alt="image-20230416150554549"
+                ></p>
+<p>​    可以看到 , 该构造方法的参数是也是一个可变长参数 . 可变长参数代表着不定长度的参数 , 例如 String … parameter 代表参数 parameter 由不定个数的字符串组成 .</p>
+<p>​    Java在编译时会将可变长参数编译成一个数组 . 所以下面两种写法是完全等价的 .</p>
+<p>​    <strong>public void test(String[] names)<strong>等价于</strong>public void test(String … names)</strong></p>
+<p>​    因此 , 我们可以将 String[].class 作为参数传递给 getConstructor() 方法 , 告诉 ProcessBuilder 调用第二个构造方法来处理携带参数的系统命令 .</p>
+<p>​    这里其他大佬给出了范例</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-072150.png"
+                      alt="image-20230416152149929"
+                ></p>
+<p>​        我们在刚刚的代码上修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">processBuilder3</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">processBuilder3</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">startCmd</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;start&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> cls.getConstructor(String[].class).newInstance(<span class="keyword">new</span> <span class="title class_">String</span>[][]&#123;&#123;<span class="string">&quot;uname&quot;</span>,<span class="string">&quot;-a&quot;</span>&#125;&#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//执行start()方法</span></span><br><span class="line">        <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> (Process) startCmd.invoke(obj);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将进程p的标准输出流转化为输入字节流</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> p.getInputStream();</span><br><span class="line">        <span class="comment">//字节流转化为字符流</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr);</span><br><span class="line">        <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line=br.readLine())!=<span class="literal">null</span>)&#123;</span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-072755.png"
+                      alt="image-20230416152755064"
+                ></p>
+<h3 id="如何调用类的私有方法"><a href="#如何调用类的私有方法" class="headerlink" title="如何调用类的私有方法"></a>如何调用类的私有方法</h3><p>​    这个问题其实之前就遇到过了，在通过 java.lang.Runtime 执行系统命令时 , 由于该类的构造方法 Runtime() 是一个私有方法 , 所以我们不能调用该方法 , 只能通过 getRuntime() 静态方法来返回一个 Runtime 实例对象 , 然后再调用 exec() 方法 . 为此还提到了 “ 单例模式 “ 这种设计模式 .</p>
+<p>​    也就是说 , 我们无法直接获取到私有构造方法的 . 那么是否有其他方法来获取私有构造方法 ?</p>
+<p>​    java.lang.reflect.AccessibleObject.class 中存在这么一个方法 : setAccessible(boolean flag)</p>
+<p>​    来看下官方文档中是怎么定义这个方法的 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-073932.png"
+                      alt="image-20230416153932113"
+                ></p>
+<p>​    从中我们可以知道 , 当该方法的参数被设置为 True 时 , 会取消 Java 语言访问检查 , 也就是取消对 public , protected , private 等修饰符的检查 .</p>
+<p>​    但是 , 如果对象是 java.lang.Class.Constructor , 那么将会抛出异常 . 也就是说 , 我们不能通过 getConstructor() 方法来获取构造方法 .这是为什么呢 ? 其实很好理解 , 与 getMethods() 和 getDeclaredMethods() 一个道理 , getConstructor() 方法只能获取当前类与其继承类的公用( public )方法 . 而不能获取私有方法 .</p>
+<p>​    而我们现在需要获取的方法( Runtime() )是私有方法 , 自然不能通过 getConstructor() 方法来获取 .那怎么办呢 ? 其实我们可以使用 <strong>getDeclaredConstructor()</strong> 方法 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-074014.png"
+                      alt="image-20230416154014007"
+                ></p>
+<p>​    <strong>该方法与 getConstructor() 方法最大的不同点在于 : 这个方法会返回指定参数类型的所有构造方法 . 包括 public , protected 以及 private 修饰符修饰的 .</strong></p>
+<p>​    <strong>而 getConstructor() 方法只会返回所有构造方法的一个子集 , 即 public 修饰符修饰的 .</strong></p>
+<p>​    因此 , 通过 getDeclaredConstructor() 方法 , 我们可以获取到私有构造方法 Runtime() . 并且 , 通过setAccessible(boolean flag)关闭 Java 语言访问检查时也不会再抛出异常 .</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//java.lang.Runtime</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Runtime</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Runtime</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, IOException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line"><span class="comment">//        System.out.println(&quot;通过Class.forname()方法获取任意类：&quot;+cls);</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//className.getMethods()</span></span><br><span class="line">        System.out.println(<span class="string">&quot;getMethods获取方法:&quot;</span>);</span><br><span class="line">        Method[] methods = cls.getMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//className.getDeclaredMethods()</span></span><br><span class="line">        System.out.println(<span class="string">&quot;\ngetDeclaredMethods获取的方法&quot;</span>);</span><br><span class="line">        Method[] declareMethods = cls.getDeclaredMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//        newInstance nis = (newInstance)cls.getDeclaredConstructor().newInstance();</span></span><br><span class="line"><span class="comment">//        Object obj = cls.getMethod(&quot;exec&quot;, String.class).invoke(nis,&quot;id&quot;);</span></span><br><span class="line"></span><br><span class="line">        <span class="type">Method</span> <span class="variable">mGetRuntime</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">mExec</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> mGetRuntime.invoke(<span class="literal">null</span>);</span><br><span class="line">        <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> (Process) mExec.invoke(obj, <span class="string">&quot;id&quot;</span>);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        通过 getDeclaredConstructor() 方法 ,</span></span><br><span class="line"><span class="comment">        我们可以获取到私有构造方法 Runtime() .</span></span><br><span class="line"><span class="comment">        并且 , 通过setAccessible(boolean flag)</span></span><br><span class="line"><span class="comment">        关闭 Java 语言访问检查时也不会再抛出异常</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        Constructor&lt;?&gt; cst = cls.getDeclaredConstructor();</span><br><span class="line">        cst.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">obj2</span> <span class="operator">=</span> cst.newInstance();</span><br><span class="line">        <span class="type">Process</span> <span class="variable">p2</span> <span class="operator">=</span> (Process) mExec.invoke(obj2, <span class="string">&quot;id&quot;</span>);</span><br><span class="line">        <span class="comment">//标准输出当作输入字节流</span></span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">is2</span> <span class="operator">=</span> p2.getInputStream();</span><br><span class="line">        <span class="comment">//字节流转换为字符流</span></span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">isr2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is2);</span><br><span class="line">        <span class="comment">//提供缓冲区</span></span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">br2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr2);</span><br><span class="line">        <span class="type">String</span> <span class="variable">line2</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">while</span> ((line2 = br2.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">            System.out.println(line2);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-16-074346.png"
+                      alt="image-20230416154346206"
+                ></p>
+<p>​    <strong>通过 getDelclaredConstructor() 方法获取到 Runtime() 构造方法 , 关闭 Java 语言访问检查 , 然后构建实例对象 . 最后通过 Method.invoke(obj , parameter) 调用 exec() 方法 .</strong></p>
+<p>​    通过这种方法 , 就可以直接访问任意类的私有构造方法了.</p>
+<p>​    RCE就总结这么多，持续学习 . 感谢各位大牛的资料</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Java安全从零到一(5)-Java RCE(Remote Code Execute)</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2022-11-16 01:37:29</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2022/11/16/Java安全从零到一-5-Java-RCE-Remote-Code-Execute/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AE%89%E5%85%A8/">#安全</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8F%8D%E5%B0%84/">#反射</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/RCE/">#RCE</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/01/12/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-6-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java安全从零到一(6)-Java反序列化初探</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/10/09/Python%E7%88%AC%E8%99%AB%E4%BB%8E%E4%B8%80%E5%88%B0%E4%BA%8C-JS%E9%80%86%E5%90%91/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Python爬虫从一到二(JS逆向)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-lang-Runtime"><span class="nav-number">1.</span> <span class="nav-text">Java.lang.Runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-lang-ProcessBuilder"><span class="nav-number">2.</span> <span class="nav-text">Java.lang.ProcessBuilder</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8D%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">2.1.</span> <span class="nav-text">执行不带参数的系统命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%90%BA%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4"><span class="nav-number">2.2.</span> <span class="nav-text">执行携带参数的系统命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%B0%83%E7%94%A8%E7%B1%BB%E7%9A%84%E7%A7%81%E6%9C%89%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">如何调用类的私有方法</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

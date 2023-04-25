@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            Java安全从零到一(4)-Java反射机制 |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Java安全从零到一(4)-Java反射机制</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-10-04 02:31:39</span>
+        <span class="mobile">2022-10-04 02:31</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">Java安全基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%8F%8D%E5%B0%84/">反射</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.1k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>12 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h3 id="Java反射机制"><a href="#Java反射机制" class="headerlink" title="Java反射机制"></a>Java反射机制</h3><p>​    对于Java反序列化漏洞来说，Java反射机制必须理解，本章专门用来说明什么是Java反射。</p>
+<hr>
+<h3 id="什么是Java反射"><a href="#什么是Java反射" class="headerlink" title="什么是Java反射"></a>什么是Java反射</h3><p>​    Java 反射机制允许运行中的Java程序获取自身的信息, 操作类和对象的内部属性。</p>
+<p>​    <strong>Java 反射机制是指在程序运行时，对于任何一个类，都能知道这个类的所有属性和方法，对于任何一个实例对象 , 都能调用该对象的任何一个属性和方法。</strong></p>
+<p>​    <strong>Java中这种 “ 动态获取信息 “ 和 “ 动态调用属性方法 “ 的机制被称为 Java 反射机制。</strong></p>
+<p>​    <strong>实例对象可以通过反射机制获取它的类 , 类可以通过反射机制获取它的所有方法和属性 . 获取的属性可以设值 , 获取的方法可以调用。</strong></p>
+<p>在静态语言中 , 一般对象的类型都是在编译期就确定下来的 . 而通过 Java 反射机制 , 可以动态的创建对象并调用其方法和属性 。</p>
+<hr>
+<h3 id="Java反射的功能"><a href="#Java反射的功能" class="headerlink" title="Java反射的功能"></a>Java反射的功能</h3><p>​    正是因为 PHP 中存在多种动态特性 , 使得开发人员能通过很少的代码来实现非常多的功能 . 比较典型的例子就是一句话木马 , 通过一行 <strong>&lt;?php @eval($_POST[cmd]);</strong> 能实现目录管理 , 命令执行 , 数据库连接 , 文件上传下载等多种多样的功能 .</p>
+<p>​    但是 Java 本身是一门静态语言 , 无法像 PHP 那么灵活多变 . 但是通过 Java 反射机制 , 可以为自身提供一些动态特性 . 当我们在通过 IDE 写代码时 , 敲击点号” . “ , 会出现当前对象或类所包含的属性和方法 . 这里用到的就是 Java 反射机制 .</p>
+<p>​    而且 , 反射最重要的用途是开发各种通用框架 . 很多框架都是通过XML文件来进行配置的( 例如 struts.xml , spring-*.xml 等 ) , 即所谓的框架核心配置文件 . 为了确保框架的通用性 , 程序运行时需要根据配置文件中对应的内容加载不同的类或对象 , 调用不同的方法 , 这也依赖于 Java 反射机制 .</p>
+<p>综上所述 , Java 反射机制的功能可分为如下几点 :</p>
+<ol>
+<li><strong>在程序运行时查找一个对象所属的类 .</strong></li>
+<li><strong>在程序运行时查找任意一个类的成员变量和方法 .</strong></li>
+<li><strong>在程序运行时构造任意一个类的对象 .</strong></li>
+<li><strong>在程序运行时调用任意一个对象的方法 .</strong></li>
+</ol>
+<h4 id="查找一个对象所属的类"><a href="#查找一个对象所属的类" class="headerlink" title="查找一个对象所属的类"></a>查找一个对象所属的类</h4><p>​    如何获取一个类( java.lang.Class )呢? 总的而言有三种方法 .</p>
+<ul>
+<li><strong>obj.getClass()</strong></li>
+<li><strong>Class.forName(className)</strong></li>
+<li><strong>className.class</strong></li>
+</ul>
+<p>​    具体的使用方法如下所示:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找对象所属的类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">getClass</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">getClass</span><span class="params">(String name)</span>&#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">getClass</span> <span class="variable">gc1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">getClass</span>(<span class="string">&quot;mes9s0&quot;</span>);</span><br><span class="line">        <span class="comment">//已知上下文中存在某个类的实例对象名称</span></span><br><span class="line">        <span class="comment">//可以调用obj.getClass()获取实例对象所属的类</span></span><br><span class="line">        System.out.println(<span class="string">&quot;通过obj.getClass()获得所属的类：&quot;</span> + gc1.getClass());</span><br><span class="line"></span><br><span class="line">        <span class="comment">//已知某个类的名称</span></span><br><span class="line">        <span class="comment">//可以调用Class.getClass(&quot;className&quot;)来获取类</span></span><br><span class="line">        System.out.println(<span class="string">&quot;通过Class.forName(&#x27;className&#x27;)获取类：&quot;</span> + Class.forName(<span class="string">&quot;getClass&quot;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//当已经加载了某个类</span></span><br><span class="line">        <span class="comment">//可以通过className.class属性来获取类</span></span><br><span class="line">        System.out.println(<span class="string">&quot;通过className.class属性获取类：&quot;</span>+getClass.class);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-154333.png"
+                      alt="image-20230415234333237"
+                ></p>
+<p>​    针对不同的情况 , 可以用不同的方法来获取类 .</p>
+<p>​    需要注意的是 : forName( ) 函数有两个重载 , 如下所示 :</p>
+<blockquote>
+<p><strong>Class.forName( String className )</strong></p>
+<p><strong>Class.forName( String className , Boolean initialize , ClassLoader loader )</strong></p>
+<ol>
+<li>String className : 类名</li>
+<li>Boolean initialize : 是否进行类初始化</li>
+<li>ClassLoader loader : 加载器( 告诉 Java 虚拟机如何加载获取的类 , Java 默认根据类名( 即类的绝对路径 , 例如 java.lang.Runtime( ) )来加载类，Runtime类在Java安全从零到一（3）中讲过 )</li>
+</ol>
+<p>其中 , 第一种方法是对第二种方法的封装 , 存在以下对应关系 :</p>
+<p>Class.forName( String className ) == Class.forName( String className , True , currentLoader )</p>
+</blockquote>
+<p>​    那么这个类初始化是指什么呢 ? </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类初始化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test1</span> &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1test</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;普通代码&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;test1&quot;</span>);<span class="comment">//类初始化，初始化时会加载静态代码块</span></span><br><span class="line">        System.out.printf(String.valueOf(cls));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-155645.png"
+                      alt="image-20230415235644526"
+                ></p>
+<p>​    这个部分在我的Java安全从零到一(2)中讲过，可以详细翻看</p>
+<p>​    结果表明 , 在 Java 类初始化时 , 会执行静态代码块中的内容 .</p>
+<p>​    那也就是说 , 如果我们能控制一个类 , 那么就可以通过在类中添加包含恶意代码的静态代码块 . 当类初始化时 , 默认会自动执行恶意代码. 如下所示 :</p>
+<ol>
+<li>假设存在如下代码 :</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">vul</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">vul</span><span class="params">(String string)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        Class.forName(string);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException &#123;</span><br><span class="line">        <span class="type">vul</span> <span class="variable">v</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">vul</span>(<span class="string">&quot;test2&quot;</span>);</span><br><span class="line">        <span class="comment">//实例化 vul 类，调用构造方法 vul, vul()方法中通过 Class.forName(className) 方法来获取类,获取类时默认进行类初始化，调用静态代码块 static&#123;&#125;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    此时 , 如果我们能控制 test2类 , 那么就能执行任意代码 .</p>
+<ol start="2">
+<li>构造恶意的 test2 类：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test2</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//执行系统命令</span></span><br><span class="line">            <span class="type">Process</span> <span class="variable">p</span> <span class="operator">=</span> java.lang.Runtime.getRuntime().exec(<span class="string">&quot;id&quot;</span>);</span><br><span class="line">            <span class="comment">//获取p的标准输入流作为输入字节流</span></span><br><span class="line">            <span class="type">InputStream</span> <span class="variable">is</span> <span class="operator">=</span> p.getInputStream();</span><br><span class="line">            <span class="comment">//字节流转化为字符流</span></span><br><span class="line">            <span class="type">InputStreamReader</span> <span class="variable">isr</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">            <span class="comment">//将字符流存入缓冲区</span></span><br><span class="line">            <span class="type">BufferedReader</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(isr);</span><br><span class="line">            <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="comment">//逐一读取字符流中缓冲区的每一行</span></span><br><span class="line">            <span class="keyword">while</span> ((line = br.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                System.out.printf(line);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    这个恶意类的内容是在该类静态代码块中 , 通过 java.lang.Runtime.getRuntime( ).exec( ) 执行系统命令 , 并将返回字节流转换为字符流 , 存入缓冲区后逐行读取并输出 .</p>
+<ol start="3">
+<li>当调用 vul 类时 , 会自动执行恶意代码 .</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-161243.png"
+                      alt="image-20230416001243463"
+                ></p>
+<h4 id="查找任意一个类的成员变量和方法"><a href="#查找任意一个类的成员变量和方法" class="headerlink" title="查找任意一个类的成员变量和方法"></a>查找任意一个类的成员变量和方法</h4><p>如何获取某一个类的所有方法呢? 总的来说有三种方法 .</p>
+<ul>
+<li><strong>className.getMethod(functionName , [parameterTypes.class])</strong></li>
+<li><strong>className.getMethods()</strong></li>
+<li><strong>className.getDeclaredMethods()</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查找一个类的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">getMethod</span> &#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">methodClass</span> &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a + b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> NoSuchMethodException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = methodClass.class;<span class="comment">//通过className.class获取类</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取类方法的三种方式</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;add&quot;</span>, <span class="type">int</span>.class, <span class="type">int</span>.class);</span><br><span class="line">        Method[] methods = cls.getMethods();<span class="comment">//获取某个类的public方法</span></span><br><span class="line">        Method[] declareMethods = cls.getDeclaredMethods();<span class="comment">//获取某个类的公共，保护，默认方法，不包括继承</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//输出结果</span></span><br><span class="line">        <span class="comment">//className.getMethod</span></span><br><span class="line">        System.out.println(<span class="string">&quot;getMethod获取方法&quot;</span> + method);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;\ngetMethods获取的方法:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m : methods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;\ngetDeclaredMethods获取的方法&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Method m : declareMethods) &#123;</span><br><span class="line">            System.out.println(m);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-163739.png"
+                      alt="image-20230416003739744"
+                ></p>
+<p>​    getMethod( ) : 返回类中一个特定的方法 . 其中第一个参数为方法名称 , 后面的参数为方法的参数对应 Class 的对象 .</p>
+<p>​    getMethods( ) : 返回某个类的所有公用（public）方法 , 包括其继承类的公用方法 .</p>
+<p>​    getDeclaredMethods( ) : 返回某个类或接口声明的所有方法 , 包括公共、保护、默认（包）访问和私有方法 , 但不包括其继承类的方法 .</p>
+<p>补充：$是内部类的意思</p>
+<h4 id="构造任意一个类的对象"><a href="#构造任意一个类的对象" class="headerlink" title="构造任意一个类的对象"></a>构造任意一个类的对象</h4><p>​    上文提到了可以通过三种方式来获取类 , 那么如果获取一个实例对象呢 ?</p>
+<p>​    <strong>通过 className.newInstance() 来构建一个实例对象.</strong></p>
+<p>​    我们都知道在类实例化时会调用构造函数 , 而构造函数又分为 “ 有参构造函数 “ 和 “ 无参构造函数 “ . 然而 className.newInstance() 没有参数 , 只能调用无参构造函数（注意，该方法已经被弃用，新的在代码中） . 如果我们想要调用有参构造函数 , 就必须依赖于 Class 类的 getConstructor() 方法 .</p>
+<p>​    <strong>通过 Class 类的 getConstructor() 方法 , 可以获取 Constructor 类的一个实例 , Constructor 类也存在一个 newInstance() 方法 , 不过该方法可以携带参数 . 用该方法来创建实例对象可以调用有参构造函数 .</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//构造任意一个类的对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">newInstance</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//无参构造函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">newInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;这是无参构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//有参构造函数</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">newInstance</span><span class="params">(String str)</span>&#123;</span><br><span class="line">        System.out.println(str);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException &#123;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;newInstance&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;通过className.newInstance()创建实例对象，默认调用无参构造函数,但是该方法已被弃用&quot;</span>);</span><br><span class="line">        <span class="type">newInstance</span> <span class="variable">obj1</span> <span class="operator">=</span> (newInstance)cls.newInstance();</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;通过className.getConstrutor().newInstance()创建实例对象，可以添加参数调用有参构造函数&quot;</span>);</span><br><span class="line">        <span class="type">newInstance</span> <span class="variable">obj2</span> <span class="operator">=</span> (newInstance)cls.getConstructor(String.class).newInstance(<span class="string">&quot;这里有参构造函数&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;此处为新的无参构造函数调用&quot;</span>);</span><br><span class="line">        <span class="type">newInstance</span> <span class="variable">obj3</span> <span class="operator">=</span> (newInstance)cls.getDeclaredConstructor().newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-165449.png"
+                      alt="image-20230416005449429"
+                ></p>
+<ul>
+<li><strong>className.newInstance()</strong></li>
+<li><strong>className.getConstructor( parameterType ).newInstance( parameterName )</strong></li>
+<li><strong>className.getDeclaredConstructor().newInstance()</strong></li>
+</ul>
+<p>​    因此 , 我们可以通过 newInstance() 方法来构造任何一个类的对象 . 并且可以选择是调用其无参构造方法 , 还是有参的构造方法 .</p>
+<h4 id="调用任意一个实例对象的方法"><a href="#调用任意一个实例对象的方法" class="headerlink" title="调用任意一个实例对象的方法"></a>调用任意一个实例对象的方法</h4><p>​    有了实例对象 , 如何调用调用该对象的方法呢 ?</p>
+<p>​    一般来说 , 可以通过 objectName.functionName() 这种格式来调用实例方法 . 举个例子 .</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用任意一个实例对象的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">invoke</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">prt</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;mes9s0&quot;</span>;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;invoke&quot;</span>);</span><br><span class="line">        <span class="type">invoke</span> <span class="variable">ivk</span> <span class="operator">=</span> (invoke) cls.getDeclaredConstructor().newInstance();</span><br><span class="line">        <span class="comment">//通过objectName.functionName()来调用实例方法</span></span><br><span class="line">      	<span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> ivk.prt(name);</span><br><span class="line">        System.out.println(str1);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-171936.png"
+                      alt="image-20230416011936100"
+                ></p>
+<p>​    但是在很多情况下 , 并不知道类名, 也就无法 new 出实例对象 , 更别提调用实例对象的方法了 . 当遇到这种情况时 , 就需要使用 Java 反射来调用实例对象的方法了 .</p>
+<p>以下就是思路了：</p>
+<ul>
+<li><p>不知道类怎么办 ?</p>
+<p>我们可以通过 obj.getClass() , Class.forName(className) , className.class 来获取类.</p>
+</li>
+<li><p>不知道类有哪些方法怎么办 ?</p>
+<p>我们可以通过 className.getMethod(functionName , [parameterTypes.class]) , className.getMethods() , className.getDeclaredMethods() 来获取类的方法.</p>
+</li>
+<li><p>不能 new 出实例对象怎么办 ?</p>
+<p>我们可以通过 className.newInstance() , className.getConstructor().newInstance() 来构造实例对象 .</p>
+</li>
+<li><p>那如何调用实例对象的方法呢 ?</p>
+<p>通过 invoke() 方法来调用任何一个实例对象的方法 !</p>
+</li>
+</ul>
+<p>看看定义，它是Method对象调用的：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-172913.png"
+                      alt="image-20230416012912643"
+                ></p>
+<p>我们把上面的代码改成invoke获得的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用任意一个实例对象的方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">invoke</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">prt</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;mes9s0&quot;</span>;</span><br><span class="line">        Class&lt;?&gt; cls = Class.forName(<span class="string">&quot;invoke&quot;</span>);</span><br><span class="line">        <span class="type">invoke</span> <span class="variable">ivk</span> <span class="operator">=</span> (invoke) cls.getDeclaredConstructor().newInstance();</span><br><span class="line"><span class="comment">//        String str1 = ivk.prt(name);</span></span><br><span class="line"><span class="comment">//        System.out.println(str1);</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">ret</span> <span class="operator">=</span> cls.getMethod(<span class="string">&quot;prt&quot;</span>, String.class).invoke(ivk, name);</span><br><span class="line">        System.out.println(ret);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-172512.png"
+                      alt="image-20230416012511759"
+                ></p>
+<p><strong>Method.invoke(obj , args[])</strong></p>
+<p>​    如上文所说的 , 通过Java反射机制来获取类 , 获取类的方法 , 构造实力对象 , 最终调用实例方法 .</p>
+<p>​    <strong>注 : 官方文档中提到了一些比较有意思的东西 , 需要注意 .</strong></p>
+<p>​    <strong>如果要调用的方法是静态的 , 则忽略 obj 参数 .这个点其实比较好理解 , 我们知道Java中调用静态方法是无需创建实例对象的 , 所以这里可以省略 obj 参数 .</strong></p>
+<p>​    <strong>如果要调用的方法的形参个数为 “ 0 “ , 那么 args[] 数组的长度可以为 “ 0 “ 或者 “ null “ . 这个点其实也没啥说的 , args[] 数组本就是要调用方法的参数 , 既然目标方法没有参数 , 这里自然也就不用写 .</strong></p>
+<hr>
+<p>​    关于反射的流程以及代码基本介绍完全了，参考了很多师傅的文章博客CSDN等总结，所有的代码可以直接复制跑通，本人均是跑通成功后的代码，下面介绍一下RCE(Remote Code Execute)</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Java安全从零到一(4)-Java反射机制</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2022-10-04 02:31:39</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2022/10/04/Java安全从零到一-4-Java反射机制/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AE%89%E5%85%A8/">#安全</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%8F%8D%E5%B0%84/">#反射</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/10/09/Python%E7%88%AC%E8%99%AB%E4%BB%8E%E4%B8%80%E5%88%B0%E4%BA%8C-JS%E9%80%86%E5%90%91/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Python爬虫从一到二(JS逆向)</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/08/26/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%94%BB%E5%87%BB%E9%9D%A2%F0%9F%98%AA/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">数据库攻击面😪</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">Java反射机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJava%E5%8F%8D%E5%B0%84"><span class="nav-number">2.</span> <span class="nav-text">什么是Java反射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%8F%8D%E5%B0%84%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">Java反射的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%89%80%E5%B1%9E%E7%9A%84%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">查找一个对象所属的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E7%B1%BB%E7%9A%84%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">查找任意一个类的成员变量和方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.3.</span> <span class="nav-text">构造任意一个类的对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">调用任意一个实例对象的方法</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

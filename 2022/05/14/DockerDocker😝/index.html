@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            DockerDocker😝 |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">DockerDocker😝</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-14 22:26:54</span>
+        <span class="mobile">2022-05-14 22:26</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Docker%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AF%87/">Docker学习基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Docker/">Docker</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>5.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>20 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>​    dockerdocker🥳</p>
+<h4 id="docker介绍"><a href="#docker介绍" class="headerlink" title="docker介绍"></a>docker介绍</h4><h5 id="docker背景"><a href="#docker背景" class="headerlink" title="docker背景"></a>docker背景</h5><p>​    以前开发和运维部署之间会有因环境问题而产生的分歧，Docker之所以发展的如此迅速，是因为它对此给出了一个标准化的解决方案：安装的时候，将环境也一同复制过来。docker的镜像设计,使得docker得以打破过去的程序及应用的观念。透过镜像讲作业系统核心除外，运作应用程序所需要的系统环境，由下而上打包，达到跨平台无缝运作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073411.jpg"
+                      alt="image-20220514224340636"
+                ></p>
+<h5 id="docker理念"><a href="#docker理念" class="headerlink" title="docker理念"></a>docker理念</h5><p>​    Docker基于go语言实现，基于Linux的容器技术发展过来，只要配置好一次环境，换到其他的机器上一键部署好，大大简化了操作。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073412.jpg"
+                      alt="image-20220514232318158"
+                ></p>
+<h5 id="docker要素"><a href="#docker要素" class="headerlink" title="docker要素"></a>docker要素</h5><p>​    之前的虚拟化技术：虚拟机技术，在操作系统里面运行操作系统，缺点是开启时间长，容量大。</p>
+<p>​    因为这些缺点：Linux发展出另一种虚拟化技术:Linux容器。Linux容器不是模拟一个完整的操作系统，而是对进程进行隔离。有了容器，就可以将软件所需要的所有资源打包到一个隔离的容器中。容器与虚拟机不同，不需要捆绑操作系统，只需要软件工作所需的资源库和设置。系统因此高效轻量并且在任何环境中都可以始终如一的运行。</p>
+<p>​    Docker特征：1、镜像；2、容器；3、仓库。</p>
+<p>​    Docker特点：1、容器的应用进程直接运行于宿主的内核，容器内没有自己的内核,并且也没有进行硬件虚拟；2、每个容器之间相互隔离，每个容器有自己的文件系统，容器进程不会相互影响，能区分计算资源。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073413.jpg"
+                      alt="image-20220515000124724"
+                ></p>
+<p>​    Docker镜像（Image）就是一个<strong>只读</strong>的模版。镜像可以用来创建docker容器，一个镜像可以创建很多容器。</p>
+<p>​    容器与镜像的关系类似于面向对象编程中的对象于类。</p>
+<table>
+<thead>
+<tr>
+<th>Docker</th>
+<th>面向对象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>容器</td>
+<td>对象</td>
+</tr>
+<tr>
+<td>镜像</td>
+<td>类</td>
+</tr>
+</tbody></table>
+<p>​    Docker利用容器（Container）独立运行的一个或一组应用。容器使用镜像创建的运行实例。它可以被启动、开始、停止、删除。每个容器都是相互隔离的、保证安全的平台。可以把容器看作一个简易版的Linux环境（包括root用户权限、进程空间、用户空间和网络空间等）和运行在其中的应用程序。容器的定义和镜像很像，唯一区别在于容器最上面那一层是可读可写的。</p>
+<p>​    Docker仓库(Repository)是集中存放镜像文件的场所。仓库分为公开仓库和私有仓库。</p>
+<hr>
+<h4 id="Docker相关"><a href="#Docker相关" class="headerlink" title="Docker相关"></a>Docker相关</h4><h5 id="Docker安装"><a href="#Docker安装" class="headerlink" title="Docker安装"></a>Docker安装</h5><p>​    安装方式：<a class="link"   target="_blank" rel="noopener" href="https://developer.aliyun.com/article/765545" >https://developer.aliyun.com/article/765545<i class="fas fa-external-link-alt"></i></a></p>
+<h5 id="Docker运行底层"><a href="#Docker运行底层" class="headerlink" title="Docker运行底层"></a>Docker运行底层</h5><p>​    Docker是一个C/S结构的系统，Docker守护进程运行在主机上，然后通过Socket链接从客户端访问，守护进程从客户端接收命令并管理运行在主机上的容器。<strong>容器是一个运行时环境</strong>。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073415.jpg"
+                      alt="image-20220515005117295"
+                ></p>
+<p>​    docker有着比虚拟机更少的抽象层，docker不需要hypervisor实现硬件虚拟化，docker使用的都是实际物理机器的资源。</p>
+<p>​    docker利用的是宿主机的内核，而不需要Guest OS。因此当新建一个容器时，docker不需要和虚拟机一样重新加载一个操作系统内核。而新建虚拟机需要加载这个，这个是分钟级别的。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073416.jpg"
+                      alt="image-20220515005340182"
+                ></p>
+<hr>
+<h4 id="Docker常用命令"><a href="#Docker常用命令" class="headerlink" title="Docker常用命令"></a>Docker常用命令</h4><h5 id="docker帮助命令"><a href="#docker帮助命令" class="headerlink" title="docker帮助命令"></a>docker帮助命令</h5><p>​    docker version、docker info、docker –help</p>
+<h5 id="docker镜像命令"><a href="#docker镜像命令" class="headerlink" title="docker镜像命令"></a>docker镜像命令</h5><p>​    docker images：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docker images //列出本地所有镜像</span><br><span class="line">docker images -a //列出本地所有镜像（含中间映像层）</span><br><span class="line">docker images -q //只显示镜像ID</span><br><span class="line">docker images --digests //显示镜像的摘要信息</span><br><span class="line">docker images --no-trunc //显示完整的镜像信息</span><br></pre></td></tr></table></figure>
+
+<p>​    docker search：</p>
+<p>​    方法一：dockerhub网站</p>
+<p>​    方法二：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat //查询镜像</span><br><span class="line">docker search --no-trunc tomcat //显示完整信息</span><br></pre></td></tr></table></figure>
+
+<p>​    docker pull：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tomcat:latest</span><br></pre></td></tr></table></figure>
+
+<p>​    docker rmi：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker rmi tomcat:latest</span><br><span class="line">docker rmi -f tomcat:latest</span><br><span class="line">docker rmi -f tomcat nginx</span><br><span class="line">docker rmi -f $(docker images -qa)//全删</span><br></pre></td></tr></table></figure>
+
+<h5 id="docker容器命令"><a href="#docker容器命令" class="headerlink" title="docker容器命令"></a>docker容器命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">docker run [options] image [<span class="built_in">command</span>][arg...]</span><br><span class="line">options选项：</span><br><span class="line">--name=<span class="string">&#x27;容器新名字&#x27;</span>：为容器指定一个名称</span><br><span class="line">-d：后台运行容器，并返回容器ID，也即启动守护式容器</span><br><span class="line">-i：以交互模式运行容器，通常与-t同时使用</span><br><span class="line">-t：为容器重新分配一个伪输入终端，通常与-i同时使用</span><br><span class="line">-P（大写）：随机端口映射</span><br><span class="line">-p：指定端口映射，有以下模式：</span><br><span class="line">	ip:hostPort:containerPort</span><br><span class="line">	ip::containerPort</span><br><span class="line">	hostPort:containPort</span><br><span class="line">	containerPort</span><br><span class="line">	</span><br><span class="line">docker run -it centos//启动并提供交互进入容器</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker ps [OPTIONS]</span><br><span class="line">options选项：</span><br><span class="line">-a：列出当前所有正在运行的容器+历史上运行过的</span><br><span class="line">-l：显示最近创建的容器</span><br><span class="line">-n：显示最近n个创建的容器</span><br><span class="line">-q：静默模式，只显示容器编号</span><br><span class="line">--no-trunc：不截断输出</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span> 容器停止推出</span><br><span class="line">ctrl+P+Q 不停止</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器名或<span class="built_in">id</span></span><br><span class="line">docker stop 容器名或<span class="built_in">id</span></span><br><span class="line">docker <span class="built_in">kill</span> 容器名或<span class="built_in">id</span>，强制</span><br><span class="line">docker <span class="built_in">rm</span> 容器名或<span class="built_in">id</span></span><br><span class="line">docker <span class="built_in">rm</span> -f 容器名或<span class="built_in">id</span>，强制</span><br><span class="line">docker <span class="built_in">rm</span> -f $(docker ps -a -q)</span><br><span class="line">docker ps -a -q | xargs docker <span class="built_in">rm</span></span><br></pre></td></tr></table></figure>
+
+<p>​    注意：docker run -d 镜像这样的启动方式在docker ps是查询不出来的</p>
+<p>​    此时我们使用docker ps  -l查看，会发现容器已经退出了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073417.jpg"
+                      alt="image-20220515203346061"
+                ></p>
+<p>​    很重要的要说明的一点：<strong>Docker容器后台运行，就必须有一个前台进程</strong>。容器运行的命令如果不是那些一直挂起的命令（比如运行top，tail），就是会自动退出的。</p>
+<p>​    这个是docker的机制问题，比如你的web容器，我们以niginx为例，正常情况下，我们配置启动服务只需要启动响应的service即可，例如service niginx start。但是，这样做nginx为后台进程模式运行，就导致docker前台没有运行的应用，这样的容器后台启动后，会立即自杀因为他觉得他没事可做了，所以最佳的解决方案是，将要运行的程序以前台进程的形式运行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker logs -f -t --<span class="built_in">tail</span> 容器ID </span><br><span class="line">-t 是加入时间戳</span><br><span class="line">-f 跟随最新的日志打印</span><br><span class="line">--<span class="built_in">tail</span> 数字 显示最后多少条</span><br></pre></td></tr></table></figure>
+
+<p>​    照前文所说，容器被杀死的原因是没有前台进程，那我们运行以下这句：</p>
+<p>docker run -d centos /bin/bash -c “while true;do echo hello hello;sleep 2;done”</p>
+<p>​    可以发现，docker容器已经不会被杀死，并且查询日志，会一直返回hello hello。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker top 容器ID //查看容器内运行的进程</span><br><span class="line">docker inspect 容器ID //查看容器内部细节，以json数据返回</span><br><span class="line">docker <span class="built_in">exec</span> -it 容器ID bashshell</span><br><span class="line">docker attach 容器ID //也是进入容器</span><br></pre></td></tr></table></figure>
+
+<p>​    attach和exec不同的是，attach直接进入容器启动命令的终端，不会启动新的进程。exec是在容器中打开新的终端，并且可以启动新的进程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -t 10 <span class="built_in">ls</span> -l /tmp //直接执行</span><br><span class="line">docker <span class="built_in">exec</span> -it 10 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">cp</span> 容器ID:容器内路径 目的主机路径 //从容器内拷贝文件到主机上</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Docker镜像"><a href="#Docker镜像" class="headerlink" title="Docker镜像"></a>Docker镜像</h4><h5 id="Docker镜像原理"><a href="#Docker镜像原理" class="headerlink" title="Docker镜像原理"></a>Docker镜像原理</h5><p>​    Docker镜像是一种轻量级、可执行的独立软件包，用来打包软件运行环境和基于运行环境开发的软件，它包含运行某个软件所需的所有内容，包括代码、运行时、库、环境变了和配置文件。</p>
+<p>​    UnionFS(联合文件系统)：Union文件系统是一种分层、轻量级并且高性能的文件系统，<strong>它支持对文件系统的修改作为一次提交来一层层的叠加，同时可以将不同目录挂载到同一个虚拟文件系统下</strong>。Union文件系统时docker镜像的基础。镜像可以通过分层来进行继承，基于基础镜像(没有父镜像)，可以制作各种具体的应用镜像。 特性：一次同时加载多个文件系统，但从外面看起来，只能看到一个文件系统，联合加载会把各层文件系统叠加起来，这样最终的文件系统会包含所有底层的文件和目录。</p>
+<p>​    docker镜像加载原理：docker镜像实际上由一层一层的文件系统组成，这种层级的文件系统UnionFS。     bootfs(boot file system)主要包含bootloader和kernel，bootloader主要是引导加载kernel，Linux刚启动时会加载bootfs文件系统，<strong>在Docker镜像的最底层是bootfs</strong>。这一层与我们典型的Linux/Unix系统是一样的，包含boot加载器和内核。当boot加载完成后整个内核就都在内存之中了，此时内存的使用权已由bootfs转交给内核，此时系统也会卸载bootfs。    rootfs(root file system)，在bootfs之上，包含的就是典型Linux系统中的/dev，/proc ，/bin，/etc等标准目录和文件。rootfs就是各种不同的操作系统发行版，比如Ubuntu，CentOS等等。</p>
+<p>​    对于一个精简的OS，rootfs可以很小，只需要包括最基本的命令、工具和程序库就可以了，因为底层直接用Host的kernel，自己只需要提供rootfs就行了。由此可见对于不同linux发行版，bootfs基本是一致的，rootfs会有差别，因此不同的发行版可以共用bootfs。</p>
+<p>​    分层的镜像：以pull为例，我们看到的docker镜像是一层一层在下载，以tomcat为例，需要底层的jdk，centos系统再到kernel，所以这一层一层的共同凑出400多mb。<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73418.jpg"
+                      alt="image-20220515222449051"
+                ></p>
+<p>​    </p>
+<p>​    docker采用这种分层系统的原因最大的一个好处就是可以共享资源。比如：有多个镜像都从相同的base镜像构建而来，那么宿主机只需要在磁盘上保存一份base镜像，同时内存中也只需加载一份base镜像，就可以为所有容器服务了。而且镜像的每一层都可以被共享。</p>
+<p>​    docker镜像特点：docker镜像都是只读的，当容器启动时，一个新的可写层被加载到镜像的顶部。这一层通常被称为“容器层”，“容器层”之下的都叫“镜像层”。</p>
+<hr>
+<h4 id="Docker镜像commit"><a href="#Docker镜像commit" class="headerlink" title="Docker镜像commit"></a>Docker镜像commit</h4><p>​    docker commit提交容器副本使之成为一个新的镜像</p>
+<p>​    docker commit -m=”提交的描述信息” -a=”作者” 容器ID 要创建的目标镜像名:[标签名]</p>
+<p>案例演示：</p>
+<p>​    1、下载tomcat镜像到本地并成功运行 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8080:8080 tomcat //-p:主机端口:容器端口</span><br></pre></td></tr></table></figure>
+
+<p>​    2、删除容器内的docs文档（只凸显和原版本不同即可）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it ID /bin/bash</span><br><span class="line"><span class="built_in">rm</span> -f docs/</span><br></pre></td></tr></table></figure>
+
+<p>​    3、目前的就是没有doc文档的tomcat，以他为模版commit一个没有doc的tomcat新镜像mes9s0/tomcat02</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -a=<span class="string">&quot;mes9s0&quot;</span> -m=<span class="string">&quot;tomcat without docs&quot;</span> c3 mes9s0/tomcat02:1.2</span><br></pre></td></tr></table></figure>
+
+<p>​    4、此时images就有我们自己的images了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073419.jpg"
+                      alt="image-20220516003734897"
+                ></p>
+<hr>
+<h4 id="Docker容器数据卷"><a href="#Docker容器数据卷" class="headerlink" title="Docker容器数据卷"></a>Docker容器数据卷</h4><h5 id="docker容器数据卷介绍"><a href="#docker容器数据卷介绍" class="headerlink" title="docker容器数据卷介绍"></a>docker容器数据卷介绍</h5><p>​    docker容器在启动后，我们对于某些数据修改的要求是希望持久化的，容器之间希望有可能共享数据。如果我们不commit生成新的，那么容器删除，数据就没有了。为了能够保存数据，我们使用卷。</p>
+<p>​    卷就是目录或文件，存在于一个或多个容器，由docker挂载到容器，但不属于联合文件系统，因此能够绕过UnionFS提供一些用于持续存储或共享数据的特性。卷的设局目的就是数据的持久化，完全独立于容器的生存周期，因此Docker不会在删除容器时删除其挂在的数据卷。</p>
+<p>​    特点：1、数据卷可以在容器之间共享或重用数据；2、卷中的更改可以直接生效；3、数据卷中的更改不会包含在镜像的更新中；4、数据卷的生命周期一直持续到没有容器使用它为止。</p>
+<p>​    数据卷容器内添加：1、直接命令添加；2、DockerFile添加</p>
+<h5 id="docker容器数据卷用v命令添加"><a href="#docker容器数据卷用v命令添加" class="headerlink" title="docker容器数据卷用v命令添加"></a>docker容器数据卷用v命令添加</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -v /宿主机绝对目录路径:/容器内目录 镜像名</span><br><span class="line">docker run -it -v /myDataVolume:/dataVolumeContainer centos</span><br><span class="line">//注意哪怕没有这两个路径也是会自动创建的，并且可读可写</span><br><span class="line">docker run -it -v /宿主机绝对目录路径:/容器内目录:ro 镜像名 //只读</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect 容器ID //可以看到绑定成功</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073420.jpg"
+                      alt="image-20220516152500357"
+                ></p>
+<p>​    绑定后的两个文件夹实现完全同步，注意，<strong>在容器停止后，修改宿主机上的目录，然后重启容器，容器内关联文件夹也是会同步的</strong>。</p>
+<p>​    在命令加了ro后，只允许宿主机单向写，容器内只能看。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073421.jpg"
+                      alt="image-20220516153848353"
+                ></p>
+<h5 id="docker容器数据卷用DockerFile添加"><a href="#docker容器数据卷用DockerFile添加" class="headerlink" title="docker容器数据卷用DockerFile添加"></a>docker容器数据卷用DockerFile添加</h5><p>​    dockerfile是docker images镜像的描述文件。添加有如下步骤</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">根目录下新建mydocker文件夹并进入</span><br><span class="line"><span class="built_in">mkdir</span> mydocker</span><br><span class="line"></span><br><span class="line">可在Dockerfile中使用volume指令来给镜像添加一个或多个数据卷</span><br><span class="line">VOLUME[<span class="string">&quot;/dataVolumeContainer&quot;</span>,<span class="string">&quot;/dataVolumeContainer2&quot;</span>,<span class="string">&quot;/dataVolumnContainer3&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>​    出于可移植性和分享的考虑，用-v主机目录:容器目录这种方法不能够直接在Dockerfile中实现。因为不能保证宿主机都存在以上的特定目录。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">File构建</span><br><span class="line"><span class="built_in">cd</span> mydocker</span><br><span class="line">vi Dockerfile</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073422.jpg"
+                      alt="image-20220516161105553"
+                ></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">build后生成镜像</span><br><span class="line">docker build -f /mydocker/Dockerfile -t mess9s0/centos .</span><br><span class="line"></span><br><span class="line">run容器</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073423.jpg"
+                      alt="image-20220516162346548"
+                ></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">通过上述步骤，容器内的卷目录地址已经知道对应的主机目录地址在哪，随机生成的</span><br><span class="line">主机对应默认地址</span><br><span class="line">docker inspect 容器ID</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073424.jpg"
+                      alt="image-20220516163959892"
+                ></p>
+<h5 id="docker容器数据卷volumes-from"><a href="#docker容器数据卷volumes-from" class="headerlink" title="docker容器数据卷volumes-from"></a>docker容器数据卷volumes-from</h5><p>​    命名的容器挂在数据卷，其他容器通过挂载这个(父容器)实现数据共享，挂载数据卷的容器，称之为数据卷容器。</p>
+<p>​    先启动一个父容器mes9s01,在dataVolumeContainer2新增内容mess01</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name mes9s01 97</span><br></pre></td></tr></table></figure>
+
+<p>​    mes9s02/mes9s03继承自mes9s01,可以看到直接有mess01文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --name mes9s02 --volumes-from mes9s01 97</span><br><span class="line">docker run -it --name mes9s03 --volumes-from mes9s01 97</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073425.jpg"
+                      alt="image-20220516191210834"
+                ></p>
+<p>​    现在有三个容器，1位父容器，2，3为子容器，他们的数据均可以互通，此时我们删除容器1，然后在容器2修改文件，可以观察到3可以继续被同步。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073426.jpg"
+                      alt="image-20220516192139747"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073428.jpg"
+                      alt="image-20220516192155821"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073429.jpg"
+                      alt="image-20220516192208155"
+                ></p>
+<p>​    结论：容器之间配置信息的传递，数据卷的生命周期一直持续到没有容器使用它为止。</p>
+<hr>
+<h4 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h4><h5 id="dockerfile是什么"><a href="#dockerfile是什么" class="headerlink" title="dockerfile是什么"></a>dockerfile是什么</h5><p>​    dockerfile是用来构建docker镜像的构建文件，是由一系列命令和参数构成的脚本。</p>
+<p>​    回顾前面通过dockerfile添加容器数据卷时的操作，目前可分为三部：1、手动编写dockerfile文件；2、有了文件后，直接docker build命令执行，获得一个自定义的镜像；3、run</p>
+<h5 id="dockerfile解析过程"><a href="#dockerfile解析过程" class="headerlink" title="dockerfile解析过程"></a>dockerfile解析过程</h5><p>​    dockerfile内容基础知识：</p>
+<p>​    1、每条保留字指令都必须为大写字母且后面要跟随至少一个参数。2、指令按照从上到下，顺序执行。3、#表示注释。4、每条指令都会创建一个新的镜像层，并对镜像进行提交。</p>
+<p>​    docker执行Dockerfile的大致流程：1、docker从基础镜像运行一个容器；2、执行一条指令并对容器作出修改；3、执行类似docker commit的操作提交一个新容器；4、docker再基于刚提交的镜像运行一个新容器。5、执行dockerfile中的下一条指令直到所有指令都执行完成。</p>
+<p>​    从不同的角度看，docker是软件的原材料，docker镜像是软件的交付品，docker容器则可以认为是软件的运行态。dockerfile面向开发，docker镜像称为交付标准，docker容器则涉及部署与运维，三者缺一不可。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073430.jpg"
+                      alt="image-20220516200557249"
+                ></p>
+<h5 id="dockerfile保留字指令"><a href="#dockerfile保留字指令" class="headerlink" title="dockerfile保留字指令"></a>dockerfile保留字指令</h5><p>​    FROM：基础镜像，当前新镜像是基于哪个镜像的</p>
+<p>​    MAINTAINER：镜像维护者的姓名和邮箱地址</p>
+<p>​    RUN：容器构建时需要运行的命令</p>
+<p>​    EXPOSE：当前容器对外暴露出的端口</p>
+<p>​    WORKDIR：指定在创建容器后，终端默认登陆的进来工作目录，一个落脚点</p>
+<p>​    ENV：用来在构建镜像过程中设置环境变量，例如：</p>
+<p>​    ENV MY_PATH /usr/mytest，这个环境变量可以在后续的任何RUN指令中使用，这就如同在命令前面制定了环境变量前缀一样；也可以在其它指令中直接使用这些环境变量。比如：WORKDIR $MY_PATH</p>
+<p>​    ADD：将宿主机目录下的文件拷贝进镜像且ADD命令会自动处理URL和解压tar压缩包</p>
+<p>​    COPY：类似ADD，拷贝文件和目录到镜像中。将从构建上下文目录中&lt;源路径&gt;的文件/目录复制到新的一层的镜像内的&lt;目标路径&gt;位置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY src dest</span><br><span class="line">COPY [<span class="string">&quot;src&quot;</span>,<span class="string">&quot;dest&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>​    VOLUME：数据容器卷，用于数据保存和持久化工作</p>
+<p>​    CMD：指定一个容器启动时要运行的命令；Dockerfile中可以有多个CMD指令，但只有最后一个生效，CMD会被docker run之后的参数替换</p>
+<p>​    ENTRYPOINT：指定一个容器启动时要运行的命令；ENTRYPOINT的目的和CMD一样，都是在指定容器启动程序及参数</p>
+<p>​    ONBUILD：当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后父镜像的onbuild被触发</p>
+<h5 id="dockerfile案例-自定义镜像mycentos"><a href="#dockerfile案例-自定义镜像mycentos" class="headerlink" title="dockerfile案例-自定义镜像mycentos"></a>dockerfile案例-自定义镜像mycentos</h5><p>​    Base镜像(scratch)：dockerhub中99%的镜像都是通过在base镜像中安装和配置需要的软件构建出来的</p>
+<p>​    自定义镜像mycentos：1、编写；2、构建；3、运行；4、列出镜像的变更历史</p>
+<p>​    1、编写：hub中默认的centos是没有vim、没有ifconfig的，我们让其带这两个功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">FROM mes9s0/centos</span><br><span class="line">MAINTAINER mes9s0</span><br><span class="line"></span><br><span class="line">ENV mypath /tmp</span><br><span class="line">WORKDIR <span class="variable">$mypath</span></span><br><span class="line"></span><br><span class="line">RUN yum -y install vim</span><br><span class="line">RUN yum -y install net-tools</span><br><span class="line"></span><br><span class="line">EXPOSE 80</span><br><span class="line"></span><br><span class="line">CMD <span class="built_in">echo</span> <span class="string">&quot;success--------ok&quot;</span></span><br><span class="line">CMD /bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>​    2、构建：docker build -t 新镜像名字:TAG .</p>
+<p>​    注意，此时最新的是centos8的docker镜像，但是已经停止服务了，进入容器执行以下命令修改。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&#x27;s/mirrorlist/#mirrorlist/g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">&#x27;s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g&#x27;</span> /etc/yum.repos.d/CentOS-*</span><br><span class="line"></span><br><span class="line">yum update -y</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -f /mydocker/Dockerfile2 -t mycentos:1.3 .</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073431.jpg"
+                      alt="image-20220516223123719"
+                ></p>
+<p>​    可以看到已经生成了新的镜像</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073432.jpg"
+                      alt="image-20220516223353433"
+                ></p>
+<p>​    3、运行，可以看到新的镜像已经有vim和ipconfig了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073433.jpg"
+                      alt="image-20220516223901698"
+                ></p>
+<p>​    4、列出镜像的变更历史</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">history</span> 镜像ID</span><br></pre></td></tr></table></figure>
+
+<h5 id="dockerfile案例-CMD-ENTRYPOINT命令案例"><a href="#dockerfile案例-CMD-ENTRYPOINT命令案例" class="headerlink" title="dockerfile案例-CMD-ENTRYPOINT命令案例"></a>dockerfile案例-CMD-ENTRYPOINT命令案例</h5><p>首先看CMD和ENTRYPOINT，都是指定一个容器启动时要运行的命令。</p>
+<p>dockerfile中可以有多个CMD命令，但只有最后一个生效，CMD会被docker run之后的参数替换。</p>
+<p>我们以tomcat为例看看执行,会显示dockerfile里环境变量底下的ls -l命令，而覆盖掉启动命令，所以tomcat启动不起来。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -p 8888:8080 tomcat <span class="built_in">ls</span> -l</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073435.jpg"
+                      alt="image-20220516234708418"
+                ></p>
+<p>ENTRYPOINT则是在docker run之后的参数会被当作参数传递给ENTRYPOINT，之后形成新的命令组合。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM mes9s0/centos</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">CMD [ <span class="string">&quot;curl&quot;</span>,<span class="string">&quot;-s&quot;</span>,<span class="string">&quot;http://www.baidu.com&quot;</span> ]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker build -f /mydocker/Dockerfile3 -t curlbaidu .</span><br><span class="line">docker run -it curlbaidu</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73436.jpg"
+                      alt="image-20220517000746222"
+                ></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM mes9s0/centos</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">ENTRYPOINT [ <span class="string">&quot;curl&quot;</span>,<span class="string">&quot;-s&quot;</span>,<span class="string">&quot;http://www.baidu.com&quot;</span> ]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it morebaidu -i</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073437.jpg"
+                      alt="image-20220517001451590"
+                ></p>
+<p>​    可以发现使用ENTRYPOINT的命令不会被覆盖，相当于执行curl -s <a class="link"   target="_blank" rel="noopener" href="http://www.baidu.com/" >http://www.baidu.com<i class="fas fa-external-link-alt"></i></a> -i</p>
+<h5 id="dockerfile案例-ONBUILD命令"><a href="#dockerfile案例-ONBUILD命令" class="headerlink" title="dockerfile案例-ONBUILD命令"></a>dockerfile案例-ONBUILD命令</h5><p>​    这是dockerfile5，为父镜像的dockerfile</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM mes9s0/centos</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">ENTRYPOINT [ <span class="string">&quot;curl&quot;</span>,<span class="string">&quot;-s&quot;</span>,<span class="string">&quot;http://www.baidu.com&quot;</span> ]</span><br><span class="line">ONBUILD RUN <span class="built_in">echo</span> <span class="string">&quot;father onbuild---------886&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    这是子容器的dockerfile，dockerfile6，直接FROM 父类的新的images,可以看到触发器被执行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM newbaidu_father</span><br><span class="line">RUN yum install -y curl</span><br><span class="line">CMD [ <span class="string">&quot;curl&quot;</span>,<span class="string">&quot;-s&quot;</span>,<span class="string">&quot;http://www.baidu.com&quot;</span> ]</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73439.jpg"
+                      alt="image-20220517004049626"
+                ></p>
+<h5 id="dockerfile案例-自定义的tomcat9"><a href="#dockerfile案例-自定义的tomcat9" class="headerlink" title="dockerfile案例-自定义的tomcat9"></a>dockerfile案例-自定义的tomcat9</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">FROM mes9s0/centos</span><br><span class="line">MAINTAINER mes9s0</span><br><span class="line"><span class="comment">#把宿主机当前上下文的c.txt拷贝进容器/usr/local路径下</span></span><br><span class="line">COPY c.txt /usr/local/cincontainer.txt</span><br><span class="line"><span class="comment">#把java与tomcat添加到容器中</span></span><br><span class="line">ADD jdk-8u202-linux-x64.tar.gz /usr/local/</span><br><span class="line">ADD apache-tomcat-9.0.63.tar.gz /usr/local/</span><br><span class="line"><span class="comment">#安装vim</span></span><br><span class="line">RUN yum -y install vim</span><br><span class="line"><span class="comment">#设置工作访问时候的WORKDIR路径，登陆落脚点</span></span><br><span class="line">ENV MYPATH /usr/local</span><br><span class="line">WORKDIR <span class="variable">$MYPATH</span></span><br><span class="line"><span class="comment">#配置java与tomcat环境变量</span></span><br><span class="line">ENV JAVA_HOME /usr/local/jdk1.8.0_202</span><br><span class="line">ENV CLASSPATH <span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line">ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.63</span><br><span class="line">ENV CATALINA_BASE /usr/local/apache-tomcat-9.0.63</span><br><span class="line">ENV PATH <span class="variable">$PATH</span>:<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$CATALINA_HOME</span>/lib:<span class="variable">$CATALINA_HOME</span>/bin</span><br><span class="line"><span class="comment">#容器运行时监听的端口</span></span><br><span class="line">EXPOSE 8080</span><br><span class="line"><span class="comment">#启动时运行tomcat</span></span><br><span class="line"><span class="comment">#ENTRYPOINT [&quot;/usr/local/apache-tomcat-9.0.63/bin/startup.sh&quot;]</span></span><br><span class="line"><span class="comment">#CMD [&quot;/usr/local/apache-tomcat-9.0.63/bin/catalina.sh&quot;,&quot;run&quot;]</span></span><br><span class="line">CMD /usr/local/apache-tomcat-9.0.63/bin/startup.sh &amp;&amp; <span class="built_in">tail</span> -F /usr/local/apache-tomcat-9.0.63/bin/logs/catalina.out</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073441.jpg"
+                      alt="image-20220517015814025"
+                ></p>
+<p>​    最后，如果上述都能看懂的话，docker的基础操作基本就是这些，再加上把自身生成的镜像推送到阿里云或者dockerhub等等即可，按着指示就行。docker基础差不多就到这里，后面会再去学习k8s、逃逸等的相关知识。</p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：DockerDocker😝</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2022-05-14 22:26:54</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2022/05/14/DockerDocker😝/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Docker/">#Docker</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/18/K8S-%E4%BA%91%E5%8E%9F%E7%94%9F/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">K8S &amp;&amp; 云原生?</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/05/11/Linux%E5%9F%BA%E7%A1%80%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-1/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Linux基础从零到一(1)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">docker介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">docker背景</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E7%90%86%E5%BF%B5"><span class="nav-number">1.2.</span> <span class="nav-text">docker理念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E8%A6%81%E7%B4%A0"><span class="nav-number">1.3.</span> <span class="nav-text">docker要素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">Docker相关</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker%E5%AE%89%E8%A3%85"><span class="nav-number">2.1.</span> <span class="nav-text">Docker安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker%E8%BF%90%E8%A1%8C%E5%BA%95%E5%B1%82"><span class="nav-number">2.2.</span> <span class="nav-text">Docker运行底层</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.</span> <span class="nav-text">Docker常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="nav-number">3.1.</span> <span class="nav-text">docker帮助命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">3.2.</span> <span class="nav-text">docker镜像命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">3.3.</span> <span class="nav-text">docker容器命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">Docker镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker%E9%95%9C%E5%83%8F%E5%8E%9F%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">Docker镜像原理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E9%95%9C%E5%83%8Fcommit"><span class="nav-number">5.</span> <span class="nav-text">Docker镜像commit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7"><span class="nav-number">6.</span> <span class="nav-text">Docker容器数据卷</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.1.</span> <span class="nav-text">docker容器数据卷介绍</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%94%A8v%E5%91%BD%E4%BB%A4%E6%B7%BB%E5%8A%A0"><span class="nav-number">6.2.</span> <span class="nav-text">docker容器数据卷用v命令添加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7%E7%94%A8DockerFile%E6%B7%BB%E5%8A%A0"><span class="nav-number">6.3.</span> <span class="nav-text">docker容器数据卷用DockerFile添加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7volumes-from"><span class="nav-number">6.4.</span> <span class="nav-text">docker容器数据卷volumes-from</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DockerFile"><span class="nav-number">7.</span> <span class="nav-text">DockerFile</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">7.1.</span> <span class="nav-text">dockerfile是什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-number">7.2.</span> <span class="nav-text">dockerfile解析过程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E4%BF%9D%E7%95%99%E5%AD%97%E6%8C%87%E4%BB%A4"><span class="nav-number">7.3.</span> <span class="nav-text">dockerfile保留字指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E6%A1%88%E4%BE%8B-%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8Fmycentos"><span class="nav-number">7.4.</span> <span class="nav-text">dockerfile案例-自定义镜像mycentos</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E6%A1%88%E4%BE%8B-CMD-ENTRYPOINT%E5%91%BD%E4%BB%A4%E6%A1%88%E4%BE%8B"><span class="nav-number">7.5.</span> <span class="nav-text">dockerfile案例-CMD-ENTRYPOINT命令案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E6%A1%88%E4%BE%8B-ONBUILD%E5%91%BD%E4%BB%A4"><span class="nav-number">7.6.</span> <span class="nav-text">dockerfile案例-ONBUILD命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#dockerfile%E6%A1%88%E4%BE%8B-%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84tomcat9"><span class="nav-number">7.7.</span> <span class="nav-text">dockerfile案例-自定义的tomcat9</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.8.</span> <span class="nav-text">总结</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

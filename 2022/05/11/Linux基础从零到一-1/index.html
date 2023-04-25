@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            Linux基础从零到一(1) |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Linux基础从零到一(1)</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-11 22:21:42</span>
+        <span class="mobile">2022-05-11 22:21</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Linux%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AF%87/">Linux学习基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Linux/">Linux</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E8%BF%90%E7%BB%B4/">运维</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>​    本系列为个人基础知识补全以及为后续方便查找开设，里面会包括由于Linux基础知识的相关内容…</p>
+<h4 id="系统调用过程"><a href="#系统调用过程" class="headerlink" title="系统调用过程"></a>系统调用过程</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-74330.jpg"
+                      alt="image-20220511224047035"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074331.jpg"
+                      alt="image-20220511224404171"
+                ></p>
+<hr>
+<h4 id="Linux基本操作"><a href="#Linux基本操作" class="headerlink" title="Linux基本操作"></a>Linux基本操作</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init 3 or 5//图形化纯命令行界面切换</span><br><span class="line">init 0 //关机 init 6//重启</span><br><span class="line">runlevel</span><br><span class="line">startx //无需登录切换</span><br><span class="line"><span class="built_in">tty</span> //终端号</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">id</span> -u //查看当前用户<span class="built_in">id</span>，0为管理员</span><br><span class="line"><span class="built_in">uname</span> -r //内核版本</span><br><span class="line">lscpu //cpu型号</span><br><span class="line">free -h //空闲内存</span><br><span class="line"><span class="built_in">cat</span> /proc/meminfo //空闲内存</span><br><span class="line">lsblk //硬盘大小</span><br><span class="line">mii-tool ens33 //查看网卡信息</span><br><span class="line"><span class="built_in">cat</span> /etc/shells //查看全部shell</span><br><span class="line">hostname //主机名</span><br><span class="line"><span class="built_in">enable</span> cmd //启用内部命令，内部命令优先级高于外部</span><br><span class="line"><span class="built_in">enable</span> -n cmd //禁用内部命令</span><br></pre></td></tr></table></figure>
+
+<p> 命令执行过程：外部命令先根据$PATH找存储位置，而后放入hash表缓存，下次使用直接从hash表找路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hash //缓存</span><br><span class="line">hash -d name //清除name缓存</span><br><span class="line">hash -l //可看到别名</span><br><span class="line">hash -p path name //起别名</span><br><span class="line">hash -t name//显示路径</span><br><span class="line">hash -r//清除缓存</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="Linux文件管理"><a href="#Linux文件管理" class="headerlink" title="Linux文件管理"></a>Linux文件管理</h4><h5 id="Linux-系统目录结构FHS"><a href="#Linux-系统目录结构FHS" class="headerlink" title="Linux 系统目录结构FHS"></a>Linux 系统目录结构FHS</h5><p>​    FHS 全称（Filesystem Hieratchy Standard）中文名文件系统结构层次，定义了Linux操作系统中的主要目录和目录结构。</p>
+<table>
+<thead>
+<tr>
+<th align="left">目录</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">/</td>
+<td align="left">根目录</td>
+</tr>
+<tr>
+<td align="left">/bin</td>
+<td align="left">放置可执行文件，如ls命令等</td>
+</tr>
+<tr>
+<td align="left">/boot</td>
+<td align="left">引导程序文件，内核，以及 initrd 等文件</td>
+</tr>
+<tr>
+<td align="left">/dev</td>
+<td align="left">设备文件，比如磁盘设备</td>
+</tr>
+<tr>
+<td align="left">/etc</td>
+<td align="left">系统范围的配置文件</td>
+</tr>
+<tr>
+<td align="left">/home</td>
+<td align="left">用户 home 目录，个人用户的配置</td>
+</tr>
+<tr>
+<td align="left">/media</td>
+<td align="left">可移除的媒体，cd-rom 等的挂载点</td>
+</tr>
+<tr>
+<td align="left">/lib 和 /lib64</td>
+<td align="left">/bin 和 /sbin 中用到的库文件存放位置</td>
+</tr>
+<tr>
+<td align="left">/mnt</td>
+<td align="left">临时挂载点，U盘等</td>
+</tr>
+<tr>
+<td align="left">/opt</td>
+<td align="left">可选的应用包，一般用于存放一些直接提供二进制程序的非开源包</td>
+</tr>
+<tr>
+<td align="left">/proc</td>
+<td align="left">虚拟文件系统</td>
+</tr>
+<tr>
+<td align="left">/root</td>
+<td align="left">root 用户的 home 目录</td>
+</tr>
+<tr>
+<td align="left">/run</td>
+<td align="left">存放一些 pid 和 socket 文件</td>
+</tr>
+<tr>
+<td align="left">/sbin</td>
+<td align="left">系统的可执行文件，init ，mount 等</td>
+</tr>
+<tr>
+<td align="left">/sys</td>
+<td align="left">非FHS标准，但是大部分发行版都有，虚拟文件系统，用来对内核和设备驱动做设置</td>
+</tr>
+<tr>
+<td align="left">/usr</td>
+<td align="left">Unix Software Resource 绝大多数的程序和应用工具安装在这里，结果和/非常相似</td>
+</tr>
+<tr>
+<td align="left">/usr/bin</td>
+<td align="left">对应的可执行文件</td>
+</tr>
+<tr>
+<td align="left">/usr/lib</td>
+<td align="left">对应的库文件</td>
+</tr>
+<tr>
+<td align="left">/usr/share</td>
+<td align="left">和计算机无关的共享资源文件</td>
+</tr>
+<tr>
+<td align="left">/usr/src</td>
+<td align="left">源代码存放路径，如Linux 内核源码</td>
+</tr>
+<tr>
+<td align="left">/var</td>
+<td align="left">在程序运行中内容不断变化的文件，比如日志</td>
+</tr>
+<tr>
+<td align="left">/tmp</td>
+<td align="left">临时文件系统，重启后内容丢失</td>
+</tr>
+</tbody></table>
+<h5 id="服务管理方式"><a href="#服务管理方式" class="headerlink" title="服务管理方式"></a>服务管理方式</h5><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>systemctl status crond</td>
+<td>查看某个服务的状态</td>
+</tr>
+<tr>
+<td>systemctl start crond</td>
+<td>启动某个服务</td>
+</tr>
+<tr>
+<td>systemctl stop crond</td>
+<td>停止某个服务</td>
+</tr>
+<tr>
+<td>systemctl enable crond</td>
+<td>设置某个服务开机启动</td>
+</tr>
+<tr>
+<td>systemctl disable crond</td>
+<td>移除某个服务开机启动</td>
+</tr>
+<tr>
+<td>systemctl restart crond</td>
+<td>重启某个服务</td>
+</tr>
+</tbody></table>
+<h5 id="日志与日志管理方式"><a href="#日志与日志管理方式" class="headerlink" title="日志与日志管理方式"></a>日志与日志管理方式</h5><p>​    日志是由程序在运行过程中打印出来的一些执行流程或者记录信息的文本，Systemd 同样也提供了对日志访问的方式</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>journalctl -x</td>
+<td>查看日志</td>
+</tr>
+<tr>
+<td>journalctl -xe</td>
+<td>跳到尾部查看日志</td>
+</tr>
+<tr>
+<td>journalctl -u crond.service</td>
+<td>查看crond服务的日志</td>
+</tr>
+</tbody></table>
+<p>​    通过直接查看文本的方式查询</p>
+<table>
+<thead>
+<tr>
+<th>日志路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>/var/log/message</td>
+<td>全局系统日志，包括登录，对服务启停认证等</td>
+</tr>
+<tr>
+<td>/var/log/lastlog</td>
+<td>不是一个文本文件，需要 lastlog 命令读，保存了最近的用户登录信息</td>
+</tr>
+<tr>
+<td>/var/log/yum.log</td>
+<td>最近通过yum 安装的程序的日志</td>
+</tr>
+<tr>
+<td>/var/log/cron</td>
+<td>定时任务日志</td>
+</tr>
+<tr>
+<td>/var/log/boot.log</td>
+<td>启动日志</td>
+</tr>
+<tr>
+<td>/var/log/kern</td>
+<td>内核日志，也可以通过 dmesg 查看</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="Linux磁盘管理"><a href="#Linux磁盘管理" class="headerlink" title="Linux磁盘管理"></a>Linux磁盘管理</h4><h5 id="磁盘结构和概念"><a href="#磁盘结构和概念" class="headerlink" title="磁盘结构和概念"></a>磁盘结构和概念</h5><h6 id="设备文件"><a href="#设备文件" class="headerlink" title="设备文件"></a>设备文件</h6><p>​    设备在Linux内有很多文件，不同文件的开头各有不同，对应的设备也不同。</p>
+<p>l/O Ports: I/O设备地址</p>
+<p>​    一切皆文件：open(), read(), write(), close()</p>
+<h6 id="设备类型"><a href="#设备类型" class="headerlink" title="设备类型"></a>设备类型</h6><p>​    块设备：block，存取单位“块”,磁盘（通常具有缓存，而且是随机的；大部分表现为物理上看的见的设备；）</p>
+<p>​    字符设备：char，存取单位 “字符”，键盘（具有一定的顺序；大部分表现为逻辑上的设备例如：null、zero、tty）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-74333.jpg"
+                      alt="image-20220513152636491"
+                ></p>
+<p>​    上述两个设备存放的不是大小，而是两个数字；前者是设备的主要编号（类别），后者是设备的次要编号（序号）。</p>
+<p>​    设备文件：关联至一个设备驱动程序，进而能够跟与之对应硬件设备进行通信。</p>
+<p>​    主设备号：major number,标识设备类型</p>
+<p>​    次设备号：minor number,标识同一类型下的不同设备</p>
+<p>​    当设备名对应的主要编号和次要编号相同时，那么代表的是同一个设备。</p>
+<p>​    设备的名称可人为指定。操作：（cp -a /dev/null）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074334.jpg"
+                      alt="image-20220513153742841"
+                ></p>
+<hr>
+<h4 id="Linux基本命令"><a href="#Linux基本命令" class="headerlink" title="Linux基本命令"></a>Linux基本命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">alias</span> <span class="built_in">test</span>=“xxx”//别名</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$PATH</span>&quot;</span>//弱引用变量会替换</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$PATh&#x27;</span>//强引用变量不会替换</span><br><span class="line"><span class="built_in">echo</span> `<span class="built_in">ls</span>`//执行命令</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Linux基础从零到一(1)</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2022-05-11 22:21:42</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2022/05/11/Linux基础从零到一-1/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Linux/">#Linux</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E8%BF%90%E7%BB%B4/">#运维</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">#操作系统</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/14/DockerDocker%F0%9F%98%9D/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">DockerDocker😝</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/03/23/%E6%B2%A1%E7%94%A8%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7-BLUE/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">没用的小技巧(BLUE)</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">系统调用过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">Linux基本操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Linux文件管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux-%E7%B3%BB%E7%BB%9F%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84FHS"><span class="nav-number">3.1.</span> <span class="nav-text">Linux 系统目录结构FHS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">服务管理方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E4%B8%8E%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E6%96%B9%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">日志与日志管理方式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">Linux磁盘管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%A3%81%E7%9B%98%E7%BB%93%E6%9E%84%E5%92%8C%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">磁盘结构和概念</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.1.</span> <span class="nav-text">设备文件</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.1.2.</span> <span class="nav-text">设备类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">Linux基本命令</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

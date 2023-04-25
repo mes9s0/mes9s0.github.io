@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            K8S &amp;&amp; 云原生? |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">K8S &amp;&amp; 云原生?</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-18 13:56:38</span>
+        <span class="mobile">2022-05-18 13:56</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/K8S%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E7%AF%87/">K8S学习基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%AE%B9%E5%99%A8/">容器</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/K8S/">K8S</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">云原生</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E4%BA%91/">云</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>1.9k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>6 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <p>​    没有前言…</p>
+<h4 id="什么是云原生"><a href="#什么是云原生" class="headerlink" title="什么是云原生"></a>什么是云原生</h4><h5 id="历史的纬度各种模型"><a href="#历史的纬度各种模型" class="headerlink" title="历史的纬度各种模型"></a>历史的纬度各种模型</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074311.jpg"
+                      alt="image-20220518141410841"
+                ></p>
+<h5 id="分布式系统"><a href="#分布式系统" class="headerlink" title="分布式系统"></a>分布式系统</h5><p>​    现阶段的分布式应用拥有提升系统容量，加强系统可用性的有点，但也有一些缺点，具体如图：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074312.jpg"
+                      alt="image-20220518142838270"
+                ></p>
+<p>​    相对的，为了应对这些不足，出现了以下这些技术手段解决：服务治理（依赖关系、调用链）、架构管理（版本管理、生命周期管理、编排、聚合、调度）、DevOps、自动化运维、资源调度管理、整体架构监控、流量治理（负载均衡、路由、熔断、…）</p>
+<h5 id="创建运行分布式应用的需求"><a href="#创建运行分布式应用的需求" class="headerlink" title="创建运行分布式应用的需求"></a>创建运行分布式应用的需求</h5><p>​    运行分布式应用的典型需求有如下几个类别：1、生命周期管理；2、网络管理；3、状态存储管理；4、绑定（与内部的或者外部的应用集成）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074313.jpg"
+                      alt="image-20220518143654823"
+                ></p>
+<p>​    ESB中间件及其变体是满足这类分布式需求的前一代主流解决方案，它提供良好的功能集。但是，单体架构以及业务逻辑和平台之间紧密的技术耦合会导致的技术和组织的中心化，这个概念与分布式的理念背道而驰。（ESB的工作就是提供和调用集成系统的服务。使用了ESB，在大多情况下，每个系统和ESB之间，只需要定义一个访问方法，一个接口。如果这样，像上面的图一样，你有8个系统，就只有有16个接口（1个方向1个）需要被创建、维护、管理和关注。否则你就需要56个接口需要去思考和处理。（假设每个系统都需要跟其他系统对话），少了40个接口意味着更少的成本。）</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074315.jpg"
+                      alt="image-20220518151042142"
+                ></p>
+<h5 id="ESB分布式应用中间件的限制"><a href="#ESB分布式应用中间件的限制" class="headerlink" title="ESB分布式应用中间件的限制"></a>ESB分布式应用中间件的限制</h5><p>​    生命周期:通常只支持的一个语言运行时，( 比如Java)，这就限定了软件该如何打包、哪些库可用、它们打补丁的频率等</p>
+<p>​    网络:集中于一种主要的编程语言及其相关的技术，而且，网络问题和语义也深深地嵌入到了业务服务中，例如，对于Java语言，它就是指JMS、JDBC和JTA等</p>
+<pre><code> 状态:与状态交互的库和接口没有完全抽象出来，也没有与服务运行时完全解耦
+
+ 绑定:必须根据消息交换模式构造代码和设计流程，连接器必须与应用程序共存的事实意味着，依赖项必须与业务逻辑一起更新和打补丁
+</code></pre>
+<p>​    <strong>面对这诸多问题，云计算时代的解决方案：基于容器化、容器编排、DevOps、微服务及典型的治理系统服务网格等技术的云原生解决方案。</strong></p>
+<hr>
+<h4 id="云原生的定义"><a href="#云原生的定义" class="headerlink" title="云原生的定义"></a>云原生的定义</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074317.jpg"
+                      alt="image-20220518152006833"
+                ></p>
+<p>​    云原生具有以下六大特性：</p>
+<p>​    1、DevOps；2、持续交付(CD)；3、微服务；4、容器化；2018年新增两个特性是：5、服务网格；6、声明式API</p>
+<h5 id="容器技术-Containers-和容器编排"><a href="#容器技术-Containers-和容器编排" class="headerlink" title="容器技术( Containers )和容器编排"></a>容器技术( Containers )和容器编排</h5><p>​    容器技术由来已久，dotCloud (后改名为Docker )公司在Docker项目中发明了“容器镜像”技术之后， 创造性地解决了应用打包的难题才焕发出新的生命力，并以“应用容器”的面目风靡于世。在docker之前基本都是系统容器，可以看做一个轻量级的虚拟机，而应用容器基本只运行单个应用进程及其子进程。如果需要学习docker，可以翻看以前的dockerdocker文章。</p>
+<p>​    <strong>单个容器难以产生价值，容器编排才是根本，Kubernetes是云原生系统的底座</strong></p>
+<p>​    现代应用容器技术和Kubernetes将打包、分发和部署应用程序的方法演化成了与编程语言无关的格式。</p>
+<h5 id="Kubernetes和声明式API"><a href="#Kubernetes和声明式API" class="headerlink" title="Kubernetes和声明式API"></a>Kubernetes和声明式API</h5><p>​    Kubernetes的关键特性：</p>
+<p>​    1、容器编排系统；</p>
+<p>​    2、声明式API</p>
+<p>​    3、“以应用为中心”的现代应用基础设施，纳管各类基础支撑类服务，并经由声明式API向上层应用暴露这些基础设施</p>
+<p>​    4、Platform for Platform类型的系统，根本目标在于方便基础设施工程师构建其它的平台系统，例如Service Mesh或Serverless等。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074318.jpg"
+                      alt="image-20220518203059254"
+                ></p>
+<h5 id="微服务-MicroServices"><a href="#微服务-MicroServices" class="headerlink" title="微服务(MicroServices)"></a>微服务(MicroServices)</h5><p>​    微服务是一种流行的架构风格，用于构建弹性化、高度可扩展、可独立部署且能够快速迭代的应用程序，微服务架构由一系列小型自治服务组成，每个服务都是自包含的，应该在有界上下文中实现单个业务功能。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074320.jpg"
+                      alt="image-20220518204228064"
+                ></p>
+<h5 id="微服务治理"><a href="#微服务治理" class="headerlink" title="微服务治理"></a>微服务治理</h5><p>​    动态化是云原生应用的天然属性，微服务架构是支撑该目标的关键所在。</p>
+<p>​    服务治理工具，又是支撑微服务运行的根本所在。常见的有：Dubbo、Spring Cloud、ServiceMesh</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-74321.jpg"
+                      alt="image-20220518205139873"
+                ></p>
+<h5 id="服务网格-ServiceMesh"><a href="#服务网格-ServiceMesh" class="headerlink" title="服务网格(ServiceMesh)"></a>服务网格(ServiceMesh)</h5><p>​    服务网格的定义：1、专用于处理服务通讯的基础设施层；2、负责可靠地完成请求传送，这些请求由复杂拓扑结构下的云原生应用组成服务生成；3、是一组同应用服务协同部署的轻量级网络代理，并且对应用服务透明。</p>
+<p>​    Sidecar连接成网，组成Service Mesh。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074322.jpg"
+                      alt="image-20220518210349237"
+                ></p>
+<p>​    在每一个应用实例的外层，添加一个服务代理，来确保受控的服务到服务的通信。</p>
+<h5 id="Sidercar模式"><a href="#Sidercar模式" class="headerlink" title="Sidercar模式"></a>Sidercar模式</h5><p>​    Service Mesh以Sidecar形式，将服务治理从业务逻辑中剥离，并拆解为独立进程，实现异构系统的统治理和网络安全。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074324.jpg"
+                      alt="image-20220518212108431"
+                ></p>
+<h5 id="不可变基础设施-immutable-infrastructure-与一次性组件"><a href="#不可变基础设施-immutable-infrastructure-与一次性组件" class="headerlink" title="不可变基础设施( immutable infrastructure)与一次性组件"></a>不可变基础设施( immutable infrastructure)与一次性组件</h5><p>​    不可变基础设施是早在2013年由Chad Fowler在其一篇博客中提出的一个很有的预见性的构想。<strong>其核心思想在于，任何基础设施的实例一旦创建之后即变为只读状态，若需要修改和升级，只能通过替换为新的实例来实现</strong>。传统的服务器(裸金属或虚拟机)支持配置的多次变更，因而通常会导致如下问题。灾难发生时，重新构建较为困难(因手动的变更操作所致)。存在导致状态不一 致的风险。</p>
+<p>​    实现：容器和容器镜像、云端虚拟化组件。</p>
+<hr>
+<h4 id="云原生平台的生态模型"><a href="#云原生平台的生态模型" class="headerlink" title="云原生平台的生态模型"></a>云原生平台的生态模型</h4><h5 id="云原生的一个参考架构示例"><a href="#云原生的一个参考架构示例" class="headerlink" title="云原生的一个参考架构示例"></a>云原生的一个参考架构示例</h5><p>​    五个层级：    </p>
+<p>​    1、基础设施层：主机、存储、网络管理</p>
+<p>​    2、预配层( Provisioning )：主机创建、操作系统安装、存储分配等</p>
+<p>​    3、运行时层：CRI、CNI、CSI</p>
+<p>​    4、容器编排及管理</p>
+<p>​    5、云原生应用程序定义与开发</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074326.jpg"
+                      alt="image-20220518215723116"
+                ></p>
+<h5 id="云原生系统的功能特征"><a href="#云原生系统的功能特征" class="headerlink" title="云原生系统的功能特征"></a>云原生系统的功能特征</h5><p>​    动态化是云原生应用的天然属性，微服务架构是支撑该目标的关键所在</p>
+<p>​    各微服务提供的API应该集成为复合的API,通过“API网关”对外提供统一的访问接口，API网关对于安全、监控、计费等也是必不可少的组件。</p>
+<p>​    微服务治理，Istio、 OpenPaaS、Linkerd等</p>
+<pre><code> Serverless，Knative等
+
+ 各微服务以窗口镜像进行交付
+
+ 云原生编排平台，调度、运行、健康状态检测、监控，弹性扩缩容
+
+ 灵活部署:重建、灰度、蓝绿、金丝雀、A/B测试、影子( Shadow)部署
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074327.jpg"
+                      alt="image-20220518222105963"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-074329.jpg"
+                      alt="image-20220518222211004"
+                ></p>
+<hr>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p>ESB：<a class="link"   target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/399060480" >https://zhuanlan.zhihu.com/p/399060480<i class="fas fa-external-link-alt"></i></a></p>
+<p>云原生：<a class="link"   target="_blank" rel="noopener" href="http://t.zoukankan.com/huaweiyun-p-13181034.html" >http://t.zoukankan.com/huaweiyun-p-13181034.html<i class="fas fa-external-link-alt"></i></a></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：K8S &amp;&amp; 云原生?</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2022-05-18 13:56:38</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2022/05/18/K8S-云原生/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AE%B9%E5%99%A8/">#容器</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/K8S/">#K8S</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">#云原生</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E4%BA%91/">#云</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/19/C%F0%9F%A4%AA%F0%9F%A4%AA%F0%9F%A4%AA/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">C🤪🤪🤪</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/05/14/DockerDocker%F0%9F%98%9D/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">DockerDocker😝</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%91%E5%8E%9F%E7%94%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是云原生</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8E%86%E5%8F%B2%E7%9A%84%E7%BA%AC%E5%BA%A6%E5%90%84%E7%A7%8D%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">历史的纬度各种模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.2.</span> <span class="nav-text">分布式系统</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%90%E8%A1%8C%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E7%9A%84%E9%9C%80%E6%B1%82"><span class="nav-number">1.3.</span> <span class="nav-text">创建运行分布式应用的需求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ESB%E5%88%86%E5%B8%83%E5%BC%8F%E5%BA%94%E7%94%A8%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E9%99%90%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">ESB分布式应用中间件的限制</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%91%E5%8E%9F%E7%94%9F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">2.</span> <span class="nav-text">云原生的定义</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF-Containers-%E5%92%8C%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92"><span class="nav-number">2.1.</span> <span class="nav-text">容器技术( Containers )和容器编排</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kubernetes%E5%92%8C%E5%A3%B0%E6%98%8E%E5%BC%8FAPI"><span class="nav-number">2.2.</span> <span class="nav-text">Kubernetes和声明式API</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1-MicroServices"><span class="nav-number">2.3.</span> <span class="nav-text">微服务(MicroServices)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">微服务治理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC-ServiceMesh"><span class="nav-number">2.5.</span> <span class="nav-text">服务网格(ServiceMesh)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Sidercar%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.6.</span> <span class="nav-text">Sidercar模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD-immutable-infrastructure-%E4%B8%8E%E4%B8%80%E6%AC%A1%E6%80%A7%E7%BB%84%E4%BB%B6"><span class="nav-number">2.7.</span> <span class="nav-text">不可变基础设施( immutable infrastructure)与一次性组件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%91%E5%8E%9F%E7%94%9F%E5%B9%B3%E5%8F%B0%E7%9A%84%E7%94%9F%E6%80%81%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">云原生平台的生态模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%91%E5%8E%9F%E7%94%9F%E7%9A%84%E4%B8%80%E4%B8%AA%E5%8F%82%E8%80%83%E6%9E%B6%E6%9E%84%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.1.</span> <span class="nav-text">云原生的一个参考架构示例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%91%E5%8E%9F%E7%94%9F%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8A%9F%E8%83%BD%E7%89%B9%E5%BE%81"><span class="nav-number">3.2.</span> <span class="nav-text">云原生系统的功能特征</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

