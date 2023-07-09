@@ -9,7 +9,7 @@
     
     <title>
         
-            Python爬虫从一到二(JS逆向) |
+            Java安全从一到一点七(1)-Shiro漏洞那些事 |
         
         Mes9s0&#39;s Blog
     </title>
@@ -177,7 +177,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Python爬虫从一到二(JS逆向)</span>
+            <span class="title-hover-animation">Java安全从一到一点七(1)-Shiro漏洞那些事</span>
         </div>
 
         
@@ -196,8 +196,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-10-09 00:38:07</span>
-        <span class="mobile">2022-10-09 00:38</span>
+        <span class="pc">2023-03-19 23:50:07</span>
+        <span class="mobile">2023-03-19 23:50</span>
     </span>
     
         <span class="article-categories article-meta-item">
@@ -205,7 +205,7 @@
             <ul>
                 
                     <li>
-                        <a href="/categories/Python%E7%88%AC%E8%99%AB%E7%AF%87/">Python爬虫篇</a>&nbsp;
+                        <a href="/categories/Java%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E7%AF%87/">Java安全漏洞篇</a>&nbsp;
                     </li>
                 
             </ul>
@@ -217,19 +217,23 @@
             <ul>
                 
                     <li>
-                        <a href="/tags/Python/">Python</a>&nbsp;
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">开发</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>&nbsp;
+                        | <a href="/tags/Java/">Java</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/JS/">JS</a>&nbsp;
+                        | <a href="/tags/%E5%AE%89%E5%85%A8/">安全</a>&nbsp;
                     </li>
                 
                     <li>
-                        | <a href="/tags/JS%E9%80%86%E5%90%91/">JS逆向</a>&nbsp;
+                        | <a href="/tags/Shiro/">Shiro</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">漏洞分析</a>&nbsp;
                     </li>
                 
             </ul>
@@ -239,12 +243,12 @@
     
     
         <span class="article-wordcount article-meta-item">
-            <i class="fas fa-file-word"></i>&nbsp;<span>1.2k 字</span>
+            <i class="fas fa-file-word"></i>&nbsp;<span>290 字</span>
         </span>
     
     
         <span class="article-min2read article-meta-item">
-            <i class="fas fa-clock"></i>&nbsp;<span>4 分钟</span>
+            <i class="fas fa-clock"></i>&nbsp;<span>1 分钟</span>
         </span>
     
     
@@ -256,162 +260,48 @@
         
 
         <div class="article-content markdown-body">
-            <p>​    可先看从零到一，无前言</p>
-<h3 id="浏览器开发者工具F12"><a href="#浏览器开发者工具F12" class="headerlink" title="浏览器开发者工具F12"></a>浏览器开发者工具F12</h3><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073444.png"
-                      alt="image-20221009081737698"
-                ></p>
-<ul>
-<li><strong>Elements（元素面板）</strong>：使用“元素”面板可以通过自由操纵 DOM 和 CSS 来重您网站的布局和设计。</li>
-<li><strong>Console（控制台面板）</strong>：在开发期间，可以使用控制台面板记录诊断信息，或者使用它作为 shell，在页面上与 JavaScript 交互。</li>
-<li><strong>Sources（源代码面板）</strong>：在源代码面板中设置断点来调试 JavaScript ，或者通过 Workspaces（工作区）连接本地文件来使用开发者工具的实时编辑器。</li>
-<li><strong>Network（网络面板）</strong>：从发起网页页面请求 Request 后得到的各个请求资源信息（包括状态、资源类型、大小、所用时间等），并可以根据这个进行网络性能优化。</li>
-<li><strong>Performance（性能面板）</strong>：使用时间轴面板，可以通过记录和查看网站生命周期内发生的各种事件来提高页面运行时的性能。</li>
-<li><strong>Memory（内存面板）</strong>：分析 web 应用或者页面的执行时间以及内存使用情况。</li>
-<li><strong>Application（应用面板）</strong>：记录网站加载的所有资源信息，包括存储数据（Local Storage、 Session Storage、IndexedDB、Web SQL、Cookies）、缓存数据、字体、图片、脚本、样式 表等。</li>
-<li><strong>Security（安全面板）</strong>：使用安全面板调试混合内容问题，证书问题等等。</li>
-<li><strong>Lighthouse（诊断面板）</strong>：对当前网页进行网络利用情况、网页性能方面的诊断，并给出一些优化 建议。</li>
-<li><strong>元素选择</strong>：可以直接点击页面的元素，会自动跳转到对应的源代码</li>
-<li><strong>终端模拟</strong>：模拟各种终端设备，支持自定义终端。</li>
-<li><strong>自定义</strong>：自定义和控制开发者工具，包括调整工具的位置、全局搜索、运行命令、其他工具等。</li>
+            <h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="写在之前"><a href="#写在之前" class="headerlink" title="写在之前"></a>写在之前</h2><p>​    关于shiro的利用原理，直接开干</p>
+<h2 id="漏洞环境"><a href="#漏洞环境" class="headerlink" title="漏洞环境"></a>漏洞环境</h2><ul>
+<li>JDK 8u65</li>
+<li>Tomcat 9</li>
+<li>Shiro 1.2.4</li>
+<li>Commons Collection 3.2.1</li>
 </ul>
-<h4 id="终端模拟"><a href="#终端模拟" class="headerlink" title="终端模拟"></a>终端模拟</h4><p>​    点击可以模拟各种终端设备，适合查看手机页面的数据，点击【More tools】—&gt; 【Sensors】可以模拟终端的地理位置、终端朝向等；工具栏可以选择要模拟的终端型号，其中 Responsive 是自适应。</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073447.png"
-                      alt="image-20221009082638963"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-05-164055.png"
+                      alt="image-20230506004055515"
                 ></p>
-<h4 id="Network面板"><a href="#Network面板" class="headerlink" title="Network面板"></a>Network面板</h4><p><img  
+<h2 id="漏洞介绍"><a href="#漏洞介绍" class="headerlink" title="漏洞介绍"></a>漏洞介绍</h2><p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073448.png"
-                      alt="image-20221009082842623"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-05-164457.png"
+                      alt="image-20230506004456781"
                 ></p>
-<h5 id="Controls控制器"><a href="#Controls控制器" class="headerlink" title="Controls控制器"></a>Controls控制器</h5><p>​    Preserve log：是否在页面重加载后，清除请求列表。</p>
-<p>​    Disable cache：是否启用缓存。</p>
+<p>​    Apache Shiro框架提供了记住我的功能（RememberMe），用户登陆成功后会生成经过加密并编码的cookie，在服务端接收cookie值后，Base64解码–&gt;AES解密–&gt;反序列化。攻击者只要找到AES加密的密钥，就可以构造一个恶意对象，对其进行序列化–&gt;AES加密–&gt;Base64编码，然后将其作为cookie的rememberMe字段发送，Shiro将rememberMe进行解密并且反序列化，最终造成反序列化漏洞。</p>
+<h2 id="漏洞分析"><a href="#漏洞分析" class="headerlink" title="漏洞分析"></a>漏洞分析</h2><p>​    如果登陆的时候不勾选RememberMe选项的情况下，Shiro是不会生成RememberMe的，勾选了RememberMe选项后，才会在认证的过程中生成该值</p>
+<p>​    由于漏洞点在cookie，首先进入<code>CookieRememberMeManager#rememberSerializedIdentity</code>方法查看一下cookie的设置</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073452.png"
-                      alt="image-20221009083048308"
-                >是否开启抓包。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073454.png"
-                      alt="image-20221009083119445"
-                >清除请求。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73455.png"
-                      alt="image-20221009083200333"
-                >是否隐藏 Filter（过滤器)窗格。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073456.png"
-                      alt="image-20221009083249902"
-                >Network conditions，网络条件，允许在各种网络环境中测试网站，包括 3G，离线等，还可以自定义限制最大下载和上传流量。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73457.png"
-                      alt="image-20221009083328277"
-                >Import/Export HAR file，导入导出抓包数据。</p>
-<h5 id="Filter过滤器"><a href="#Filter过滤器" class="headerlink" title="Filter过滤器"></a>Filter过滤器</h5><ul>
-<li><strong>Hide data URLs</strong>：data URLs 指一些嵌入到文档中的小型文件，在请求表里面以 data: 开头的文件就是，如较为常见的 svg 文件。勾选 Hide data URLs复选框即可隐藏此类文件。</li>
-<li><strong>All</strong>：显示所有请求。</li>
-<li><strong>XHR</strong>：全称 XMLHttpRequest，是一种创建 AJAX 请求的 JavaScript API，通常抓取 Ajax 请求可以选择 XHR。</li>
-<li><strong>WS</strong>：全称 WebSocket，是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。</li>
-<li><strong>Manifest</strong>：安卓开发文件名，属于 AndroidManifest.xml 文件，在简单的 Android 系统的应用中提出了重要的信息码。</li>
-<li><strong>Has blocked cookies</strong>：仅显示具有阻止响应 cookie 的请求。</li>
-<li><strong>Blocked Requests</strong>：只显示被阻止的请求。</li>
-</ul>
-<h4 id="断点调试"><a href="#断点调试" class="headerlink" title="断点调试"></a>断点调试</h4><p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073459.png"
-                      alt="image-20221009152041493"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-05-171213.png"
+                      alt="image-20230506011212930"
                 ></p>
-<ol>
-<li>Ctrl+Shift+F 或者右上角三个点打开全局搜索，搜索关键字。</li>
-<li>定位到可疑代码，点击行号埋下断点。</li>
-<li>调试代码，分析逻辑，其中 console 模板可以直接编写 JS 代码进行调试。</li>
-</ol>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073500.png"
-                      alt="image-20221009163316301"
-                >执行到下一个断点。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-73503.png"
-                      alt="image-20221009163406210"
-                >执行下一步，不会进入所调用的函数内部</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073503.png"
-                      alt="image-20221009163446381"
-                >进入所调用的函数内部</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073505.png"
-                      alt="image-20221009163513211"
-                >跳出函数内部</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073508.png"
-                      alt="image-20221009163544086"
-                >一步步执行代码，遇到有函数调用，则进入函数</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073509.png"
-                      alt="image-20221009163619030"
-                >停用断点</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073510.png"
-                      alt="image-20221009163653727"
-                >不要在出现异常时暂停</p>
-<p>​    <strong>Breakpoints</strong>：可以看到已经埋下的断点。</p>
-<p>​    <strong>Scope</strong>：可以看到当前局部或者全局变量的值，可对值进行修改。</p>
-<p>​    <strong>Call Stack</strong>：可以看到当前代码调用的堆栈信息，代码执行顺序为由下至上。</p>
-<h5 id="XHR断点"><a href="#XHR断点" class="headerlink" title="XHR断点"></a>XHR断点</h5><p>​    匹配 url 中关键词，匹配到则跳转到参数生成处，适用 于url中的加密参数全局搜索搜不到，可采用这种方式拦截。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073513.png"
-                      alt="image-20221009163911378"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-05-171350.png"
+                      alt="image-20230506011350159"
                 ></p>
-<h5 id="行为断点"><a href="#行为断点" class="headerlink" title="行为断点"></a>行为断点</h5><p>​    Event Listener Breakpoints，事件侦听器断点，当鼠标点击、移动、键盘按键等行为或者其他事件发生时可以触发断点，比如 Mouse —&gt; click，可快速定位点击按钮后，所执行的 JS。</p>
+<p>​    这里进行了base64编码然后添加到cookie当中，那么就需要看一下解密的<code>getRememberedSerializedIdentity</code>方法</p>
 <p><img  
                      lazyload
                      src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073514.png"
-                      alt="image-20221009164629868"
+                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-05-05-173252.png"
+                      alt="image-20230506013252405"
                 ></p>
-<h4 id="插入JS"><a href="#插入JS" class="headerlink" title="插入JS"></a>插入JS</h4><p>​    在 sources —&gt; snippets 下可以新建 JS 脚本。</p>
-<p><img  
-                     lazyload
-                     src="/images/loading.svg"
-                     data-src="https://mes9s0hexo.oss-cn-hangzhou.aliyuncs.com/2023-04-15-073515.png"
-                      alt="image-20221009165526791"
-                ></p>
-<h4 id="打印windows对象的值"><a href="#打印windows对象的值" class="headerlink" title="打印windows对象的值"></a>打印windows对象的值</h4><p>​    在 console 中输入如下代码，如只打印 <code>_$</code> 开头的变量值：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">in</span> <span class="variable language_">window</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (p.<span class="title function_">substr</span>(<span class="number">0</span>, <span class="number">2</span>) !== <span class="string">&quot;_$&quot;</span>) </span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(p + <span class="string">&quot; &gt;&gt;&gt; &quot;</span> + <span class="built_in">eval</span>(p))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="无限debugger防调试"><a href="#无限debugger防调试" class="headerlink" title="无限debugger防调试"></a>无限debugger防调试</h4><p>​    某些页面打开调试工具会出现无限 debugger 的现象：</p>
+<p>​    获取cookie中的值，然后进行了base64解码，那么看一下哪里调用了<code>getRememberedSerializedIdentity</code>方法</p>
 
         </div>
 
@@ -419,11 +309,11 @@
             <div class="post-copyright-info">
                 <div class="article-copyright-info-container">
     <ul>
-        <li>本文标题：Python爬虫从一到二(JS逆向)</li>
+        <li>本文标题：Java安全从一到一点七(1)-Shiro漏洞那些事</li>
         <li>本文作者：mes9s0</li>
-        <li>创建时间：2022-10-09 00:38:07</li>
+        <li>创建时间：2023-03-19 23:50:07</li>
         <li>
-            本文链接：https://mes9s0.github.io/2022/10/09/Python爬虫从一到二-JS逆向/
+            本文链接：https://mes9s0.github.io/2023/03/19/Java安全从一到一点七-1-Shiro漏洞那些事/
         </li>
         <li>
             版权声明：本博客所有文章除特别声明外，均采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -438,19 +328,23 @@
             <ul class="post-tags-box">
                 
                     <li class="tag-item">
-                        <a href="/tags/Python/">#Python</a>&nbsp;
+                        <a href="/tags/%E5%BC%80%E5%8F%91/">#开发</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/%E7%88%AC%E8%99%AB/">#爬虫</a>&nbsp;
+                        <a href="/tags/Java/">#Java</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/JS/">#JS</a>&nbsp;
+                        <a href="/tags/%E5%AE%89%E5%85%A8/">#安全</a>&nbsp;
                     </li>
                 
                     <li class="tag-item">
-                        <a href="/tags/JS%E9%80%86%E5%90%91/">#JS逆向</a>&nbsp;
+                        <a href="/tags/Shiro/">#Shiro</a>&nbsp;
+                    </li>
+                
+                    <li class="tag-item">
+                        <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">#漏洞分析</a>&nbsp;
                     </li>
                 
             </ul>
@@ -462,13 +356,13 @@
                     <div class="article-prev">
                         <a class="prev"
                            rel="prev"
-                           href="/2022/11/16/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%80%E5%88%B0%E4%B8%80%E7%82%B9%E4%BA%94-2-Java-RCE-Remote-Code-Execute/"
+                           href="/2023/07/09/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%80%E5%88%B0%E4%B8%80%E7%82%B9%E4%B8%89-1-JDBC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%80%E5%8F%91/"
                         >
                             <span class="left arrow-icon flex-center">
                               <i class="fas fa-chevron-left"></i>
                             </span>
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Java安全从一到一点五(2)-Java RCE(Remote Code Execute)</span>
+                                <span class="post-nav-title-item">Java安全从一到一点三(1)-JDBC数据库开发</span>
                                 <span class="post-nav-item">上一篇</span>
                             </span>
                         </a>
@@ -478,10 +372,10 @@
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/10/04/Java%E5%AE%89%E5%85%A8%E4%BB%8E%E4%B8%80%E5%88%B0%E4%B8%80%E7%82%B9%E4%BA%94-1-Java%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6/"
+                           href="/2023/03/10/%E5%85%B3%E4%BA%8EWindows%E5%8D%8F%E8%AE%AE%E5%AD%A6%E4%B9%A0/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">Java安全从一到一点五(1)-Java反射机制</span>
+                                <span class="post-nav-title-item">关于Windows协议学习</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">
@@ -699,7 +593,7 @@
         <aside class="page-aside">
             <div class="post-toc-wrap">
     <div class="post-toc">
-        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7F12"><span class="nav-number">1.</span> <span class="nav-text">浏览器开发者工具F12</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%AB%AF%E6%A8%A1%E6%8B%9F"><span class="nav-number">1.1.</span> <span class="nav-text">终端模拟</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Network%E9%9D%A2%E6%9D%BF"><span class="nav-number">1.2.</span> <span class="nav-text">Network面板</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Controls%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">Controls控制器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Filter%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">Filter过滤器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95"><span class="nav-number">1.3.</span> <span class="nav-text">断点调试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#XHR%E6%96%AD%E7%82%B9"><span class="nav-number">1.3.1.</span> <span class="nav-text">XHR断点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E6%96%AD%E7%82%B9"><span class="nav-number">1.3.2.</span> <span class="nav-text">行为断点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5JS"><span class="nav-number">1.4.</span> <span class="nav-text">插入JS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%89%93%E5%8D%B0windows%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%80%BC"><span class="nav-number">1.5.</span> <span class="nav-text">打印windows对象的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E9%99%90debugger%E9%98%B2%E8%B0%83%E8%AF%95"><span class="nav-number">1.6.</span> <span class="nav-text">无限debugger防调试</span></a></li></ol></li></ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E4%B9%8B%E5%89%8D"><span class="nav-number">2.</span> <span class="nav-text">写在之前</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">漏洞环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.</span> <span class="nav-text">漏洞介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">漏洞分析</span></a></li></ol>
     </div>
 </div>
         </aside>
